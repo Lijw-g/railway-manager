@@ -1,9 +1,9 @@
 spring:
   datasource:
-    name: subway
-    url: jdbc:mysql://127.0.0.1:3306/subway
+    name: railway
+    url: jdbc:mysql://127.0.0.1:3306/railwayData
     username: root
-    password: yangguang52199
+    password: Yangguang52199！
     driver-class-name: com.mysql.jdbc.Driver
 mybatis:
   mapper-locations: classpath:mapping/*.xml
@@ -13,5 +13,5 @@ server:
 #logging:
 #  config: classpath:logback.xml
 #  level:
-#    com.subway.manager: debug
+#    com.railway.manager: debug
 #  path: /data/logs
