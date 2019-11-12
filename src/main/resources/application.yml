@@ -14,4 +14,7 @@ server:
 #  config: classpath:logback.xml
 #  level:
 #    com.railway.manager: debug
+logging:
+  file:
+    path: /log/railway-manager
 #  path: /data/logs

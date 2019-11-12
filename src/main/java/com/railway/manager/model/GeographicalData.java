@@ -1,6 +1,7 @@
 package com.railway.manager.model;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -14,6 +15,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel("地理位置信息")
 public class GeographicalData {
+    @ApiModelProperty("时间")
     private String date;
     private String time;
     private String lat;

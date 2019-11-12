@@ -1,6 +1,7 @@
 package com.railway.manager.model;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -13,6 +14,7 @@ import lombok.Data;
 @ApiModel("心跳信息")
 public class HeartData {
     private Integer id;
+    @ApiModelProperty("ip地址")
     private String ip;
     private String deviceId;
     private String stateCode;

@@ -15,7 +15,6 @@ import java.util.List;
  **/
 @Data
 @Accessors(chain = true)
-@ApiModel("用户信息")
 public class User {
     private String name;
     private String displayName;

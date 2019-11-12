@@ -1,6 +1,7 @@
 package com.railway.manager.model;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -17,6 +18,7 @@ import java.sql.Timestamp;
 public class MonitorData {
 
     private long id;
+    @ApiModelProperty("协议")
     private String agreement;
     private long length;
     private String deviceId;
