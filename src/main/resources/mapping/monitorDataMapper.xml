@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="monitorData">
+
+    <select id="selectAll" parameterType="map" resultType="monitorData">
+        <![CDATA[
+        select
+            id,
+            deviceId,
+            command,
+            agreement,
+            m_vstate as mVstate ,
+            m_astate as mAstate ,
+            m_tstate as mTstate ,
+            d_vstate as dVstate ,
+            d_astate as dAstate ,
+            d_tstate as dTstate ,
+            degree,
+            created_at as createdAt
+        from monitor_data
+        ]]>
+        <where>
+            <if test="deviceId != null and deviceId != ''">
+                and deviceId = #{deviceId}
+            </if>
+        </where>
+        order by created_at desc    limit 100    
+    </select>
+</mapper>

@@ -12,6 +12,7 @@
     <typeAliases>
         <typeAlias type="com.railway.manager.model.Role" alias="role"/>
         <typeAlias type="com.railway.manager.model.User" alias="user"/>
+        <typeAlias type="com.railway.manager.model.MonitorData" alias="monitorData"/>
     </typeAliases>
 
     <typeHandlers>

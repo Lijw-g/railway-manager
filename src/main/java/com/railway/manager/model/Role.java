@@ -19,9 +19,14 @@ import java.util.Date;
 public class Role {
     @ApiModelProperty("角色名字")
     private String roleName;
+    @ApiModelProperty("角色代码")
     private String roleCode;
+    @ApiModelProperty("创建人")
     private String createUser;
-    private Date createTime;
+    @ApiModelProperty("创建时间")
+    private Date createdTime;
+    @ApiModelProperty("修改人")
     private String updateUser;
-    private Date updateTime;
+    @ApiModelProperty("修改时间")
+    private Date updatedTime;
 }
