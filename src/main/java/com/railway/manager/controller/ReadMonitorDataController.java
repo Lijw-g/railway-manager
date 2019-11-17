@@ -22,7 +22,7 @@ import java.util.List;
  **/
 @Api(tags = "读取核心数据信息接口", value = "读取核心数据信息接口")
 @Controller
-@RequestMapping("/api/MonotorData")
+@RequestMapping("/api/MonitorData")
 public class ReadMonitorDataController {
     @Autowired
     private ReadMonitorDataService readMonitorDataService;

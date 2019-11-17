@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="heartData">
+
+    <select id="select" parameterType="map" resultType="heartData">
+        <![CDATA[
+        select
+            id,
+            ip,
+            device_id,
+            state_code,
+            create_at as createdAt
+        from heart_data
+        ]]>
+        <where>
+            <if test="deviceId != null and deviceId != ''">
+                and device_id = #{deviceId}
+            </if>
+        </where>
+        order by create_at desc    limit 100
+    </select>
+</mapper>
