@@ -15,13 +15,10 @@ import lombok.Data;
 @ApiModel("心跳信息")
 public class HeartData {
     private Integer id;
-    @JsonProperty("ip地址")
     @ApiModelProperty("ip地址")
     private String ip;
-    @JsonProperty("设备id")
     @ApiModelProperty("设备id")
     private String deviceId;
-    @JsonProperty("设备状态码")
     @ApiModelProperty("设备状态码")
     private String stateCode;
 }

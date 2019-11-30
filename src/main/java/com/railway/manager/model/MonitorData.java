@@ -1,6 +1,5 @@
 package com.railway.manager.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.experimental.Accessors;
@@ -14,42 +13,36 @@ import lombok.experimental.Accessors;
 public class MonitorData {
     @ApiModelProperty(value = "id")
     private long id;
-    @JsonProperty("协议")
     @ApiModelProperty("协议")
     private String agreement;
-    @JsonProperty("数据长度")
     @ApiModelProperty("长度")
     private long length;
-    @JsonProperty("设备id")
     @ApiModelProperty(value = "设备id")
     private String deviceId;
-    @JsonProperty("命令")
+    @ApiModelProperty("城市")
+    private String cityCode;
+    @ApiModelProperty("车次")
+    private String shift;
+    @ApiModelProperty("线路")
+    private String line;
     @ApiModelProperty(value = "命令")
     private String command;
-    @JsonProperty("门控器电压")
     @ApiModelProperty("门控器电压")
     private String mVstate;
-    @JsonProperty("门控器电流")
     @ApiModelProperty("门控器电流")
     private String mAstate;
-    @JsonProperty("门控器温度")
     @ApiModelProperty("门控器温度")
     private String mTstate;
-    @JsonProperty("门电机电压")
     @ApiModelProperty("门电机电压")
     private String dVstate;
-    @JsonProperty("门电机电流")
     @ApiModelProperty("门电机电流")
     private String dAstate;
-    @JsonProperty("门电机温度")
     @ApiModelProperty("门电机温度")
     private String dTstate;
-    @JsonProperty("开合度")
     @ApiModelProperty("开合度")
     private String degree;
     @ApiModelProperty("校验码")
     private String crcCode;
-    @JsonProperty("创建时间")
     @ApiModelProperty("创建时间")
     private String createdAt;
 
@@ -83,6 +76,30 @@ public class MonitorData {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
+    }
+
+    public String getLine() {
+        return line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
     }
 
     public String getCommand() {
