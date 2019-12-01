@@ -7,8 +7,8 @@
 
     <insert id="insert" parameterType="user">
         <![CDATA[
-        insert into user (user_name, display_name, create_user)
-        values (#{name}, #{displayName}, #{createUser})
+        insert into user (user_name, display_name, password, create_user, update_user)
+        values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser})
         ]]>
     </insert>
 
@@ -46,7 +46,7 @@
 
     <select id="selectCount" parameterType="map" resultType="int">
         <![CDATA[
-        select count(*) from user
+        select count(*) from user u
         ]]>
         <if test="roleCode != null and roleCode != ''">
             join cms_user_role ur on u.name = ur.user_name

@@ -19,7 +19,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class User {
     @ApiModelProperty("用户名")
-    private String name;
+    private String userName;
     @ApiModelProperty("展示名")
     private String displayName;
     @ApiModelProperty("密码")
