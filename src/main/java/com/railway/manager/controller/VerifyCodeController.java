@@ -1,25 +1,25 @@
 package com.railway.manager.controller;
 
-import com.railway.manager.common.BusinessException;
 import com.railway.manager.service.VeriCodeService;
 import com.railway.manager.utils.VerifyCodeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName VerifyCodeController
  * @Description
- * @Author lee
- * @Datev$ 2019/2/22
+ * @Author chenglin
+ * @Datev$ 2019/12/02
+ * @version 1.2
  **/
 @Api(value = "生成图片验证码和验证", description = "生成图片验证码和验证", tags = {"生成图片验证码和验证"})
 @Controller
@@ -31,10 +31,17 @@ public class VerifyCodeController  {
     @ApiOperation(value = "获取图形验证码")
     @GetMapping("/createImage")
     @ResponseBody
-    public String createImage(HttpServletResponse response, @RequestParam String phoneNumber) {
+    public String createImage(HttpServletResponse response, @RequestParam String userTaskId) {
+        //检查唯一标识是否有值
+        if(StringUtils.isBlank(userTaskId)) {
+            return "error";
+        }
+        userTaskId = userTaskId.trim();
+
         // 生成验证图片返回给前台：4位纯数字验证码
         String verifyCode = VerifyCodeUtils.get4Code();
-        veriCodeService.initCode(verifyCode, phoneNumber);
+        System.out.println("验证码：" + verifyCode);
+        veriCodeService.initCode(verifyCode, userTaskId);
         // 禁止图像缓存。
         response.reset();
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -48,10 +55,33 @@ public class VerifyCodeController  {
         return null;
     }
 
-    @ApiOperation(value = "验证验证码")
-    @GetMapping("/verify")
+    @ApiOperation(value = "验证图片验证码")
+    @PostMapping("/verifyCode")
     @ResponseBody
-    public String verifyCode(@RequestParam String imageCode, @RequestParam String userTaskId) throws BusinessException {
-        return veriCodeService.verifyCode(imageCode, userTaskId);
+    public Map<String,String> verifyCode(@RequestParam String imageCode, @RequestParam String userTaskId) {
+
+        Map<String,String> resultMap = new HashMap<String,String>();
+
+        if(StringUtils.isBlank(imageCode)) {
+            resultMap.put("code","502");
+            resultMap.put("description","请输入验证码");
+            return resultMap;
+        }
+        if(StringUtils.isBlank(userTaskId)) {
+            resultMap.put("code","503");
+            resultMap.put("description","唯一标识错误");
+            return resultMap;
+        }
+
+        //验证通过
+        if(veriCodeService.verifyCode(imageCode.trim(), userTaskId.trim())) {
+            resultMap.put("code","200");
+            resultMap.put("description","验证通过");
+        } else {
+            resultMap.put("code","501");
+            resultMap.put("description","验证码错误");
+        }
+
+        return resultMap;
     }
 }

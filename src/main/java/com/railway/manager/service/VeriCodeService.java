@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author lijiwen
  * @date 2019年1月11日
+ * @version 1.0
  */
 @Service
 public class VeriCodeService {
@@ -38,23 +39,36 @@ public class VeriCodeService {
      * @return java.lang.String
      * @Date 15:43 2019-05-09
      */
-    public String verifyCode(String imageCode, String phoneNumber) throws BusinessException {
+    public boolean verifyCode(String imageCode, String phoneNumber) {
         String key = getSendKey(imageCode, phoneNumber);
         String val = stringRedisService.getVal(key);
         if (ObjectUtils.isEmpty(val)) {
-            throw new BusinessException("验证码错误");
+            return false;
         }
         if (imageCode.equals(val)) {
-            stringRedisService.delCach(key);
-            return "success";
+            //stringRedisService.delCach(key);
+            return true;
         } else {
-            throw new BusinessException("验证码错误");
+            return false;
         }
+    }
+
+    /**
+     * 清除缓存验证码
+     *
+     * @param imageCode
+     * @param phoneNumber
+     * @return java.lang.String
+     * @Date 00:33 2019-12-03
+     */
+    public boolean delCacheCode(String imageCode, String phoneNumber) {
+        String key = getSendKey(imageCode, phoneNumber);
+        return stringRedisService.delCach(key);
     }
 
     private String getSendKey(String code, String phoneNumber) {
+
         return SEND_PREFIX + code + "_" + phoneNumber;
     }
-
 
 }

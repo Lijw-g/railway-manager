@@ -33,8 +33,12 @@ public class UserService extends AbstractService {
         return sqlSession.update("user.update", user);
     }
 
+    public List<User> getList(Map<String,Object> map) {
+        return sqlSession.selectList("user.selectList", map);
+    }
+
     public List<User> getList() {
-        return sqlSession.selectList("user.select", null);
+        return sqlSession.selectList("user.selectList", null);
     }
 
     /**

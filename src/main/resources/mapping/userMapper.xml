@@ -12,17 +12,18 @@
         ]]>
     </insert>
 
-    <select id="select" parameterType="map" resultType="user">
+    <select id="selectList" parameterType="map" resultType="user">
         <![CDATA[
         select
             id,
-            u.user_name as name,
+            u.user_name as userName,
             display_name as displayName,
+            password,
             last_login_time as lastLoginTime,
             u.create_user as createUser,
-            u.created_at as createTime,
+            u.create_time as createTime,
             update_user as updateUser,
-            u.updated_at as updateTime
+            u.update_time as updateTime
         from user u
         ]]>
         <if test="roleCode != null and roleCode != ''">
@@ -32,11 +33,14 @@
             <if test="roleCode != null and roleCode != ''">
                 and ur.role_code = #{roleCode}
             </if>
-            <if test="name != null and name != ''">
-                and u.user_name = #{name}
+            <if test="userNameEqual != null and userNameEqual != ''">
+                and u.user_name = #{userNameEqual}
             </if>
             <if test="nameLike != null and nameLike != ''">
                 and u.user_name like #{nameLike}
+            </if>
+            <if test="passwordEqual != null and passwordEqual != ''">
+                and u.password = #{passwordEqual}
             </if>
         </where>
         <if test="_limit != null and _offset !=null">
