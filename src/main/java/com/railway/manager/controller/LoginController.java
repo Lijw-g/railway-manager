@@ -2,6 +2,7 @@ package com.railway.manager.controller;
 
 import com.railway.manager.model.User;
 import com.railway.manager.service.VeriCodeService;
+import com.railway.manager.service.log.LoginLogService;
 import com.railway.manager.service.system.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,13 +30,17 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @Resource
+    @Autowired
     private VeriCodeService veriCodeService;
 
-    @GetMapping("/login")
+    @Autowired
+    private LoginLogService loginLogService;
+
+    @PostMapping("/login")
     @ResponseBody
     @ApiOperation(value = "用户登录", notes = "用户登录")
-    public Map<String, Object> login(@RequestParam String userName,
+    public Map<String, Object> login(HttpServletRequest request,
+                                     @RequestParam String userName,
                                      @RequestParam String password,
                                      @RequestParam(required = false) String imageCode,
                                      @RequestParam(required = false) String userTaskId) {
@@ -95,6 +100,9 @@ public class LoginController {
 
         //清除缓存中验证码
        // veriCodeService.delCacheCode(imageCode.trim(), userTaskId.trim());
+
+        //记录日志
+        loginLogService.add(request, userList.get(0));
 
         return resultMap;
     }
