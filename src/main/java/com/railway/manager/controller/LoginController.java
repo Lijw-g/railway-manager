@@ -94,7 +94,7 @@ public class LoginController {
         resultMap.put("user", userList.get(0));
 
         //清除缓存中验证码
-        veriCodeService.delCacheCode(imageCode.trim(), userTaskId.trim());
+       // veriCodeService.delCacheCode(imageCode.trim(), userTaskId.trim());
 
         return resultMap;
     }
