@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="loginLog">
+
+    <insert id="insert" parameterType="loginLog">
+        <![CDATA[
+        insert into login_log (user_name, display_name, ip, device, device_type, browser)
+            values (#{userName}, #{displayName}, #{ip}, #{device}, #{deviceType}, #{browser})
+        ]]>
+    </insert>
+
+    <select id="selectList" parameterType="map" resultType="loginLog">
+        <![CDATA[
+        select
+            id,
+            gg.user_name as userName,
+            gg.display_name as displayName,
+            ip,
+            device,
+            gg.device_type as deviceType,
+            browser,
+            gg.login_time as loginTime
+        from login_log gg
+        ]]>
+        <where>
+            <if test="userNameLike != null and userNameLike != ''">
+                and gg.user_name like #{userNameLike}
+            </if>
+            <if test="loginTimeEqual != null and loginTimeEqual != ''">
+                and Date(gg.login_time) = #{loginTimeEqual}
+            </if>
+        </where>
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*) from login_log gg
+        ]]>
+        <where>
+            <if test="userNameLike != null and userNameLike != ''">
+                and gg.user_name like #{userNameLike}
+            </if>
+            <if test="loginTimeEqual != null and loginTimeEqual != ''">
+                and Date(gg.login_time) = #{loginTimeEqual}
+            </if>
+        </where>
+    </select>
+</mapper>
