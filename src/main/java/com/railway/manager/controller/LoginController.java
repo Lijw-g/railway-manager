@@ -23,7 +23,7 @@ import java.util.Map;
  **/
 @Api(tags = "用户注册及登录相关接口",value = "用户注册及登录相关接口")
 @Controller
-@RequestMapping("/api/login")
+@RequestMapping("/api")
 public class LoginController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class LoginController {
     @Resource
     private VeriCodeService veriCodeService;
 
-    @PostMapping("/login")
+    @GetMapping ("/login")
     @ResponseBody
     @ApiOperation(value = "用户登录", notes = "用户登录")
     public Map<String,Object> login(@RequestParam String userName, @RequestParam String password, @RequestParam String imageCode, @RequestParam String userTaskId) {
