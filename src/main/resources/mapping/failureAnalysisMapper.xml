@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="failureAnalysis">
+
+    <insert id="insert" parameterType="failureAnalysis">
+        <![CDATA[
+        insert into failure_analysis (city_code, subway_car_code, manufacturer_code, production_batch_code, line_code, failure_cause, analysis_result, happening_time, create_user)
+            values (#{cityCode}, #{subwayCarCode}, #{manufacturerCode}, #{productionBatchCode}, #{lineCode}, #{failureCause}, #{analysisResult}, #{happeningTime}, #{createUser})
+        ]]>
+    </insert>
+
+    <select id="selectList" parameterType="map" resultType="failureAnalysis">
+        <![CDATA[
+        select
+            id,
+            fa.city_code as cityCode,
+            fa.subway_car_code as subwayCarCode,
+            fa.manufacturer_code as manufacturerCode,
+            fa.production_batch_code as productionBatchCode,
+            fa.line_code as lineCode,
+            fa.failure_cause as failureCause,
+            fa.analysis_result as analysisResult,
+            fa.happening_time as happeningTime,
+            fa.create_user as createUser,
+            fa.create_time as createTime
+        from failure_analysis fa
+        ]]>
+        <where>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , city_code ]]>
+                <![CDATA[ , subway_car_code ]]>
+                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , production_batch_code ]]>
+                <![CDATA[ , line_code ]]>
+                <![CDATA[ , failure_cause ]]>
+                <![CDATA[ , analysis_result ]]>
+                <![CDATA[ , happening_time ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*) from failure_analysis fa
+        ]]>
+        <where>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , city_code ]]>
+                <![CDATA[ , subway_car_code ]]>
+                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , production_batch_code ]]>
+                <![CDATA[ , line_code ]]>
+                <![CDATA[ , failure_cause ]]>
+                <![CDATA[ , analysis_result ]]>
+                <![CDATA[ , happening_time ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+    </select>
+</mapper>
