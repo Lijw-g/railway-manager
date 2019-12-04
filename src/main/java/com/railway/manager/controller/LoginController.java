@@ -22,7 +22,7 @@ import java.util.Map;
  * @author: lijiwen
  * @create: 2019-09-15 15:48
  **/
-@Api(tags = "用户注册及登录相关接口", value = "用户注册及登录相关接口")
+@Api(tags = "登录及注册功能接口", value = "登录及注册功能接口")
 @Controller
 @RequestMapping("/api")
 public class LoginController {

@@ -21,6 +21,7 @@ import java.util.Map;
  * @description: 用户登录日志
  * @author: chenglin
  * @create: 2019-12-04 00:24
+ * @version 1.0
  **/
 @Api(tags = "登录日志查询接口", value = "登录日志查询接口")
 @Controller
@@ -45,6 +46,14 @@ public class LoginLogController {
         if(!StringUtils.isBlank(loginTime)) {
             conditionMap.put("loginTimeEqual", loginTime.trim());
         }
+
+        if(pageNum==null || pageNum<1) {
+            pageNum = 1;
+        }
+        if(pageSize==null || pageSize<1) {
+            pageSize = 10;
+        }
+
         if(pageNum!=null && pageSize!=null) {
             conditionMap.put("_limit", pageSize);
             conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
