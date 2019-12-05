@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysDict">
+
+    <insert id="insert" parameterType="sysDict">
+        <![CDATA[
+        insert into sys_dict (dict_type, dict_code, dict_name, description, status, create_user, update_user, update_time)
+            values (#{dictType}, #{dictCode}, #{dictName}, #{description}, #{status}, #{createUser}, #{updateUser}, #{updateTime})
+        ]]>
+    </insert>
+
+    <select id="update" parameterType="sysDict" resultType="int">
+        <![CDATA[
+        update sys_dict dict
+            set
+            dict.dict_type = #{dictType},
+            dict.dict_code = #{dictCode},
+            dict.dict_name = #{dictName},
+            dict.description = #{description},
+            dict.status = #{status},
+            dict.update_user = #{updateUser},
+            dict.update_time = #{updateTime}
+        ]]>
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <select id="selectList" parameterType="map" resultType="sysDict">
+        <![CDATA[
+        select
+            id,
+            dict.dict_type as dictType,
+            dict.dict_code as dictCode,
+            dict.dict_name as dictName,
+            dict.description as description,
+            dict.status as status,
+            dict.create_user as createUser,
+            dict.create_time as createTime,
+            dict.update_user as updateUser,
+            dict.update_time as updateTime
+        from sys_dict dict
+        ]]>
+        <where>
+            1=1
+        </where>
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*) from sys_dict dict
+        ]]>
+        <where>
+            1=1
+        </where>
+    </select>
+</mapper>

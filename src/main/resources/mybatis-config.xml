@@ -14,6 +14,7 @@
         <typeAlias type="com.railway.manager.model.User" alias="user"/>
         <typeAlias type="com.railway.manager.model.log.LoginLog" alias="loginLog"/>
         <typeAlias type="com.railway.manager.model.FailureAnalysis" alias="failureAnalysis"/>
+        <typeAlias type="com.railway.manager.entity.SysDict" alias="sysDict"/>
         <typeAlias type="com.railway.manager.model.MonitorData" alias="monitorData"/>
         <typeAlias type="com.railway.manager.model.HeartData" alias="heartData"/>
         <typeAlias type="com.railway.manager.model.GeographicalData" alias="geographicalData"/>
