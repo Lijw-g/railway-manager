@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @program: railway-manager
@@ -41,5 +42,48 @@ public class ReadMonitorDataService extends AbstractService {
             logger.warn("devide info is error :" + deviceId);
             return "";
         }
+    }
+
+    public List<String> listMvState() {
+        ListQuery query = new GenericQuery();
+        List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
+
+        return listAllData.stream().map(MonitorData::getmVstate).collect(Collectors.toList());
+    }
+
+    public List<String> listMAState() {
+        ListQuery query = new GenericQuery();
+        List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
+        return listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList());
+    }
+
+    public List<String> listMTState() {
+        ListQuery query = new GenericQuery();
+        List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
+        return listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList());
+    }
+
+    public List<String> listDVState() {
+        ListQuery query = new GenericQuery();
+        List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
+        return listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList());
+    }
+
+    public List<String> listDAState() {
+        ListQuery query = new GenericQuery();
+        List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
+        return listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList());
+    }
+
+    public List<String> listDTState() {
+        ListQuery query = new GenericQuery();
+        List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
+        return listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList());
+    }
+
+    public List<String> listDegree() {
+        ListQuery query = new GenericQuery();
+        List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
+        return listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList());
     }
 }

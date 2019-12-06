@@ -31,49 +31,49 @@ public class ReadMonitorDataController {
     @ResponseBody
     @ApiOperation(value = "查询门控电压信息", notes = "查询门控电压信息")
     public List<String> listMvState() {
-        return null;
+        return readMonitorDataService.listMvState();
     }
 
     @GetMapping("/getMAState")
     @ResponseBody
     @ApiOperation(value = "查询门控电流信息", notes = "查询门控电流信息")
     public List<String> listMAState() {
-        return null;
+        return readMonitorDataService.listMAState();
     }
 
     @GetMapping("/getMTState")
     @ResponseBody
     @ApiOperation(value = "查询门控温度", notes = "查询门控温度")
     public List<String> listMTState() {
-        return null;
+        return readMonitorDataService.listMTState();
     }
 
     @GetMapping("/getDVState")
     @ResponseBody
     @ApiOperation(value = "查询电机输入电压信息", notes = "查询电机输入电压信息")
     public List<String> listDVState() {
-        return null;
+        return readMonitorDataService.listDVState();
     }
 
     @GetMapping("/getDAState")
     @ResponseBody
     @ApiOperation(value = "查询电机输入电流信息", notes = "查询电机输入电流信息")
     public List<String> listDAState() {
-        return null;
+        return readMonitorDataService.listDAState();
     }
 
     @GetMapping("/getDTState")
     @ResponseBody
     @ApiOperation(value = "查询电机输入电流信息", notes = "查询电机输入电流信息")
     public List<String> listDTState() {
-        return null;
+        return readMonitorDataService.listDTState();
     }
 
     @GetMapping("/getDegree")
     @ResponseBody
     @ApiOperation(value = "门开合度", notes = "门开合度")
     public List<String> listDegree() {
-        return null;
+        return readMonitorDataService.listDegree();
     }
 
     @GetMapping("/listAllData")

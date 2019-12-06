@@ -1,8 +1,6 @@
 package com.railway.manager.filter;
 
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.Filter;
@@ -18,7 +16,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @WebFilter(urlPatterns = "*")
 @Component
