@@ -64,7 +64,7 @@ public class ReadMonitorDataController {
 
     @GetMapping("/getDTState")
     @ResponseBody
-    @ApiOperation(value = "查询电机输入电流信息", notes = "查询电机输入电流信息")
+    @ApiOperation(value = "查询电机温度信息", notes = "查询电机温度信息")
     public List<String> listDTState() {
         return readMonitorDataService.listDTState();
     }
