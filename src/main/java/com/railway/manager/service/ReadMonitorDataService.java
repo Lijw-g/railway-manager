@@ -3,6 +3,9 @@ package com.railway.manager.service;
 import com.railway.manager.common.query.GenericQuery;
 import com.railway.manager.common.query.ListQuery;
 import com.railway.manager.model.MonitorData;
+import com.railway.manager.model.ReferenceData;
+import com.railway.manager.utils.DateUtil;
+import com.railway.manager.vo.CoreDataVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,46 +47,115 @@ public class ReadMonitorDataService extends AbstractService {
         }
     }
 
-    public List<String> listMvState() {
+    public CoreDataVo listMvState() {
         ListQuery query = new GenericQuery();
+        CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-
-        return listAllData.stream().map(MonitorData::getmVstate).collect(Collectors.toList());
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmVstate).collect(Collectors.toList()));
+        ReferenceData referenceData = new ReferenceData()
+                .setReference_max_value("110V")
+                .setNormal_value("60V--80V")
+                .setTrue_value("94V")
+                .setMax_value("125V")
+                .setAverage_value("77V")
+                .setMax_value_time("2019-12-22 18:28:129");
+        coreDataVo.setReferenceData(referenceData);
+        return coreDataVo;
     }
 
-    public List<String> listMAState() {
+    public CoreDataVo listMAState() {
         ListQuery query = new GenericQuery();
+        CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        return listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList());
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList()));
+        ReferenceData referenceData =
+                new ReferenceData().setReference_max_value("3.5A")
+                        .setNormal_value("1A--2.6")
+                        .setTrue_value("2.2A")
+                        .setMax_value("3.6")
+                        .setAverage_value("1.5")
+                        .setMax_value_time("2019-12-22 18:28:129");
+        coreDataVo.setReferenceData(referenceData);
+        return coreDataVo;
     }
 
-    public List<String> listMTState() {
+    public CoreDataVo listMTState() {
         ListQuery query = new GenericQuery();
+        CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        return listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList());
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()));
+        ReferenceData referenceData = new ReferenceData()
+                .setReference_max_value("40℃--60℃")
+                .setNormal_value("-20℃--80℃")
+                .setTrue_value("66℃")
+                .setMax_value("92℃")
+                .setAverage_value("70℃")
+                .setMax_value_time("2019-12-22 18:28:129");
+        coreDataVo.setReferenceData(referenceData);
+        return coreDataVo;
     }
 
-    public List<String> listDVState() {
+    public CoreDataVo listDVState() {
         ListQuery query = new GenericQuery();
+        CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        return listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList());
+        listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList());
+        ReferenceData referenceData = new ReferenceData()
+                .setReference_max_value("3.5A")
+                .setNormal_value("1A--2.6A")
+                .setTrue_value("2.2A")
+                .setMax_value("3.6A")
+                .setAverage_value("1.5A")
+                .setMax_value_time("2019-12-22 18:28:129");
+        coreDataVo.setReferenceData(referenceData);
+        return coreDataVo;
     }
 
-    public List<String> listDAState() {
+    public CoreDataVo listDAState() {
         ListQuery query = new GenericQuery();
+        CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        return listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList());
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList()));
+        ReferenceData referenceData =
+                new ReferenceData().setReference_max_value("3.8A")
+                        .setNormal_value("1A--2.6")
+                        .setTrue_value("2.2A")
+                        .setMax_value("3.6")
+                        .setAverage_value("1.5")
+                        .setMax_value_time("2019-12-22 18:28:129");
+        coreDataVo.setReferenceData(referenceData);
+        return coreDataVo;
     }
 
-    public List<String> listDTState() {
+    public CoreDataVo listDTState() {
         ListQuery query = new GenericQuery();
+        CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        return listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList());
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList()));
+        ReferenceData referenceData = new ReferenceData()
+                .setReference_max_value("44℃--66℃")
+                .setNormal_value("-20℃--80℃")
+                .setTrue_value("66℃")
+                .setMax_value("92℃")
+                .setAverage_value("70℃")
+                .setMax_value_time("2019-12-22 18:28:129");
+        coreDataVo.setReferenceData(referenceData);
+        return coreDataVo;
     }
 
-    public List<String> listDegree() {
+    public CoreDataVo listDegree() {
         ListQuery query = new GenericQuery();
+        CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        return listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList());
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList()));
+        ReferenceData referenceData = new ReferenceData()
+                .setReference_max_value("0CM--150CM")
+                .setNormal_value("170CM")
+                .setTrue_value("140CM")
+                .setMax_value("165CM")
+                .setAverage_value("140CM")
+                .setMax_value_time("2019-12-22 18:28:129");
+        coreDataVo.setReferenceData(referenceData);
+        return coreDataVo;
     }
 }

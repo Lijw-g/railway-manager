@@ -2,6 +2,7 @@ package com.railway.manager.controller;
 
 import com.railway.manager.model.MonitorData;
 import com.railway.manager.service.ReadMonitorDataService;
+import com.railway.manager.vo.CoreDataVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,49 +31,49 @@ public class ReadMonitorDataController {
     @GetMapping("/getMvState")
     @ResponseBody
     @ApiOperation(value = "查询门控电压信息", notes = "查询门控电压信息")
-    public List<String> listMvState() {
+    public CoreDataVo listMvState() {
         return readMonitorDataService.listMvState();
     }
 
     @GetMapping("/getMAState")
     @ResponseBody
     @ApiOperation(value = "查询门控电流信息", notes = "查询门控电流信息")
-    public List<String> listMAState() {
+    public CoreDataVo listMAState() {
         return readMonitorDataService.listMAState();
     }
 
     @GetMapping("/getMTState")
     @ResponseBody
     @ApiOperation(value = "查询门控温度", notes = "查询门控温度")
-    public List<String> listMTState() {
+    public CoreDataVo listMTState() {
         return readMonitorDataService.listMTState();
     }
 
     @GetMapping("/getDVState")
     @ResponseBody
     @ApiOperation(value = "查询电机输入电压信息", notes = "查询电机输入电压信息")
-    public List<String> listDVState() {
+    public CoreDataVo listDVState() {
         return readMonitorDataService.listDVState();
     }
 
     @GetMapping("/getDAState")
     @ResponseBody
     @ApiOperation(value = "查询电机输入电流信息", notes = "查询电机输入电流信息")
-    public List<String> listDAState() {
+    public CoreDataVo listDAState() {
         return readMonitorDataService.listDAState();
     }
 
     @GetMapping("/getDTState")
     @ResponseBody
     @ApiOperation(value = "查询电机温度信息", notes = "查询电机温度信息")
-    public List<String> listDTState() {
+    public CoreDataVo listDTState() {
         return readMonitorDataService.listDTState();
     }
 
     @GetMapping("/getDegree")
     @ResponseBody
     @ApiOperation(value = "门开合度", notes = "门开合度")
-    public List<String> listDegree() {
+    public CoreDataVo listDegree() {
         return readMonitorDataService.listDegree();
     }
 
