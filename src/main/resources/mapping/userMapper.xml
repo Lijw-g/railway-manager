@@ -7,8 +7,8 @@
 
     <insert id="insert" parameterType="user">
         <![CDATA[
-        insert into user (user_name, display_name, password, create_user, update_user)
-        values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser})
+        insert into user (user_name, display_name, password, create_user, update_user,sex,phone)
+        values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone})
         ]]>
     </insert>
 
@@ -23,7 +23,8 @@
             u.create_user as createUser,
             u.create_time as createTime,
             update_user as updateUser,
-            u.update_time as updateTime
+            u.update_time as updateTime,
+            sex,phone
         from user u
         ]]>
         <if test="roleCode != null and roleCode != ''">

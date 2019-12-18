@@ -28,6 +28,10 @@ public class User {
     private String secondPwd;
     @ApiModelProperty("上次登陆时间")
     private Date lastLoginTime;
+    @ApiModelProperty("手机号码")
+    private String phone;
+    @ApiModelProperty("性别")
+    private int sex;
     /**
      * 关联属性 1
      */
