@@ -99,7 +99,7 @@ public class ReadMonitorDataService extends AbstractService {
         ListQuery query = new GenericQuery();
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList());
+       coreDataVo.setCoreData( listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList()));
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("3.5A")
                 .setNormal_value("1A--2.6A")

@@ -1,5 +1,6 @@
 package com.railway.manager.controller;
 
+import com.google.common.base.Preconditions;
 import com.railway.manager.model.User;
 import com.railway.manager.service.VeriCodeService;
 import com.railway.manager.service.log.LoginLogService;
@@ -99,7 +100,7 @@ public class LoginController {
         resultMap.put("user", userList.get(0));
 
         //清除缓存中验证码
-       // veriCodeService.delCacheCode(imageCode.trim(), userTaskId.trim());
+        // veriCodeService.delCacheCode(imageCode.trim(), userTaskId.trim());
 
         //记录日志
         loginLogService.add(request, userList.get(0));
@@ -110,8 +111,9 @@ public class LoginController {
     @PostMapping("/registerUser")
     @ResponseBody
     @ApiOperation(value = "用户注册", notes = "用户注册")
-    public Map<String, Object> registerUser(@RequestParam String userName, @RequestParam String password, @RequestParam String pwdConfirm) {
-
+    public Map<String, Object> registerUser(@RequestParam String userName, @RequestParam String password,
+                                            @RequestParam String pwdConfirm, @RequestParam String phone) {
+        Preconditions.checkNotNull(phone, "手机号不能为空");
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         if (StringUtils.isBlank(userName)) {
@@ -142,12 +144,12 @@ public class LoginController {
 
         //添加用户
         User user = new User();
-        user.setUserName(userName.trim());
-        user.setDisplayName(user.getUserName());
-        user.setPassword(password.trim());
-        user.setCreateUser(user.getUserName());
-        user.setUpdateUser(user.getUserName());
-
+        user.setUserName(userName.trim())
+                .setDisplayName(user.getUserName())
+                .setPassword(password.trim())
+                .setCreateUser(user.getUserName())
+                .setUpdateUser(user.getUserName())
+                .setPhone(phone.trim());
         try {
             int num = userService.add(user);
 
