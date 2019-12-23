@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class ReadMonitorDataService extends AbstractService {
 
-    public List<MonitorData> listAllData(String factory, String cityId, String line, String status) {
+    public List<MonitorData> listAllData(String factory, String cityId, String line, String status, Integer pageNum, Integer pageSize) {
         ListQuery query = new GenericQuery();
         query.fill("factory", factory)
                 .fill("cityId", cityId)

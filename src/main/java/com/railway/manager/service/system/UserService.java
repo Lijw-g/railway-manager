@@ -1,5 +1,6 @@
 package com.railway.manager.service.system;
 
+import com.google.common.collect.Maps;
 import com.railway.manager.service.AbstractService;
 import com.railway.manager.model.User;
 import org.apache.commons.lang3.StringUtils;
@@ -37,8 +38,13 @@ public class UserService extends AbstractService {
         return sqlSession.selectList("user.selectList", map);
     }
 
-    public List<User> getList() {
-        return sqlSession.selectList("user.selectList", null);
+    public List<User> getList(Integer pageNum, Integer pageSize) {
+        Map<String, Object> conditionMap = Maps.newHashMap();
+        if(pageNum!=null && pageSize!=null) {
+            conditionMap.put("_limit", pageSize);
+            conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
+        }
+        return sqlSession.selectList("user.selectList", conditionMap);
     }
 
     /**

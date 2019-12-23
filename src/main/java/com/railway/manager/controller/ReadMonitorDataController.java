@@ -79,7 +79,7 @@ public class ReadMonitorDataController {
 
     @GetMapping("/listAllData")
     @ResponseBody
-    @ApiOperation(value = "所有数据信息", notes = "所有数据信息")
+    @ApiOperation(value = "所有数据信息", notes = "所有数据信息数据统计")
     public List<MonitorData> listAllData(
             @ApiParam(type = "String", value = "厂家")
             @RequestParam(defaultValue = "") String factory,
@@ -88,9 +88,11 @@ public class ReadMonitorDataController {
             @ApiParam(type = "String", value = "线路")
             @RequestParam(defaultValue = "") String line,
             @ApiParam(type = "String", value = "状态")
-            @RequestParam(defaultValue = "") String status
+            @RequestParam(defaultValue = "") String status,
+            @RequestParam(required = false,defaultValue = "1") Integer pageNum,
+            @RequestParam(required = false,defaultValue = "10") Integer pageSize
     ) {
-        return readMonitorDataService.listAllData(factory, cityId, line, status);
+        return readMonitorDataService.listAllData(factory, cityId, line, status,pageNum,pageSize);
     }
 
 

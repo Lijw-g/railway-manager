@@ -6,24 +6,45 @@
 <mapper namespace="role">
 
     <select id="select" parameterType="map" resultType="role">
-                select
-                    id,
-                    role_code as roleCode,
-                    role_name as roleName,
-                    created_at as createdTime,
-                    create_user as createUser,
-                    update_user as updateUser,
-                    updated_at as updatedTime
-                from role
+        <![CDATA[
+        select
+        id,
+        role_code as roleCode,
+        role_name as roleName,
+        created_at as createdTime,
+        create_user as createUser,
+        update_user as updateUser,
+        updated_at as updatedTime
+        from role
+    ]]>
+        <where>
+            <if test="roleCode != null and roleCode != ''">
+                and role_code = #{roleCode}
+            </if>
+            <if test="roleName != null and roleCode != ''">
+                and role_name = #{roleName}
+            </if>
+        </where>
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
     </select>
 
 
     <delete id="delete" parameterType="map">
         <![CDATA[
 
-                    delete
-                    from role
-                    where role_code = #{roleCode}
+
+
+
+
+                                                    delete
+                                                    from role
+                                                    where role_code = #{roleCode}
+
+
+
+
 
 
         ]]>
@@ -32,8 +53,16 @@
     <insert id="insert" parameterType="role">
         <![CDATA[
 
-                insert into role (role_code, role_name, create_user,update_user)
-                values (#{roleCode}, #{roleName}, #{createUser},#{updateUser})
+
+
+
+
+                                                insert into role (role_code, role_name, create_user,update_user)
+                                                values (#{roleCode}, #{roleName}, #{createUser},#{updateUser})
+
+
+
+
 
         ]]>
     </insert>

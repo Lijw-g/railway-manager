@@ -27,9 +27,6 @@
             sex,phone
         from user u
         ]]>
-        <if test="roleCode != null and roleCode != ''">
-            join cms_user_role ur on u.name = ur.user_name
-        </if>
         <where>
             <if test="roleCode != null and roleCode != ''">
                 and ur.role_code = #{roleCode}

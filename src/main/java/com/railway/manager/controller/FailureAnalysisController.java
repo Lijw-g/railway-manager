@@ -1,5 +1,6 @@
 package com.railway.manager.controller;
 
+import com.google.common.collect.Maps;
 import com.railway.manager.model.FailureAnalysis;
 import com.railway.manager.service.system.FailureAnalysisService;
 import io.swagger.annotations.Api;
@@ -67,18 +68,18 @@ public class FailureAnalysisController {
     @ResponseBody
     @ApiOperation(value = "故障分析结果查询", notes = "故障分析结果查询")
     public Map<String, Object> failureAnalysisList(@RequestParam(required = false) String advanceColumn,
-                                     @RequestParam(required = false) Integer pageNum,
-                                     @RequestParam(required = false) Integer pageSize) {
+                                     @RequestParam(required = false,defaultValue = "1") Integer pageNum,
+                                     @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
 
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         if(!StringUtils.isBlank(advanceColumn)) {
             conditionMap.put("advanceColumnLike", "%"+advanceColumn.trim()+"%");
         }
 
-        if(pageNum==null || pageNum<1) {
+        if( pageNum<1) {
             pageNum = 1;
         }
-        if(pageSize==null || pageSize<1) {
+        if( pageSize<1) {
             pageSize = 10;
         }
 
@@ -91,8 +92,7 @@ public class FailureAnalysisController {
         int allCount = failureAnalysisService.selectCount(conditionMap);
 
         //返回结果
-        Map<String, Object> resultMap = new HashMap<String, Object>();
-
+        Map<String, Object> resultMap = Maps.newHashMap();
         resultMap.put("code", "200");
         resultMap.put("description", "查询成功");
         resultMap.put("allCount", allCount);

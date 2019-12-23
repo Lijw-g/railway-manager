@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: railway_manager
@@ -15,8 +16,8 @@ import java.util.List;
  **/
 @Service
 public class UserRoleService  extends AbstractService {
-    public List<Role> listRole() {
-        return sqlSession.selectList("role.select", null);
+    public List<Role> listRole(Map<String, Object> conditionMap) {
+        return sqlSession.selectList("role.select", conditionMap);
 
     }
 
