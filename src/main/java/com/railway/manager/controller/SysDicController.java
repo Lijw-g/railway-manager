@@ -32,7 +32,7 @@ public class SysDicController {
 
     @GetMapping("/list")
     @ResponseBody
-    @ApiOperation(value = "查询所有角色", notes = "查询方法")
+    @ApiOperation(value = "查询所有字典", notes = "查询方法")
     public List<SysDict> listRole(
             @ApiParam("厂家名称")
             @RequestParam(defaultValue = "") String factoryName,
