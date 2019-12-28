@@ -31,68 +31,121 @@ public class ReadMonitorDataController {
     @GetMapping("/getMvState")
     @ResponseBody
     @ApiOperation(value = "查询门控电压信息", notes = "查询门控电压信息")
-    public CoreDataVo listMvState() {
-        return readMonitorDataService.listMvState();
+    public CoreDataVo listMvState(
+            @ApiParam("厂家")
+            @RequestParam(defaultValue = "") String factory,
+            @ApiParam("城市")
+            @RequestParam(defaultValue = "") String city,
+            @ApiParam("线路")
+            @RequestParam(defaultValue = "") String line,
+            @ApiParam("运行情况")
+            @RequestParam(defaultValue = "") String situation) {
+        return readMonitorDataService.listMvState(factory,city,line,situation);
     }
 
     @GetMapping("/getMAState")
     @ResponseBody
     @ApiOperation(value = "查询门控电流信息", notes = "查询门控电流信息")
-    public CoreDataVo listMAState() {
-        return readMonitorDataService.listMAState();
+    public CoreDataVo listMAState(
+            @ApiParam("厂家")
+            @RequestParam(defaultValue = "") String factory,
+            @ApiParam("城市")
+            @RequestParam(defaultValue = "") String city,
+            @ApiParam("线路")
+            @RequestParam(defaultValue = "") String line,
+            @ApiParam("运行情况")
+            @RequestParam(defaultValue = "") String situation) {
+        return readMonitorDataService.listMAState(factory,city,line,situation);
     }
 
     @GetMapping("/getMTState")
     @ResponseBody
     @ApiOperation(value = "查询门控温度", notes = "查询门控温度")
-    public CoreDataVo listMTState() {
-        return readMonitorDataService.listMTState();
+    public CoreDataVo listMTState(
+            @ApiParam("厂家")
+            @RequestParam(defaultValue = "") String factory,
+            @ApiParam("城市")
+            @RequestParam(defaultValue = "") String city,
+            @ApiParam("线路")
+            @RequestParam(defaultValue = "") String line,
+            @ApiParam("运行情况")
+            @RequestParam(defaultValue = "") String situation
+    ) {
+        return readMonitorDataService.listMTState(factory,city,line,situation);
     }
 
     @GetMapping("/getDVState")
     @ResponseBody
     @ApiOperation(value = "查询电机输入电压信息", notes = "查询电机输入电压信息")
-    public CoreDataVo listDVState() {
-        return readMonitorDataService.listDVState();
+    public CoreDataVo listDVState(@ApiParam("厂家")
+                                  @RequestParam(defaultValue = "") String factory,
+                                  @ApiParam("城市")
+                                  @RequestParam(defaultValue = "") String city,
+                                  @ApiParam("线路")
+                                  @RequestParam(defaultValue = "") String line,
+                                  @ApiParam("运行情况")
+                                  @RequestParam(defaultValue = "") String situation) {
+        return readMonitorDataService.listDVState(factory,city,line,situation);
     }
 
     @GetMapping("/getDAState")
     @ResponseBody
     @ApiOperation(value = "查询电机输入电流信息", notes = "查询电机输入电流信息")
-    public CoreDataVo listDAState() {
-        return readMonitorDataService.listDAState();
+    public CoreDataVo listDAState(@ApiParam("厂家")
+                                  @RequestParam(defaultValue = "") String factory,
+                                  @ApiParam("城市")
+                                  @RequestParam(defaultValue = "") String city,
+                                  @ApiParam("线路")
+                                  @RequestParam(defaultValue = "") String line,
+                                  @ApiParam("运行情况")
+                                  @RequestParam(defaultValue = "") String situation) {
+        return readMonitorDataService.listDAState(factory,city,line,situation);
     }
 
     @GetMapping("/getDTState")
     @ResponseBody
     @ApiOperation(value = "查询电机温度信息", notes = "查询电机温度信息")
-    public CoreDataVo listDTState() {
-        return readMonitorDataService.listDTState();
+    public CoreDataVo listDTState(@ApiParam("厂家")
+                                  @RequestParam(defaultValue = "") String factory,
+                                  @ApiParam("城市")
+                                  @RequestParam(defaultValue = "") String city,
+                                  @ApiParam("线路")
+                                  @RequestParam(defaultValue = "") String line,
+                                  @ApiParam("运行情况")
+                                  @RequestParam(defaultValue = "") String situation) {
+        return readMonitorDataService.listDTState(factory,city,line,situation);
     }
 
     @GetMapping("/getDegree")
     @ResponseBody
     @ApiOperation(value = "门开合度", notes = "门开合度")
-    public CoreDataVo listDegree() {
-        return readMonitorDataService.listDegree();
+    public CoreDataVo listDegree(@ApiParam("厂家")
+                                 @RequestParam(defaultValue = "") String factory,
+                                 @ApiParam("城市")
+                                 @RequestParam(defaultValue = "") String city,
+                                 @ApiParam("线路")
+                                 @RequestParam(defaultValue = "") String line,
+                                 @ApiParam("运行情况")
+                                 @RequestParam(defaultValue = "") String situation) {
+        return readMonitorDataService.listDegree(factory,city,line,situation);
     }
 
     @GetMapping("/listAllData")
     @ResponseBody
     @ApiOperation(value = "所有数据信息", notes = "所有数据信息数据统计")
     public List<MonitorData> listAllData(
-            @ApiParam(type = "String", value = "厂家")
+            @ApiParam("厂家")
             @RequestParam(defaultValue = "") String factory,
-            @ApiParam(type = "String", value = "城市")
-            @RequestParam(defaultValue = "") String cityId,
-            @ApiParam(type = "String", value = "线路")
+            @ApiParam("城市")
+            @RequestParam(defaultValue = "") String city,
+            @ApiParam("线路")
             @RequestParam(defaultValue = "") String line,
-            @ApiParam(type = "String", value = "状态")
-            @RequestParam(defaultValue = "") String status,
-            @RequestParam(required = false,defaultValue = "1") Integer pageNum,
-            @RequestParam(required = false,defaultValue = "10") Integer pageSize
+            @ApiParam("运行情况")
+            @RequestParam(defaultValue = "") String situation,
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize
     ) {
-        return readMonitorDataService.listAllData(factory, cityId, line, status,pageNum,pageSize);
+        return readMonitorDataService.listAllData(factory, city, line, situation, pageNum, pageSize);
     }
 
 

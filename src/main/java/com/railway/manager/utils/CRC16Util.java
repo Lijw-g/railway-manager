@@ -24,8 +24,6 @@ public class CRC16Util {
                 }
             }
         }
-
-        System.out.println(Integer.toHexString(CRC));
         return CRC;
     }
 

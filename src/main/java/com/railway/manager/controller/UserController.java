@@ -30,7 +30,8 @@ public class UserController {
     @GetMapping("/list")
     @ResponseBody
     @ApiOperation(value = "查询所有用户", notes = "查询方法")
-    public List<User> getListUser(@RequestParam(required = false,defaultValue = "1") Integer pageNum,
+    public List<User> getListUser(
+            @RequestParam(required = false,defaultValue = "1") Integer pageNum,
                                   @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
         if( pageNum<1) {
             pageNum = 1;
