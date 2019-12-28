@@ -27,9 +27,18 @@
                 and deviceId = #{deviceId}
             </if>
         </where>
+        order by created_at desc
         <if test="_limit != null and _offset !=null">
             limit #{_limit} offset #{_offset}
         </if>
-        order by created_at desc
+    </select>
+
+
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+
+                select count(*) from monitor_data
+
+        ]]>
     </select>
 </mapper>

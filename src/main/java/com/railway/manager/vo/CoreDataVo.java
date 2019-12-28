@@ -26,4 +26,7 @@ public class CoreDataVo {
      **/
     @ApiModelProperty("参考数据")
     private ReferenceData referenceData;
+
+    private int count;
+
 }

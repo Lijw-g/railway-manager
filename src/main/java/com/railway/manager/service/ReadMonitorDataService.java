@@ -26,15 +26,15 @@ public class ReadMonitorDataService extends AbstractService {
 
     public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory,cityId,line,situation));
-        if( pageNum<1) {
+        query.fill("deviceId", DataUtil.generatDeviceId(factory, cityId, line, situation));
+        if (pageNum < 1) {
             pageNum = 1;
-            query.fill("_limit", pageSize);
         }
-        if( pageSize<1) {
+        if (pageSize < 1) {
             pageSize = 10;
-            query.fill("_offset", (pageNum.intValue()-1)*pageSize.intValue());
         }
+        query.fill("_limit", pageSize);
+        query.fill("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         //车次
         listAllData.stream().forEach(o -> o.setLine(getRailwayShift(o.getDeviceId())));
@@ -56,10 +56,10 @@ public class ReadMonitorDataService extends AbstractService {
 
     public CoreDataVo listMvState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory,city,line,situation));
+        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmVstate).collect(Collectors.toList()));
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmVstate).collect(Collectors.toList()).subList(0, 20));
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("110V")
                 .setNormal_value("60V--80V")
@@ -68,15 +68,17 @@ public class ReadMonitorDataService extends AbstractService {
                 .setAverage_value("77V")
                 .setMax_value_time("2019-12-22 18:28:129");
         coreDataVo.setReferenceData(referenceData);
+        int count = sqlSession.selectOne("monitorData.selectCount", query);
+        coreDataVo.setCount(count);
         return coreDataVo;
     }
 
     public CoreDataVo listMAState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory,city,line,situation));
+        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList()));
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList()).subList(0, 20));
         ReferenceData referenceData =
                 new ReferenceData().setReference_max_value("3.5A")
                         .setNormal_value("1A--2.6")
@@ -85,15 +87,17 @@ public class ReadMonitorDataService extends AbstractService {
                         .setAverage_value("1.5")
                         .setMax_value_time("2019-12-22 18:28:129");
         coreDataVo.setReferenceData(referenceData);
+        int count = sqlSession.selectOne("monitorData.selectCount", query);
+        coreDataVo.setCount(count);
         return coreDataVo;
     }
 
     public CoreDataVo listMTState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory,city,line,situation));
+        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()));
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()).subList(0, 20));
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("40℃--60℃")
                 .setNormal_value("-20℃--80℃")
@@ -102,15 +106,17 @@ public class ReadMonitorDataService extends AbstractService {
                 .setAverage_value("70℃")
                 .setMax_value_time("2019-12-22 18:28:129");
         coreDataVo.setReferenceData(referenceData);
+        int count = sqlSession.selectOne("monitorData.selectCount", query);
+        coreDataVo.setCount(count);
         return coreDataVo;
     }
 
     public CoreDataVo listDVState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory,city,line,situation));
+        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-       coreDataVo.setCoreData( listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList()));
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList()).subList(0, 20));
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("3.5A")
                 .setNormal_value("1A--2.6A")
@@ -119,15 +125,17 @@ public class ReadMonitorDataService extends AbstractService {
                 .setAverage_value("1.5A")
                 .setMax_value_time("2019-12-22 18:28:129");
         coreDataVo.setReferenceData(referenceData);
+        int count = sqlSession.selectOne("monitorData.selectCount", query);
+        coreDataVo.setCount(count);
         return coreDataVo;
     }
 
     public CoreDataVo listDAState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory,city,line,situation));
+        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList()));
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList()).subList(0, 20));
         ReferenceData referenceData =
                 new ReferenceData().setReference_max_value("3.8A")
                         .setNormal_value("1A--2.6")
@@ -136,15 +144,17 @@ public class ReadMonitorDataService extends AbstractService {
                         .setAverage_value("1.5")
                         .setMax_value_time("2019-12-22 18:28:129");
         coreDataVo.setReferenceData(referenceData);
+        int count = sqlSession.selectOne("monitorData.selectCount", query);
+        coreDataVo.setCount(count);
         return coreDataVo;
     }
 
     public CoreDataVo listDTState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory,city,line,situation));
+        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList()));
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList()).subList(0, 20));
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("44℃--66℃")
                 .setNormal_value("-20℃--80℃")
@@ -153,15 +163,17 @@ public class ReadMonitorDataService extends AbstractService {
                 .setAverage_value("70℃")
                 .setMax_value_time("2019-12-22 18:28:129");
         coreDataVo.setReferenceData(referenceData);
+        int count = sqlSession.selectOne("monitorData.selectCount", query);
+        coreDataVo.setCount(count);
         return coreDataVo;
     }
 
     public CoreDataVo listDegree(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory,city,line,situation));
+        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList()));
+        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList()).subList(0, 20));
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("0CM--150CM")
                 .setNormal_value("170CM")
@@ -170,6 +182,8 @@ public class ReadMonitorDataService extends AbstractService {
                 .setAverage_value("140CM")
                 .setMax_value_time("2019-12-22 18:28:129");
         coreDataVo.setReferenceData(referenceData);
+        int count = sqlSession.selectOne("monitorData.selectCount", query);
+        coreDataVo.setCount(count);
         return coreDataVo;
     }
 }
