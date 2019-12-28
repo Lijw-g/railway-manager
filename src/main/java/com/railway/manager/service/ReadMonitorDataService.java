@@ -1,5 +1,6 @@
 package com.railway.manager.service;
 
+import com.google.common.collect.Maps;
 import com.railway.manager.common.query.GenericQuery;
 import com.railway.manager.common.query.ListQuery;
 import com.railway.manager.model.MonitorData;
@@ -10,6 +11,7 @@ import com.railway.manager.vo.CoreDataVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,14 @@ public class ReadMonitorDataService extends AbstractService {
     public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize) {
         ListQuery query = new GenericQuery();
         query.fill("deviceId", DataUtil.generatDeviceId(factory,cityId,line,situation));
+        if( pageNum<1) {
+            pageNum = 1;
+            query.fill("_limit", pageSize);
+        }
+        if( pageSize<1) {
+            pageSize = 10;
+            query.fill("_offset", (pageNum.intValue()-1)*pageSize.intValue());
+        }
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         //车次
         listAllData.stream().forEach(o -> o.setLine(getRailwayShift(o.getDeviceId())));
