@@ -29,28 +29,28 @@ public class IndexFilterController {
     private IndexFilterService indexFilterService;
     @GetMapping("/listFactory")
     @ResponseBody
-    @ApiOperation(value = "查询门控电压信息", notes = "查询门控电压信息")
+    @ApiOperation(value = "厂家信息", notes = "厂家信息")
     public List<Filters> listFactory() {
         return indexFilterService.listFactory();
     }
 
     @GetMapping("/listLine")
     @ResponseBody
-    @ApiOperation(value = "查询门控电压信息", notes = "查询门控电压信息")
+    @ApiOperation(value = "线路信息", notes = "线路信息")
     public List<Filters> listLine() {
         return indexFilterService.listLine();
     }
 
     @GetMapping("/listCity")
     @ResponseBody
-    @ApiOperation(value = "查询门控电压信息", notes = "查询门控电压信息")
+    @ApiOperation(value = "城市信息", notes = "城市信息")
     public List<Filters> listCity() {
         return indexFilterService.listCity();
     }
 
     @GetMapping("/listSituation")
     @ResponseBody
-    @ApiOperation(value = "查询门控电压信息", notes = "查询门控电压信息")
+    @ApiOperation(value = "状态信息", notes = "状态信息")
     public List<Filters> listSituation() {
         return indexFilterService.listSituation();
     }
