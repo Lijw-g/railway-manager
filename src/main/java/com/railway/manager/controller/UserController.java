@@ -35,7 +35,7 @@ public class UserController {
     public Map<String, Object> getListUser(
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "") String name) {
+            @RequestParam(required = false,defaultValue = "") String name) {
         if (pageNum < 1) {
             pageNum = 1;
         }
