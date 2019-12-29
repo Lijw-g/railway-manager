@@ -8,6 +8,8 @@ import com.railway.manager.model.ReferenceData;
 import com.railway.manager.utils.DataUtil;
 import com.railway.manager.utils.DateUtil;
 import com.railway.manager.vo.CoreDataVo;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,25 +43,16 @@ public class ReadMonitorDataService extends AbstractService {
         return listAllData;
     }
 
-    private String getRailwayShift(String deviceId) {
-        if (!Objects.isNull(deviceId) && deviceId.length() > 4) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("G");
-            sb.append(Long.parseLong(deviceId.substring(0, 2), 16));
-            sb.append(Long.parseLong(deviceId.substring(2, 4), 16));
-            return sb.toString();
-        } else {
-            logger.warn("deviceId info is error :" + deviceId);
-            return "";
-        }
-    }
-
     public CoreDataVo listMvState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
+        filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
-        List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmVstate).collect(Collectors.toList()).subList(0, 20));
+        List<MonitorData> listAllDatas = sqlSession.selectList("monitorData.selectAll", query);
+        if (listAllDatas.size() > 20) {
+            coreDataVo.setCoreData(listAllDatas.stream().map(MonitorData::getmVstate).collect(Collectors.toList()).subList(0, 20));
+        } else {
+            coreDataVo.setCoreData(listAllDatas.stream().map(MonitorData::getmVstate).collect(Collectors.toList()));
+        }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("110V")
                 .setNormal_value("60V--80V")
@@ -75,10 +68,14 @@ public class ReadMonitorDataService extends AbstractService {
 
     public CoreDataVo listMAState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
+        filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList()).subList(0, 20));
+        if (20 > listAllData.size()) {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList()).subList(0, 20));
+        } else {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList()));
+        }
         ReferenceData referenceData =
                 new ReferenceData().setReference_max_value("3.5A")
                         .setNormal_value("1A--2.6")
@@ -94,10 +91,14 @@ public class ReadMonitorDataService extends AbstractService {
 
     public CoreDataVo listMTState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
+        filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()).subList(0, 20));
+        if (20 > listAllData.size()) {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()).subList(0, 20));
+        } else {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()));
+        }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("40℃--60℃")
                 .setNormal_value("-20℃--80℃")
@@ -113,10 +114,14 @@ public class ReadMonitorDataService extends AbstractService {
 
     public CoreDataVo listDVState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
+        filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList()).subList(0, 20));
+        if (20 > listAllData.size()) {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList()).subList(0, 20));
+        } else {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList()));
+        }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("3.5A")
                 .setNormal_value("1A--2.6A")
@@ -132,10 +137,14 @@ public class ReadMonitorDataService extends AbstractService {
 
     public CoreDataVo listDAState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
+        filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList()).subList(0, 20));
+        if (listAllData.size() > 20) {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList()).subList(0, 20));
+        } else {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList()));
+        }
         ReferenceData referenceData =
                 new ReferenceData().setReference_max_value("3.8A")
                         .setNormal_value("1A--2.6")
@@ -151,10 +160,14 @@ public class ReadMonitorDataService extends AbstractService {
 
     public CoreDataVo listDTState(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
+        filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList()).subList(0, 20));
+        if (listAllData.size() > 20) {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList()).subList(0, 20));
+        } else {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList()));
+        }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("44℃--66℃")
                 .setNormal_value("-20℃--80℃")
@@ -170,10 +183,14 @@ public class ReadMonitorDataService extends AbstractService {
 
     public CoreDataVo listDegree(String factory, String city, String line, String situation) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory, city, line, situation));
+        filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
-        coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList()).subList(0, 20));
+        if (listAllData.size() > 20) {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList()).subList(0, 20));
+        } else {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList()));
+        }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("0CM--150CM")
                 .setNormal_value("170CM")
@@ -185,5 +202,27 @@ public class ReadMonitorDataService extends AbstractService {
         int count = sqlSession.selectOne("monitorData.selectCount", query);
         coreDataVo.setCount(count);
         return coreDataVo;
+    }
+
+    private void filters(String city, String line, ListQuery query) {
+        if (StringUtils.isNotEmpty(city)) {
+            query.fill("city", city);
+        }
+        if (StringUtils.isNotEmpty(line)) {
+            query.fill("line", line);
+        }
+    }
+
+    private String getRailwayShift(String deviceId) {
+        if (!Objects.isNull(deviceId) && deviceId.length() > 4) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("G");
+            sb.append(Long.parseLong(deviceId.substring(0, 2), 16));
+            sb.append(Long.parseLong(deviceId.substring(2, 4), 16));
+            return sb.toString();
+        } else {
+            logger.warn("deviceId info is error :" + deviceId);
+            return "";
+        }
     }
 }
