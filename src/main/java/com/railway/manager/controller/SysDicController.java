@@ -33,7 +33,7 @@ public class SysDicController {
     @GetMapping("/list")
     @ResponseBody
     @ApiOperation(value = "查询所有字典", notes = "查询方法")
-    public List<SysDict> listRole(
+    public  Map<String, Object> listRole(
             @ApiParam("厂家名称")
             @RequestParam(defaultValue = "") String factoryName,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
@@ -48,8 +48,10 @@ public class SysDicController {
         conditionMap.put("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
         conditionMap.put("_limit", pageSize);
         conditionMap.put("dictName", factoryName);
-
-
-        return sysDictService.getList(conditionMap);
+        int count = sysDictService.selectCount(conditionMap);
+        Map<String, Object> result = Maps.newHashMap();
+        result.put("count", count);
+        result.put("sysDic", sysDictService.getList(conditionMap));
+        return result;
     }
 }
