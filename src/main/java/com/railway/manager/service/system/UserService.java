@@ -38,15 +38,33 @@ public class UserService extends AbstractService {
         return sqlSession.selectList("user.selectList", map);
     }
 
-    public List<User> getList(Integer pageNum, Integer pageSize) {
+    public List<User> getList(Integer pageNum, Integer pageSize,String name) {
         Map<String, Object> conditionMap = Maps.newHashMap();
         if(pageNum!=null && pageSize!=null) {
             conditionMap.put("_limit", pageSize);
             conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
         }
+        if (StringUtils.isNotEmpty(name)) {
+            conditionMap.put("name", name);
+        }
         return sqlSession.selectList("user.selectList", conditionMap);
     }
-
+    /**
+    * @author: Lijiwen
+    * Description:
+    * @param:  * @param pageNum
+     * @param pageSize
+     * @param name
+    * @return int
+    * @createDate 2019-12-29 14:54
+    **/
+    public int getCount(String name) {
+        Map<String, Object> conditionMap = Maps.newHashMap();
+        if (StringUtils.isNotEmpty(name)) {
+            conditionMap.put("name", name);
+        }
+        return sqlSession.selectOne("user.selectCount",conditionMap);
+    }
     /**
      * Description: 检查用户名是否已注册
      * param userName

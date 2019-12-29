@@ -1,5 +1,6 @@
 package com.railway.manager.controller;
 
+import com.google.common.collect.Maps;
 import com.railway.manager.service.system.UserService;
 import com.railway.manager.model.User;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: railway_manager
@@ -20,7 +22,7 @@ import java.util.List;
  * @author: lijiwen
  * @create: 2019-09-09 20:32
  **/
-@Api(tags = "用户信息接口",value = "用户信息接口")
+@Api(tags = "用户信息接口", value = "用户信息接口")
 @Controller
 @RequestMapping("/api/user")
 public class UserController {
@@ -30,17 +32,22 @@ public class UserController {
     @GetMapping("/list")
     @ResponseBody
     @ApiOperation(value = "查询所有用户", notes = "查询方法")
-    public List<User> getListUser(
-            @RequestParam(required = false,defaultValue = "1") Integer pageNum,
-                                  @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
-        if( pageNum<1) {
+    public Map<String, Object> getListUser(
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "") String name) {
+        if (pageNum < 1) {
             pageNum = 1;
         }
-        if( pageSize<1) {
+        if (pageSize < 1) {
             pageSize = 10;
         }
-
-        return userService.getList(pageNum,pageSize);
+        int count = userService.getCount(name);
+        List<User> list = userService.getList(pageNum, pageSize, name);
+        Map<String, Object> result = Maps.newHashMap();
+        result.put("count", count);
+        result.put("users", list);
+        return result;
     }
 
     @PostMapping("add")

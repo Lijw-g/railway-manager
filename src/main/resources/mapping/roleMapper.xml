@@ -21,7 +21,7 @@
             <if test="roleCode != null and roleCode != ''">
                 and role_code = #{roleCode}
             </if>
-            <if test="roleName != null and roleCode != ''">
+            <if test="roleName != null and roleName != ''">
                 and role_name = #{roleName}
             </if>
         </where>
@@ -33,37 +33,15 @@
 
     <delete id="delete" parameterType="map">
         <![CDATA[
-
-
-
-
-
-                                                    delete
-                                                    from role
-                                                    where role_code = #{roleCode}
-
-
-
-
-
+        delete from role where role_code = #{roleCode}
 
         ]]>
     </delete>
 
     <insert id="insert" parameterType="role">
         <![CDATA[
-
-
-
-
-
-                                                insert into role (role_code, role_name, create_user,update_user)
-                                                values (#{roleCode}, #{roleName}, #{createUser},#{updateUser})
-
-
-
-
-
+        insert into role (role_code, role_name, create_user,update_user)
+                      values (#{roleCode}, #{roleName}, #{createUser},#{updateUser})
         ]]>
     </insert>
     <update id="update" parameterType="role">

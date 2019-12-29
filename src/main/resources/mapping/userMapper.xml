@@ -31,11 +31,8 @@
             <if test="roleCode != null and roleCode != ''">
                 and ur.role_code = #{roleCode}
             </if>
-            <if test="userNameEqual != null and userNameEqual != ''">
-                and u.user_name = #{userNameEqual}
-            </if>
-            <if test="nameLike != null and nameLike != ''">
-                and u.user_name like #{nameLike}
+            <if test="name != null and name != ''">
+                and u.user_name like #{name}
             </if>
             <if test="passwordEqual != null and passwordEqual != ''">
                 and u.password = #{passwordEqual}
@@ -58,9 +55,6 @@
                 and ur.role_code = #{roleCode}
             </if>
             <if test="name != null and name != ''">
-                and u.user_name = #{name}
-            </if>
-            <if test="nameLike != null and nameLike != ''">
                 and u.user_name like #{nameLike}
             </if>
         </where>
