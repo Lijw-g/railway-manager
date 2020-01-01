@@ -11,7 +11,6 @@ import lombok.Data;
 public class Filters {
     private String code;
     private String name;
-
     public String getCode() {
         return code;
     }
