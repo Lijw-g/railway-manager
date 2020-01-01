@@ -2,6 +2,7 @@ package com.railway.manager.service.system;
 
 import com.railway.manager.model.FailureAnalysis;
 import com.railway.manager.service.AbstractService;
+import com.railway.manager.vo.FailureAnalysisVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class FailureAnalysisService extends AbstractService {
      * @param map
      * @return
      */
-    public List<FailureAnalysis> getList(Map<String,Object> map) {
+    public List<FailureAnalysisVo> getList(Map<String,Object> map) {
         return sqlSession.selectList("failureAnalysis.selectList", map);
     }
 
