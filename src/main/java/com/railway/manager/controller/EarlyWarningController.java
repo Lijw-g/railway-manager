@@ -45,6 +45,7 @@ public class EarlyWarningController {
         result.put("data", monitorDatas);
         return result;
     }
+
     @GetMapping("/haveNewWarring")
     @ResponseBody
     @ApiOperation(value = "最新报警", notes = "最新报警")
@@ -66,4 +67,12 @@ public class EarlyWarningController {
         return result;
     }
 
+    @GetMapping("/sure")
+    @ResponseBody
+    @ApiOperation(value = "确定报警", notes = "确定报警")
+    public Map<String, Object> sure(
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+        return null;
+    }
 }
