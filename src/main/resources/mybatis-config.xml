@@ -14,6 +14,13 @@
         <typeAlias type="com.railway.manager.model.User" alias="user"/>
         <typeAlias type="com.railway.manager.model.log.LoginLog" alias="loginLog"/>
         <typeAlias type="com.railway.manager.model.FailureAnalysis" alias="failureAnalysis"/>
+        <typeAlias type="com.railway.manager.vo.FailureAnalysisVo" alias="failureAnalysisVo"/>
+        <typeAlias type="com.railway.manager.model.FailureMeasureLib" alias="failureMeasureLib"/>
+        <typeAlias type="com.railway.manager.vo.FailureMeasureLibVo" alias="failureMeasureLibVo"/>
+        <typeAlias type="com.railway.manager.model.SubwayCarLib" alias="subwayCarLib"/>
+        <typeAlias type="com.railway.manager.vo.SubwayCarLibVo" alias="subwayCarLibVo"/>
+        <typeAlias type="com.railway.manager.model.DoorPlc" alias="doorPlc"/>
+        <typeAlias type="com.railway.manager.vo.DoorPlcVo" alias="doorPlcVo"/>
         <typeAlias type="com.railway.manager.entity.SysDict" alias="sysDict"/>
         <typeAlias type="com.railway.manager.model.MonitorData" alias="monitorData"/>
         <typeAlias type="com.railway.manager.model.HeartData" alias="heartData"/>

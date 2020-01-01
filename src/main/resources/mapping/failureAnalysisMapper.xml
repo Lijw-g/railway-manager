@@ -12,15 +12,20 @@
         ]]>
     </insert>
 
-    <select id="selectList" parameterType="map" resultType="failureAnalysis">
+    <select id="selectList" parameterType="map" resultType="failureAnalysisVo">
         <![CDATA[
         select
             id,
             fa.city_code as cityCode,
+            f_getDictByCode('cityType',fa.city_code) as cityName,
             fa.subway_car_code as subwayCarCode,
+            f_getDictByCode('subwayCarType',fa.subway_car_code) as subwayCarName,
             fa.manufacturer_code as manufacturerCode,
+            f_getDictByCode('manufacturerType',fa.manufacturer_code) as manufacturer,
             fa.production_batch_code as productionBatchCode,
+            f_getDictByCode('productionBatchType',fa.production_batch_code) as productionBatch,
             fa.line_code as lineCode,
+            f_getDictByCode('lineType',fa.line_code) as lineName,
             fa.failure_cause as failureCause,
             fa.analysis_result as analysisResult,
             fa.happening_time as happeningTime,

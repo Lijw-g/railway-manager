@@ -3,6 +3,8 @@ package com.railway.manager.controller;
 import com.google.common.collect.Maps;
 import com.railway.manager.model.FailureAnalysis;
 import com.railway.manager.service.system.FailureAnalysisService;
+import com.railway.manager.utils.ResultMapUtil;
+import com.railway.manager.vo.FailureAnalysisVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -51,15 +53,7 @@ public class FailureAnalysisController {
         int count = failureAnalysisService.add(failureAnalysis);
 
         //返回结果
-        Map<String, Object> resultMap = new HashMap<String, Object>();
-
-        if(count > 0) {
-            resultMap.put("code", "200");
-            resultMap.put("description", "添加成功");
-        } else {
-            resultMap.put("code", "501");
-            resultMap.put("description", "添加失败");
-        }
+        Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
 
         return resultMap;
     }
@@ -88,7 +82,7 @@ public class FailureAnalysisController {
             conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
         }
 
-        List<FailureAnalysis> failureAnalysisList = failureAnalysisService.getList(conditionMap);
+        List<FailureAnalysisVo> failureAnalysisVoList = failureAnalysisService.getList(conditionMap);
         int allCount = failureAnalysisService.selectCount(conditionMap);
 
         //返回结果
@@ -96,8 +90,8 @@ public class FailureAnalysisController {
         resultMap.put("code", "200");
         resultMap.put("description", "查询成功");
         resultMap.put("allCount", allCount);
-        resultMap.put("currentCount", failureAnalysisList.size());
-        resultMap.put("loginLogList", failureAnalysisList);
+        resultMap.put("currentCount", failureAnalysisVoList.size());
+        resultMap.put("failureAnalysisVoList", failureAnalysisVoList);
 
         return resultMap;
     }
