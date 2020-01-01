@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Service
 public class ReadMonitorDataService extends AbstractService {
 
-    public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize) {
+    public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
         ListQuery query = new GenericQuery();
         query.fill("deviceId", DataUtil.generatDeviceId(factory, cityId, line, situation));
         if (pageNum < 1) {
@@ -36,7 +36,13 @@ public class ReadMonitorDataService extends AbstractService {
             pageSize = 10;
         }
         query.fill("_limit", pageSize);
+        query.fill("cityId", cityId);
+        query.fill("line",line);
         query.fill("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
+        if (StringUtils.isNotEmpty(beginTime)&& StringUtils.isNotEmpty(enTime) ) {
+            query.fill("beginTime", beginTime);
+            query.fill("endTime", enTime);
+        }
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         //车次
         listAllData.stream().forEach(o -> o.setLine(getRailwayShift(o.getDeviceId())));

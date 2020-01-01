@@ -143,9 +143,10 @@ public class ReadMonitorDataController {
             @ApiParam("运行情况")
             @RequestParam(defaultValue = "") String situation,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(required = false, defaultValue = "10") Integer pageSize
-    ) {
-        return readMonitorDataService.listAllData(factory, city, line, situation, pageNum, pageSize);
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false,defaultValue = "") String beginTime,
+            @RequestParam(required = false ,defaultValue = "") String enTime) {
+        return readMonitorDataService.listAllData(factory, city, line, situation, pageNum, pageSize,beginTime,enTime);
     }
 
 
