@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="doorPlc">
+
+    <insert id="insert" parameterType="doorPlc">
+        <![CDATA[
+        insert into door_plc (door_controller_type_code, manufacturer_code, production_date, controller_type_code, motor_type_code, rated_voltage, working_voltage, rated_current,
+                peak_current, stable_temperature, working_temperature, motor_rated_voltage, motor_working_voltage, motor_rated_current, motor_working_current, motor_stable_temperature,
+                motor_working_temperature, gatage, max_gatage, door_start_time, door_stop_time, comment, create_user)
+            values (#{doorControllerTypeCode}, #{manufacturerCode}, #{productionDate}, #{controllerTypeCode}, #{motorTypeCode}, #{ratedVoltage}, #{workingVoltage}, #{ratedCurrent},
+                #{peakCurrent}, #{stableTemperature}, #{workingTemperature}, #{motorRatedVoltage}, #{motorWorkingVoltage}, #{motorRatedCurrent}, #{motorWorkingCurrent}, #{motorStableTemperature},
+                #{motorWorkingTemperature}, #{gatage}, #{max_gatage}, #{doorStartTime}, #{doorStopTime}, #{comment}, #{createUser})
+        ]]>
+    </insert>
+
+    <select id="update" parameterType="doorPlc">
+        <![CDATA[
+        UPDATE door_plc dp
+            SET
+            dp.door_controller_type_code = #{doorControllerTypeCode},
+            dp.manufacturer_code = #{manufacturerCode},
+            dp.production_date = #{productionDate},
+            dp.controller_type_code = #{controllerTypeCode},
+            dp.motor_type_code = #{motorTypeCode},
+            dp.rated_voltage = #{ratedVoltage},
+            dp.working_voltage = #{workingVoltage},
+            dp.rated_current = #{ratedCurrent},
+            dp.peak_current = #{peakCurrent},
+            dp.stable_temperature = #{stableTemperature},
+            dp.working_temperature = #{workingTemperature},
+            dp.motor_rated_voltage = #{motorRatedVoltage},
+            dp.motor_working_voltage = #{motorWorkingVoltage},
+            dp.motor_rated_current = #{motorRatedCurrent},
+            dp.motor_working_current = #{motorWorkingCurrent},
+            dp.motor_stable_temperature = #{motorStableTemperature},
+            dp.motor_working_temperature = #{motorWorkingTemperature},
+            dp.gatage = #{gatage},
+            dp.max_gatage = #{maxGatage},
+            dp.door_start_time = #{doorStartTime},
+            dp.door_stop_time = #{doorStopTime},
+            dp.comment = #{comment},
+            dp.update_user = #{updateUser},
+            dp.update_timne = #{updateTime}
+        from door_plc dp
+        ]]>
+        <where>
+            dp.id = #{id}
+        </where>
+    </select>
+
+    <select id="selectList" parameterType="map" resultType="doorPlcVo">
+        <![CDATA[
+        select
+            id,
+            dp.door_controller_type_code as doorControllerTypeCode,
+            f_getDictByCode('doorControllerType',dp.door_controller_type_code) as doorControllerType,
+            dp.manufacturer_code as manufacturerCode,
+            f_getDictByCode('manufacturerType',dp.manufacturer_code) as manufacturer,
+            dp.production_date as productionDate,
+            dp.controller_type_code as controllerTypeCode,
+            f_getDictByCode('controllerType',dp.controller_type_code) as controllerType,
+            dp.motor_type_code as motorTypeCode,
+            f_getDictByCode('motorType',dp.motor_type_code) as motorType,
+            dp.rated_voltage as ratedVoltage,
+            dp.working_voltage as workingVoltage,
+            dp.rated_current as ratedCurrent,
+            dp.peak_current as peakCurrent,
+            dp.stable_temperature as stableTemperature,
+            dp.working_temperature as workingTemperature,
+            dp.motor_rated_voltage as motorRatedVoltage,
+            dp.motor_working_voltage as motorWorkingVoltage,
+            dp.motor_rated_current as motorRatedCurrent,
+            dp.motor_working_current as motorWorkingCurrent,
+            dp.motor_stable_temperature as motorStableTemperature,
+            dp.motor_working_temperature as motorWorkingTemperature,
+            dp.gatage as gatage,
+            dp.max_gatage as maxGatage,
+            dp.door_start_time as doorStartTime,
+            dp.door_stop_time as doorStopTime,
+            dp.comment as comment,
+            dp.create_user as createUser,
+            dp.create_time as createTime,
+            dp.update_user as updateUser,
+            dp.update_timne as updateTime
+        from door_plc dp
+        ]]>
+        <where>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , door_controller_type_code ]]>
+                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , production_date ]]>
+                <![CDATA[ , controller_type_code ]]>
+                <![CDATA[ , motor_type_code ]]>
+                <![CDATA[ , comment ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*) from door_plc dp
+        ]]>
+        <where>
+            <if test="idEqual != null">
+                and dp.id = #{id}
+            </if>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , door_controller_type_code ]]>
+                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , production_date ]]>
+                <![CDATA[ , controller_type_code ]]>
+                <![CDATA[ , motor_type_code ]]>
+                <![CDATA[ , comment ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM door_plc dp
+        <where>
+            dp.id = #{id}
+        </where>
+    </delete>
+</mapper>

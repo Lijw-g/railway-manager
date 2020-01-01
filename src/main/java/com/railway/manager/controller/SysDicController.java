@@ -4,16 +4,16 @@ import com.google.common.collect.Maps;
 import com.railway.manager.entity.SysDict;
 import com.railway.manager.model.Role;
 import com.railway.manager.service.system.SysDictService;
+import com.railway.manager.vo.FailureAnalysisVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ import java.util.Map;
  **/
 @Api(tags = "数据字典", value = "数据字字典")
 @Controller
-@RequestMapping("/api/dic")
+@RequestMapping("/api/dict")
 public class SysDicController {
     @Resource
     private SysDictService sysDictService;
@@ -53,5 +53,28 @@ public class SysDicController {
         result.put("count", count);
         result.put("sysDic", sysDictService.getList(conditionMap));
         return result;
+    }
+
+    @PostMapping("/getListByDictType")
+    @ResponseBody
+    @ApiOperation(value = "根据字典类型查询符合要求的字典数据", notes = "根据字典类型查询符合要求的字典数据")
+    public Map<String, Object> getListByDictType(@RequestParam String dictType) {
+
+        Map<String, Object> conditionMap = new HashMap<String, Object>();
+
+        conditionMap.put("dictTypeEqual", dictType);
+
+        List<SysDict> sysDictList = sysDictService.getList(conditionMap);
+        int allCount = sysDictService.selectCount(conditionMap);
+
+        //返回结果
+        Map<String, Object> resultMap = Maps.newHashMap();
+        resultMap.put("code", "200");
+        resultMap.put("description", "查询成功");
+        resultMap.put("allCount", allCount);
+        resultMap.put("currentCount", sysDictList.size());
+        resultMap.put("sysDictList", sysDictList);
+
+        return resultMap;
     }
 }
