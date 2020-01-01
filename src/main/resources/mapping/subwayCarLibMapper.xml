@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="subwayCarLib">
+
+    <insert id="insert" parameterType="subwayCarLib">
+        <![CDATA[
+        insert into subway_car_lib (city_code, subway_car_type_code, door_quantity, manufacturer_code, market_time, line_code, comment, create_user)
+            values (#{cityCode}, #{subwayCarTypeCode}, #{doorQuantity}, #{manufacturerCode}, #{marketTime}, #{lineCode}, #{comment}, #{createUser})
+        ]]>
+    </insert>
+
+    <select id="selectList" parameterType="map" resultType="subwayCarLibVo">
+        <![CDATA[
+        select
+            id,
+            sc.city_code as cityCode,
+            f_getDictByCode('cityType',sc.city_code) as cityName,
+            sc.subway_car_type_code as subwayCarTypeCode,
+            f_getDictByCode('subwayCarType',sc.subway_car_type_code) as subwayCarType,
+            sc.door_quantity as doorQuantity,
+            sc.manufacturer_code as manufacturerCode,
+            f_getDictByCode('manufacturerType',sc.manufacturer_code) as manufacturer,
+            sc.market_time as marketTime,
+            sc.line_code as lineCode,
+            f_getDictByCode('lineType',sc.line_code) as lineName,
+            sc.comment as comment,
+            sc.create_user as createUser,
+            sc.create_time as createTime
+        from subway_car_lib sc
+        ]]>
+        <where>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , city_code ]]>
+                <![CDATA[ , subway_car_type_code ]]>
+                <![CDATA[ , door_quantity ]]>
+                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , market_time ]]>
+                <![CDATA[ , line_code ]]>
+                <![CDATA[ , comment ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*) from subway_car_lib sc
+        ]]>
+        <where>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , city_code ]]>
+                <![CDATA[ , subway_car_type_code ]]>
+                <![CDATA[ , door_quantity ]]>
+                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , market_time ]]>
+                <![CDATA[ , line_code ]]>
+                <![CDATA[ , comment ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+    </select>
+</mapper>

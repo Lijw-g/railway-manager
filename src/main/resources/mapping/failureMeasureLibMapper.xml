@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="failureMeasureLib">
+
+    <insert id="insert" parameterType="failureMeasureLib">
+        <![CDATA[
+        insert into failure_measure_lib (subway_car_type_code, subway_door_type_code, manufacturer_code, sensor_type_code, failure_cause, solution, comment, operation, create_user)
+            values (#{subwayCarTypeCode}, #{subwayDoorTypeCode}, #{manufacturerCode}, #{sensorTypeCode}, #{failureCause}, #{solution}, #{comment}, #{operation}, #{createUser})
+        ]]>
+    </insert>
+
+    <select id="selectList" parameterType="map" resultType="failureMeasureLibVo">
+        <![CDATA[
+        select
+            id,
+            fm.subway_car_type_code as subwayCarTypeCode,
+            f_getDictByCode('subwayCarType',fm.subway_car_type_code) as subwayCarType,
+            fm.subway_door_type_code as subwayDoorTypeCode,
+            f_getDictByCode('subwayDoorType',fm.subway_door_type_code) as subwayDoorType,
+            fm.manufacturer_code as manufacturerCode,
+            f_getDictByCode('manufacturerType',fm.manufacturer_code) as manufacturer,
+            fm.sensor_type_code as sensorTypeCode,
+            f_getDictByCode('sensorType',fm.sensor_type_code) as sensorType,
+            fm.failure_cause as failureCause,
+            fm.solution as solution,
+            fm.comment as comment,
+            fm.operation as operation,
+            fm.create_user as createUser,
+            fm.create_time as createTime
+        from failure_measure_lib fm
+        ]]>
+        <where>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , subway_car_type_code ]]>
+                <![CDATA[ , subway_door_type_code ]]>
+                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , sensor_type_code ]]>
+                <![CDATA[ , failure_cause ]]>
+                <![CDATA[ , solution ]]>
+                <![CDATA[ , comment ]]>
+                <![CDATA[ , operation ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*) from failure_measure_lib fm
+        ]]>
+        <where>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , subway_car_type_code ]]>
+                <![CDATA[ , subway_door_type_code ]]>
+                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , sensor_type_code ]]>
+                <![CDATA[ , failure_cause ]]>
+                <![CDATA[ , solution ]]>
+                <![CDATA[ , comment ]]>
+                <![CDATA[ , operation ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+    </select>
+</mapper>
