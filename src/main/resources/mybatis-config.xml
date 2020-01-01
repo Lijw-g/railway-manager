@@ -18,6 +18,7 @@
         <typeAlias type="com.railway.manager.model.MonitorData" alias="monitorData"/>
         <typeAlias type="com.railway.manager.model.HeartData" alias="heartData"/>
         <typeAlias type="com.railway.manager.model.GeographicalData" alias="geographicalData"/>
+        <typeAlias type="com.railway.manager.model.EarlyWarring" alias="earlyWarring"/>
     </typeAliases>
 
     <typeHandlers>

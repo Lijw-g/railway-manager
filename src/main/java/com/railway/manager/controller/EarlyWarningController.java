@@ -2,7 +2,9 @@ package com.railway.manager.controller;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.railway.manager.model.EarlyWarring;
 import com.railway.manager.model.MonitorData;
+import com.railway.manager.service.EarlyWarringService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +27,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/api/earlyWarring")
 public class EarlyWarningController {
+    @Resource
+    private EarlyWarringService earlyWarringService;
 
     @GetMapping("/list")
     @ResponseBody
@@ -32,47 +37,25 @@ public class EarlyWarningController {
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         Map<String, Object> result = Maps.newHashMap();
-        result.put("count", 1);
-        List<MonitorData> monitorDatas = Lists.newArrayList();
-        MonitorData monitorData = new MonitorData();
-        monitorData.setLine("2");
-        monitorData.setCityCode("3");
-        monitorData.setDeviceId("234");
-        monitorData.setdAstate("1");
-        monitorData.setDegree("32");
-        monitorData.setdVstate("33");
-        monitorDatas.add(monitorData);
-        result.put("data", monitorDatas);
+        result.put("count", earlyWarringService.getCount());
+
+        result.put("data", earlyWarringService.listAllData(pageNum, pageSize));
         return result;
     }
 
     @GetMapping("/haveNewWarring")
     @ResponseBody
     @ApiOperation(value = "最新报警", notes = "最新报警")
-    public Map<String, Object> haveNewWarring(
+    public List<EarlyWarring> haveNewWarring(
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
-        Map<String, Object> result = Maps.newHashMap();
-        result.put("count", 1);
-        List<MonitorData> monitorDatas = Lists.newArrayList();
-        MonitorData monitorData = new MonitorData();
-        monitorData.setLine("5");
-        monitorData.setCityCode("8");
-        monitorData.setDeviceId("4");
-        monitorData.setdAstate("1");
-        monitorData.setDegree("32");
-        monitorData.setdVstate("33");
-        monitorDatas.add(monitorData);
-        result.put("data", monitorDatas);
-        return result;
+        return earlyWarringService.getNew();
     }
 
     @GetMapping("/sure")
     @ResponseBody
     @ApiOperation(value = "确定报警", notes = "确定报警")
-    public Map<String, Object> sure(
-            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
-        return null;
+    public int sure(@RequestParam String id) {
+        return earlyWarringService.setOld(id);
     }
 }
