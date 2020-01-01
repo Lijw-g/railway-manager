@@ -45,6 +45,9 @@
             <if test="dictName != null and dictName != ''">
                 and dict_name  like "%"#{dictName}"%"
             </if>
+            <if test="dictTypeEqual != null and dictTypeEqual != ''">
+                <![CDATA[ and dict_type  = #{dictTypeEqual} ]]>
+            </if>
         </where>
         <if test="_limit != null and _offset !=null">
             limit #{_limit} offset #{_offset}
@@ -58,6 +61,9 @@
         <where>
             <if test="dictName != null and dictName != ''">
                 and dict_name  like "%"#{dictName}"%"
+            </if>
+            <if test="dictTypeEqual != null and dictTypeEqual != ''">
+                <![CDATA[ and dict_type  = #{dictTypeEqual} ]]>
             </if>
         </where>
     </select>
