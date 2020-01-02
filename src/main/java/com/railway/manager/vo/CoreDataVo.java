@@ -13,7 +13,6 @@ import java.util.List;
  * @author: lijiwen
  * @create: 2019-12-08 20:24
  **/
-@Data
 @ApiModel("核心数据返回")
 public class CoreDataVo {
     /**
@@ -29,4 +28,27 @@ public class CoreDataVo {
 
     private int count;
 
+    public List<String> getCoreData() {
+        return coreData;
+    }
+
+    public void setCoreData(List<String> coreData) {
+        this.coreData = coreData;
+    }
+
+    public ReferenceData getReferenceData() {
+        return referenceData;
+    }
+
+    public void setReferenceData(ReferenceData referenceData) {
+        this.referenceData = referenceData;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 }
