@@ -29,11 +29,9 @@
             <if test="cityId != null and cityId != ''">
                 and city = #{cityId}
             </if>
-            <if test="beginTime != null beginTime line != ''">
-                and  created_at  ${beginTime} and #{endTime}>=created_at
+            <if test="beginTime != null and  beginTime != ''">
+                and created_at ${beginTime} and #{endTime}>=created_at
             </if>
-
-
         </where>
         order by created_at desc
         <if test="_limit != null and _offset !=null">
@@ -43,10 +41,17 @@
 
 
     <select id="selectCount" parameterType="map" resultType="int">
-        <![CDATA[
-
-                select count(*) from monitor_data
-
-        ]]>
+        select count(*) from monitor_data
+        <where>
+            <if test="line != null and line != ''">
+                and line = #{line}
+            </if>
+            <if test="cityId != null and cityId != ''">
+                and city = #{cityId}
+            </if>
+            <if test="beginTime != null and  beginTime != ''">
+                and created_at ${beginTime} and #{endTime}>=created_at
+            </if>
+        </where>
     </select>
 </mapper>

@@ -6,14 +6,11 @@ import com.railway.manager.common.query.ListQuery;
 import com.railway.manager.model.MonitorData;
 import com.railway.manager.model.ReferenceData;
 import com.railway.manager.utils.DataUtil;
-import com.railway.manager.utils.DateUtil;
 import com.railway.manager.vo.CoreDataVo;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -28,7 +25,6 @@ public class ReadMonitorDataService extends AbstractService {
 
     public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
         ListQuery query = new GenericQuery();
-        query.fill("deviceId", DataUtil.generatDeviceId(factory, cityId, line, situation));
         if (pageNum < 1) {
             pageNum = 1;
         }
@@ -37,9 +33,9 @@ public class ReadMonitorDataService extends AbstractService {
         }
         query.fill("_limit", pageSize);
         query.fill("cityId", cityId);
-        query.fill("line",line);
+        query.fill("line", line);
         query.fill("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
-        if (StringUtils.isNotEmpty(beginTime)&& StringUtils.isNotEmpty(enTime) ) {
+        if (StringUtils.isNotEmpty(beginTime) && StringUtils.isNotEmpty(enTime)) {
             query.fill("beginTime", beginTime);
             query.fill("endTime", enTime);
         }
@@ -47,6 +43,17 @@ public class ReadMonitorDataService extends AbstractService {
         //车次
         listAllData.stream().forEach(o -> o.setLine(getRailwayShift(o.getDeviceId())));
         return listAllData;
+    }
+
+    public int getCount(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
+        ListQuery query = new GenericQuery();
+        query.fill("cityId", cityId);
+        query.fill("line", line);
+        if (StringUtils.isNotEmpty(beginTime) && StringUtils.isNotEmpty(enTime)) {
+            query.fill("beginTime", beginTime);
+            query.fill("endTime", enTime);
+        }
+        return sqlSession.selectOne("monitorData.selectCount", query);
     }
 
     public CoreDataVo listMvState(String factory, String city, String line, String situation) {

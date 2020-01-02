@@ -3,6 +3,7 @@ package com.railway.manager.controller;
 import com.railway.manager.model.MonitorData;
 import com.railway.manager.service.ReadMonitorDataService;
 import com.railway.manager.vo.CoreDataVo;
+import com.railway.manager.vo.OperationConditionVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: railway-manager
@@ -40,7 +42,7 @@ public class ReadMonitorDataController {
             @RequestParam(defaultValue = "") String line,
             @ApiParam("运行情况")
             @RequestParam(defaultValue = "") String situation) {
-        return readMonitorDataService.listMvState(factory,city,line,situation);
+        return readMonitorDataService.listMvState(factory, city, line, situation);
     }
 
     @GetMapping("/getMAState")
@@ -55,7 +57,7 @@ public class ReadMonitorDataController {
             @RequestParam(defaultValue = "") String line,
             @ApiParam("运行情况")
             @RequestParam(defaultValue = "") String situation) {
-        return readMonitorDataService.listMAState(factory,city,line,situation);
+        return readMonitorDataService.listMAState(factory, city, line, situation);
     }
 
     @GetMapping("/getMTState")
@@ -71,7 +73,7 @@ public class ReadMonitorDataController {
             @ApiParam("运行情况")
             @RequestParam(defaultValue = "") String situation
     ) {
-        return readMonitorDataService.listMTState(factory,city,line,situation);
+        return readMonitorDataService.listMTState(factory, city, line, situation);
     }
 
     @GetMapping("/getDVState")
@@ -85,7 +87,7 @@ public class ReadMonitorDataController {
                                   @RequestParam(defaultValue = "") String line,
                                   @ApiParam("运行情况")
                                   @RequestParam(defaultValue = "") String situation) {
-        return readMonitorDataService.listDVState(factory,city,line,situation);
+        return readMonitorDataService.listDVState(factory, city, line, situation);
     }
 
     @GetMapping("/getDAState")
@@ -99,7 +101,7 @@ public class ReadMonitorDataController {
                                   @RequestParam(defaultValue = "") String line,
                                   @ApiParam("运行情况")
                                   @RequestParam(defaultValue = "") String situation) {
-        return readMonitorDataService.listDAState(factory,city,line,situation);
+        return readMonitorDataService.listDAState(factory, city, line, situation);
     }
 
     @GetMapping("/getDTState")
@@ -113,7 +115,7 @@ public class ReadMonitorDataController {
                                   @RequestParam(defaultValue = "") String line,
                                   @ApiParam("运行情况")
                                   @RequestParam(defaultValue = "") String situation) {
-        return readMonitorDataService.listDTState(factory,city,line,situation);
+        return readMonitorDataService.listDTState(factory, city, line, situation);
     }
 
     @GetMapping("/getDegree")
@@ -127,13 +129,13 @@ public class ReadMonitorDataController {
                                  @RequestParam(defaultValue = "") String line,
                                  @ApiParam("运行情况")
                                  @RequestParam(defaultValue = "") String situation) {
-        return readMonitorDataService.listDegree(factory,city,line,situation);
+        return readMonitorDataService.listDegree(factory, city, line, situation);
     }
 
     @GetMapping("/listAllData")
     @ResponseBody
-    @ApiOperation(value = "所有数据信息", notes = "所有数据信息数据统计")
-    public List<MonitorData> listAllData(
+    @ApiOperation(value = "车辆运行情况/和获取所有数据", notes = "车辆运行情况/和获取所有数据")
+    public OperationConditionVo listAllData(
             @ApiParam("厂家")
             @RequestParam(defaultValue = "") String factory,
             @ApiParam("城市")
@@ -144,9 +146,12 @@ public class ReadMonitorDataController {
             @RequestParam(defaultValue = "") String situation,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @RequestParam(required = false,defaultValue = "") String beginTime,
-            @RequestParam(required = false ,defaultValue = "") String enTime) {
-        return readMonitorDataService.listAllData(factory, city, line, situation, pageNum, pageSize,beginTime,enTime);
+            @RequestParam(required = false, defaultValue = "") String beginTime,
+            @RequestParam(required = false, defaultValue = "") String enTime) {
+        OperationConditionVo operationConditionVo = new OperationConditionVo();
+        operationConditionVo.setData(readMonitorDataService.listAllData(factory, city, line, situation, pageNum, pageSize, beginTime, enTime));
+        operationConditionVo.setCount(readMonitorDataService.getCount(factory, city, line, situation, pageNum, pageSize, beginTime, enTime));
+        return operationConditionVo;
     }
 
 
