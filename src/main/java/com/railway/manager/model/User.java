@@ -1,9 +1,11 @@
 package com.railway.manager.model;
 
+import com.railway.manager.entity.UserAdd;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +20,20 @@ import java.util.List;
 @ApiModel("用户信息表")
 @Accessors(chain = true)
 public class User {
+
+    public User() {
+
+    }
+
+    public User(UserAdd userAdd) {
+        this.userName = userAdd.getUserName().trim();
+        this.displayName = userAdd.getDisplayName();
+        this.sex = userAdd.getSex();
+        this.phone = userAdd.getPhone();
+        this.status = userAdd.getStatus();
+        this.password = "000000";
+    }
+
     @ApiModelProperty("用户名")
     private String userName;
     @ApiModelProperty("展示名")
@@ -31,7 +47,9 @@ public class User {
     @ApiModelProperty("手机号码")
     private String phone;
     @ApiModelProperty("性别")
-    private int sex;
+    private Integer sex;
+    @ApiModelProperty("状态（1启用 0不启用）")
+    private Integer status;
     /**
      * 关联属性 1
      */
@@ -42,6 +60,4 @@ public class User {
     private Date createTime;
     private String updateUser;
     private Date updateTime;
-
-
 }
