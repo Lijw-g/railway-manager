@@ -14,22 +14,21 @@
 
     <select id="selectList" parameterType="map" resultType="userVo">
         <![CDATA[
-        select
-            id,
-            u.user_name as userName,
-            u.display_name as displayName,
-            u.phone,
-            u.sex,
-            f_getDictByCode('sex',u.sex) as sexName,
-            u.status,
-            f_getDictByCode('status',u.status) as statusName,
-            u.create_time as createTime
-        from user u
+            select
+                u.user_name as userName,
+                u.display_name as displayName,
+                u.phone,
+                u.sex,
+                f_getDictByCode('sex',u.sex) as sexName,
+                u.status,
+                f_getDictByCode('status',u.status) as statusName,
+                u.create_time as createTime,
+                ru.role_code as roleCode
+            from user u
+                left join role_user ru
+                    on u.user_name = ru.user_name
         ]]>
         <where>
-            <if test="roleCode != null and roleCode != ''">
-                and ur.role_code = #{roleCode}
-            </if>
             <if test="name != null and name != ''">
                 and u.user_name like "%"#{name}"%"
             </if>
@@ -51,15 +50,9 @@
 
     <select id="selectCount" parameterType="map" resultType="int">
         <![CDATA[
-        select count(*) from user u
+            select count(*) from user u
         ]]>
-        <if test="roleCode != null and roleCode != ''">
-            join cms_user_role ur on u.name = ur.user_name
-        </if>
         <where>
-            <if test="roleCode != null and roleCode != ''">
-                and ur.role_code = #{roleCode}
-            </if>
             <if test="name != null and name != ''">
                 and u.user_name like "%"#{name}"%"
             </if>

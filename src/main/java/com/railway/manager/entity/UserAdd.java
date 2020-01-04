@@ -29,4 +29,6 @@ public class UserAdd {
     private Integer sex;
     @ApiModelProperty("状态（1启用 0不启用）")
     private Integer status;
+    @ApiModelProperty("角色编码")
+    private String roleCode;
 }

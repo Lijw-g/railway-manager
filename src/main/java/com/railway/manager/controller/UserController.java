@@ -60,7 +60,7 @@ public class UserController {
 
     @PostMapping("/add")
     @ResponseBody
-    @ApiOperation(value = "添加用户信息", notes = "添加用户信息")
+    @ApiOperation(value = "添加用户信息", notes = "用户名唯一")
     public Map<String, Object> addUser(UserAdd user) {
         return userService.add(user);
     }

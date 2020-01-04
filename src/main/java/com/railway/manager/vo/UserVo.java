@@ -18,8 +18,6 @@ import java.util.Date;
 @Accessors(chain = true)
 public class UserVo {
 
-    private Integer id;
-
     @ApiModelProperty("账号")
     private String userName;
     @ApiModelProperty("用户名")
@@ -36,4 +34,7 @@ public class UserVo {
     private String statusName;
     @ApiModelProperty("创建时间")
     private Date createTime;
+
+    @ApiModelProperty("角色编码")
+    private String roleCode;
 }

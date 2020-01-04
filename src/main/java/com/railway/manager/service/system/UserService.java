@@ -2,6 +2,7 @@ package com.railway.manager.service.system;
 
 import com.google.common.collect.Maps;
 import com.railway.manager.entity.UserAdd;
+import com.railway.manager.model.RoleUser;
 import com.railway.manager.service.AbstractService;
 import com.railway.manager.model.User;
 import com.railway.manager.vo.UserVo;
@@ -53,9 +54,35 @@ public class UserService extends AbstractService {
             return resultMap;
         }
 
+        //根据角色编码判断角色是否存在
+        if(StringUtils.isBlank(userAdd.getRoleCode())) {
+            resultMap.put("code", "301");
+            resultMap.put("description", "角色编码不能为空");
+
+            return resultMap;
+        }
+
+        userAdd.setRoleCode(userAdd.getRoleCode().trim());
+
+        Map<String, Object> conditionRoleMap = new HashMap<String, Object>();
+        conditionRoleMap.put("roleCodeEqual", userAdd.getRoleCode());
+        int roleCount = sqlSession.selectOne("role.selectCount", conditionRoleMap);
+
+        resultMap = checkRoleCount(roleCount);
+
+        if(resultMap != null) {
+            return resultMap;
+        }
+        resultMap = Maps.newHashMap();
+
         int countAdd = -1;
         User user = new User(userAdd);
         countAdd = sqlSession.insert("user.insert", user);
+
+        //数据库中添加用户角色对应关系数据
+        RoleUser roleUser = new RoleUser(userAdd);
+
+        sqlSession.insert("roleUser.insert", roleUser);
 
         if(countAdd > 0) {
             resultMap.put("code", "200");
@@ -117,9 +144,38 @@ public class UserService extends AbstractService {
             return resultMap;
         }
 
+        //检查用户对应角色信息
+        if(StringUtils.isBlank(userAdd.getRoleCode())) {
+            resultMap.put("code", "301");
+            resultMap.put("description", "角色编码不能为空");
+
+            return resultMap;
+        }
+
+        userAdd.setRoleCode(userAdd.getRoleCode().trim());
+
+        Map<String, Object> conditionRoleMap = new HashMap<String, Object>();
+        conditionRoleMap.put("roleCodeEqual", userAdd.getRoleCode());
+        int roleCount = sqlSession.selectOne("role.selectCount", conditionRoleMap);
+
+        resultMap = checkRoleCount(roleCount);
+
+        if(resultMap != null) {
+            return resultMap;
+        }
+        resultMap = Maps.newHashMap();
+
         int countUpdate = -1;
         User user = new User(userAdd);
         countUpdate = sqlSession.update("user.update", user);
+
+        //删除角色用户配置信息，并添加新的
+        conditionRoleMap.put("userNameEqual", userAdd.getUserName());
+        sqlSession.delete("roleUser.delete", conditionRoleMap);
+        //数据库中添加用户角色对应关系数据
+        RoleUser roleUser = new RoleUser(userAdd);
+
+        sqlSession.insert("roleUser.insert", roleUser);
 
         if(countUpdate > 0) {
             resultMap.put("code", "200");
@@ -290,5 +346,22 @@ public class UserService extends AbstractService {
         }
 
         return true;
+    }
+
+    private Map<String, Object> checkRoleCount(int roleCount) {
+
+        Map<String, Object> resultMap = Maps.newHashMap();
+
+        if(roleCount < 1) {
+            resultMap.put("code", "302");
+            resultMap.put("description", "角色编码对应角色不存在");
+            return resultMap;
+        } else if(roleCount > 1) {
+            resultMap.put("code", "303");
+            resultMap.put("description", "角色编码对应多个角色，请检查角色信息");
+            return resultMap;
+        }
+
+        return null;
     }
 }
