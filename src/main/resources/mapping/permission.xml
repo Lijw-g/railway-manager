@@ -5,5 +5,58 @@
 
 <mapper namespace="permission">
 
+    <select id="selectList" parameterType="map" resultType="permissionVo">
+        <![CDATA[
+            select
+                p.id,
+                p.parent_id as parentId,
+                p.name,
+                p.url,
+                p.menu_type_code as menuTypeCode,
+                f_getDictByCode('menuType',p.menu_type_code) as menuTypeName,
+                p.perms,
+                p.sort_no as sortNo,
+                p.is_leaf as isLeaf,
+                f_getDictByCode('isLeaf',p.is_leaf) as isLeafVal,
+                p.description,
+                p.status,
+                f_getDictByCode('status',p.status) as statusName
+            from permission p
+        ]]>
+        <where>
+            <if test="menuTypeCodeEqual != null and menuTypeCodeEqual != ''">
+                and p.menu_type_code = #{menuTypeCodeEqual}
+            </if>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , p.name ]]>
+                <![CDATA[ , p.url ]]>
+                <![CDATA[ , p.perms ]]>
+                <![CDATA[ , p.description ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
+    </select>
 
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+            select count(*) from permission p
+        ]]>
+        <where>
+            <if test="menuTypeCodeEqual != null and menuTypeCodeEqual != ''">
+                and p.menu_type_code = #{menuTypeCodeEqual}
+            </if>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , p.name ]]>
+                <![CDATA[ , p.url ]]>
+                <![CDATA[ , p.perms ]]>
+                <![CDATA[ , p.description ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+    </select>
 </mapper>
