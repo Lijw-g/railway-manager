@@ -31,7 +31,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
     @ApiOperation(value = "查询所有用户", notes = "查询方法")
     public Map<String, Object> getListUser (

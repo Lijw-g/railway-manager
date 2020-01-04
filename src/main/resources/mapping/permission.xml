@@ -5,6 +5,32 @@
 
 <mapper namespace="permission">
 
+    <insert id="insert" parameterType="permission">
+        <![CDATA[
+            insert into permission (parent_id, name, url, menu_type_code, perms, sort_no, is_leaf, description, status, create_user)
+                      values (#{parentId}, #{name}, #{url}, #{menuTypeCode}, #{perms}, #{sortNo}, #{isLeaf}, #{description}, #{status}, #{createUser})
+        ]]>
+    </insert>
+
+    <update id="update" parameterType="permission">
+        <![CDATA[
+        update permission p
+            set
+            p.parent_id = #{parentId},
+            p.name = #{name},
+            p.url = #{url},
+            p.perms = #{perms},
+            p.sort_no = #{sortNo},
+            p.is_leaf = #{isLeaf},
+            p.description = #{description},
+            p.status = #{status},
+            p.update_time = #{updatedTime}
+        ]]>
+        <where>
+            p.id = #{id}
+        </where>
+    </update>
+
     <select id="selectList" parameterType="map" resultType="permissionVo">
         <![CDATA[
             select
@@ -24,7 +50,13 @@
             from permission p
         ]]>
         <where>
-            <if test="menuTypeCodeEqual != null and menuTypeCodeEqual != ''">
+            <if test="idEqual != null">
+                and p.id = #{idEqual}
+            </if>
+            <if test="parentIdEqual != null">
+                and p.parent_id = #{parentIdEqual}
+            </if>
+            <if test="menuTypeCodeEqual != null">
                 and p.menu_type_code = #{menuTypeCodeEqual}
             </if>
             <if test="advanceColumnLike != null">
@@ -46,7 +78,13 @@
             select count(*) from permission p
         ]]>
         <where>
-            <if test="menuTypeCodeEqual != null and menuTypeCodeEqual != ''">
+            <if test="idEqual != null">
+                and p.id = #{idEqual}
+            </if>
+            <if test="parentIdEqual != null">
+                and p.parent_id = #{parentIdEqual}
+            </if>
+            <if test="menuTypeCodeEqual != null">
                 and p.menu_type_code = #{menuTypeCodeEqual}
             </if>
             <if test="advanceColumnLike != null">
@@ -59,4 +97,10 @@
             </if>
         </where>
     </select>
+
+    <delete id="delete" parameterType="int">
+        <![CDATA[
+            delete from permission where id = #{id}
+        ]]>
+    </delete>
 </mapper>

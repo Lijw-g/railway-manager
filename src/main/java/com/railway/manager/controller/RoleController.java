@@ -35,7 +35,7 @@ public class RoleController {
     @Autowired
     private UserRoleService userRoleService;
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
     @ApiOperation(value = "查询所有角色信息", notes = "查询所有角色信息")
     public Map<String, Object> roleList(@RequestParam(value="页码",required = false,defaultValue = "1") Integer pageNum,

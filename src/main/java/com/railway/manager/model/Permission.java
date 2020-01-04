@@ -1,5 +1,7 @@
 package com.railway.manager.model;
 
+import com.railway.manager.Enum.ConstantEnum;
+import com.railway.manager.entity.PermissionAdd;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,6 +19,28 @@ import java.util.Date;
 @Accessors(chain = true)
 @ApiModel("权限信息")
 public class Permission {
+
+    public Permission() {
+
+    }
+
+    public Permission(PermissionAdd permissionAdd) {
+        this.parentId = permissionAdd.getParentId();
+        this.name = permissionAdd.getName();
+        this.url = permissionAdd.getUrl();
+        this.menuTypeCode = permissionAdd.getMenuTypeCode();
+        this.perms = permissionAdd.getPerms();
+        this.sortNo = permissionAdd.getSortNo();
+
+        if(ConstantEnum.menuType_dir == permissionAdd.getMenuTypeCode()) {
+            this.isLeaf = ConstantEnum.isLeaf_no;
+        } else {
+            this.isLeaf = ConstantEnum.isLeaf_yes;
+        }
+
+        this.description = permissionAdd.getDescription();
+        this.status = permissionAdd.getStatus();
+    }
 
     @ApiModelProperty("id")
     private Integer id;

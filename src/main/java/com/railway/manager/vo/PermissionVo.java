@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: railway_manager
@@ -43,5 +44,7 @@ public class PermissionVo {
     @ApiModelProperty("状态（1启用 0不启用）")
     private Integer status;
     @ApiModelProperty("状态（1启用 0不启用）")
-    private Integer statusName;
+    private String statusName;
+
+    private List<PermissionVo> permissionList;
 }
