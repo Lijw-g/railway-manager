@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @program: railway_manager
@@ -356,12 +357,22 @@ public class UserService extends AbstractService {
             resultMap.put("code", "302");
             resultMap.put("description", "角色编码对应角色不存在");
             return resultMap;
-        } else if(roleCount > 1) {
+        } else if (roleCount > 1) {
             resultMap.put("code", "303");
             resultMap.put("description", "角色编码对应多个角色，请检查角色信息");
             return resultMap;
         }
 
         return null;
+    }
+
+    public UserVo getPersonInfo(String userId) {
+        Map<String, Object> conditionMap = Maps.newHashMap();
+        conditionMap.put("userId", userId);
+        UserVo userVo = sqlSession.selectOne("user.getUserById", conditionMap);
+        if (Objects.isNull(userVo)) {
+            return null;
+        }
+        return userVo;
     }
 }

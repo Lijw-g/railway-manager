@@ -75,8 +75,16 @@ public class UserController {
     @PostMapping("/resetPwd")
     @ResponseBody
     @ApiOperation(value = "重置用户密码", notes = "重置用户密码")
-    public Map<String, Object> resetPassword(@RequestParam String userName,@RequestParam String oldPassword,
-                                             @RequestParam String newPassword,@RequestParam String pwdConfirm) {
+    public Map<String, Object> resetPassword(@RequestParam String userName, @RequestParam String oldPassword,
+                                             @RequestParam String newPassword, @RequestParam String pwdConfirm) {
         return userService.resetPassword(userName, oldPassword, newPassword, pwdConfirm);
     }
+
+    @GetMapping("/personInfo")
+    @ResponseBody
+    @ApiOperation(value = "个人中心", notes = "个人中心")
+    public UserVo getPersonInfo(@RequestParam String userId) {
+        return userService.getPersonInfo(userId);
+    }
+
 }
