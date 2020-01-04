@@ -1,10 +1,12 @@
 package com.railway.manager.service.system;
 
+import com.google.common.collect.Maps;
 import com.railway.manager.model.SubwayCarLib;
 import com.railway.manager.service.AbstractService;
 import com.railway.manager.vo.SubwayCarLibVo;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,10 +39,33 @@ public class SubwayCarLibService extends AbstractService {
 
     /**
      * Description: 计算符合要求的数据量
+     *
      * @param map
      * @return
      */
-    public int selectCount(Map<String,Object> map) {
+    public int selectCount(Map<String, Object> map) {
         return sqlSession.selectOne("subwayCarLib.selectCount", map);
+    }
+
+    /**
+     * 修改
+     *
+     * @param subwayCarLib
+     * @return
+     */
+    public int editSubwayCarLib(SubwayCarLib subwayCarLib) {
+        return sqlSession.update("subwayCarLib.update", subwayCarLib);
+    }
+
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+    public int delete(String id) {
+        Map<String, Object> conditionMap = Maps.newHashMap();
+        conditionMap.put("id", id);
+        return sqlSession.delete("subwayCarLib.delete", conditionMap);
     }
 }

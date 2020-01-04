@@ -236,12 +236,16 @@ public class ReadMonitorDataService extends AbstractService {
     }
 
     private void filters(String city, String line, ListQuery query) {
+        int pageSize = 20;
+        int pageNum = 1;
         if (StringUtils.isNotEmpty(city)) {
             query.fill("city", city);
         }
         if (StringUtils.isNotEmpty(line)) {
             query.fill("line", line);
         }
+        query.fill("_limit", pageSize);
+        query.fill("_offset", (pageNum - 1) * pageSize);
     }
 
     private String getRailwayShift(String deviceId) {

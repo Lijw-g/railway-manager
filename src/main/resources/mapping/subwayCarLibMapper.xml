@@ -7,8 +7,10 @@
 
     <insert id="insert" parameterType="subwayCarLib">
         <![CDATA[
-        insert into subway_car_lib (city_code, subway_car_type_code, door_quantity, manufacturer_code, market_time, line_code, comment, create_user)
-            values (#{cityCode}, #{subwayCarTypeCode}, #{doorQuantity}, #{manufacturerCode}, #{marketTime}, #{lineCode}, #{comment}, #{createUser})
+
+                insert into subway_car_lib (city_code, subway_car_type_code, door_quantity, manufacturer_code, market_time, line_code, comment, create_user)
+                    values (#{cityCode}, #{subwayCarTypeCode}, #{doorQuantity}, #{manufacturerCode}, #{marketTime}, #{lineCode}, #{comment}, #{createUser})
+
         ]]>
     </insert>
 
@@ -67,4 +69,29 @@
             </if>
         </where>
     </select>
+
+    <select id="update" parameterType="subwayCarLib" resultType="int">
+        <![CDATA[
+        update subway_car_lib dict
+            set
+            dict.city_code = #{cityCode},
+            dict.subway_car_type_code = #{subwayCarTypeCode},
+            dict.door_quantity = #{doorQuantity},
+            dict.manufacturer_code = #{manufacturerCode},
+            dict.line_code = #{lineCode},
+            dict.comment = #{comment},
+            dict.market_time = #{marketTime}
+        ]]>
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <delete id="delete" parameterType="map">
+        <![CDATA[
+
+                delete from subway_car_lib  where id = #{id}
+
+        ]]>
+    </delete>
 </mapper>

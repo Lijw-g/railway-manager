@@ -22,11 +22,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 轨道交通车辆型号库接口
  * @author: chenglin
  * @create: 2019-12-29 11:22
- * @version 1.0
  **/
 @Api(tags = "轨道交通车辆型号库接口", value = "轨道交通车辆型号库接口")
 @Controller
@@ -45,41 +45,28 @@ public class SubwayCarLibController {
         //initDataBinder(request, binder);
     }
 
-    @PostMapping("/add")
-    @ResponseBody
-    @ApiOperation(value = "添加轨道交通车辆型号库", notes = "添加轨道交通车辆型号库")
-    public Map<String, Object> addSubwayCarLib(SubwayCarLib subwayCarLib) {
-
-        int count = subwayCarLibService.add(subwayCarLib);
-
-        //返回结果
-        Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
-
-        return resultMap;
-    }
-
     @PostMapping("/list")
     @ResponseBody
     @ApiOperation(value = "轨道交通车辆型号库查询", notes = "轨道交通车辆型号库查询")
     public Map<String, Object> subwayCarLibList(@RequestParam(required = false) String advanceColumn,
-                                     @RequestParam(required = false,defaultValue = "1") Integer pageNum,
-                                     @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
+                                                @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
 
         Map<String, Object> conditionMap = new HashMap<String, Object>();
-        if(!StringUtils.isBlank(advanceColumn)) {
-            conditionMap.put("advanceColumnLike", "%"+advanceColumn.trim()+"%");
+        if (!StringUtils.isBlank(advanceColumn)) {
+            conditionMap.put("advanceColumnLike", "%" + advanceColumn.trim() + "%");
         }
 
-        if( pageNum<1) {
+        if (pageNum < 1) {
             pageNum = 1;
         }
-        if( pageSize<1) {
+        if (pageSize < 1) {
             pageSize = 10;
         }
 
-        if(pageNum!=null && pageSize!=null) {
+        if (pageNum != null && pageSize != null) {
             conditionMap.put("_limit", pageSize);
-            conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
+            conditionMap.put("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
         }
 
         List<SubwayCarLibVo> subwayCarLibVoList = subwayCarLibService.getList(conditionMap);
@@ -93,6 +80,36 @@ public class SubwayCarLibController {
         resultMap.put("currentCount", subwayCarLibVoList.size());
         resultMap.put("subwayCarLibVoList", subwayCarLibVoList);
 
+        return resultMap;
+    }
+
+    @PostMapping("/add")
+    @ResponseBody
+    @ApiOperation(value = "添加轨道交通车辆型号库", notes = "添加轨道交通车辆型号库")
+    public Map<String, Object> addSubwayCarLib(SubwayCarLib subwayCarLib) {
+        int count = subwayCarLibService.add(subwayCarLib);
+        //返回结果
+        Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
+        return resultMap;
+    }
+
+    @PostMapping("/edit")
+    @ResponseBody
+    @ApiOperation(value = "修改轨道交通车辆型号库", notes = "修改轨道交通车辆型号库")
+    public Map<String, Object> editSubwayCarLib(SubwayCarLib subwayCarLib) {
+        int count = subwayCarLibService.editSubwayCarLib(subwayCarLib);
+        //返回结果
+        Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
+        return resultMap;
+    }
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    @ApiOperation(value = "删除轨道交通车辆型号库", notes = "删除轨道交通车辆型号库")
+    public Map<String, Object> delete(String id) {
+        int count = subwayCarLibService.delete(id);
+        //返回结果
+        Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
         return resultMap;
     }
 }
