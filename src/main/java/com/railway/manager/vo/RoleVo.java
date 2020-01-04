@@ -1,4 +1,4 @@
-package com.railway.manager.model;
+package com.railway.manager.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,27 +9,23 @@ import java.util.Date;
 
 /**
  * @program: railway_manager
- * @description: 角色
- * @author: lijiwen
- * @create: 2019-09-15 13:24
+ * @description: 角色vo
+ * @author: chenglin
+ * @create: 2020-01-04 10:00
  **/
 @Data
 @Accessors(chain = true)
-@ApiModel("角色信息")
-public class Role {
+@ApiModel("角色信息vo")
+public class RoleVo {
 
-    @ApiModelProperty("角色代码")
+    @ApiModelProperty("角色编码")
     private String roleCode;
-    @ApiModelProperty("角色名字")
+    @ApiModelProperty("角色名称")
     private String roleName;
     @ApiModelProperty("状态（1启用 0不启用）")
     private Integer status;
-    @ApiModelProperty("创建人")
-    private String createUser;
+    @ApiModelProperty("状态名称")
+    private String statusName;
     @ApiModelProperty("创建时间")
     private Date createdTime;
-    @ApiModelProperty("修改人")
-    private String updateUser;
-    @ApiModelProperty("修改时间")
-    private Date updatedTime;
 }

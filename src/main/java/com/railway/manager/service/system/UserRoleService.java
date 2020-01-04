@@ -2,9 +2,10 @@ package com.railway.manager.service.system;
 
 import com.railway.manager.model.Role;
 import com.railway.manager.service.AbstractService;
+import com.railway.manager.vo.RoleVo;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,21 +17,51 @@ import java.util.Map;
  **/
 @Service
 public class UserRoleService  extends AbstractService {
-    public List<Role> listRole(Map<String, Object> conditionMap) {
-        return sqlSession.selectList("role.select", conditionMap);
 
+    /**
+     * Description: 查找角色数据
+     * @param conditionMap
+     * @return
+     */
+    public List<RoleVo> getList(Map<String, Object> conditionMap) {
+        return sqlSession.selectList("role.selectList", conditionMap);
     }
 
+    /**
+     * Description: 添加角色信息
+     * @param role
+     * @return
+     */
     public int add(Role role) {
         return sqlSession.insert("role.insert", role);
     }
 
-    public int editUser(Role role) {
-        role.setUpdatedTime(new Date());
+    public int editRole(Role role) {
         return sqlSession.update("role.update", role);
     }
 
-    public int delRole(Role role) {
-        return sqlSession.delete("role.delete", role);
+    /**
+     * Description: 删除角色信息
+     * @param roleCode
+     * @return
+     */
+    public int deleteRole(String roleCode) {
+
+        Map<String, Object> conditionMap = new HashMap<String, Object>();
+        conditionMap.put("roleCodeEqual", roleCode);
+        if(selectCount(conditionMap) != 1) {
+            return -1;
+        } else {
+            return sqlSession.delete("role.delete", roleCode);
+        }
+    }
+
+    /**
+     * Description: 计算符合要求的数据量
+     * @param map
+     * @return
+     */
+    public int selectCount(Map<String,Object> map) {
+        return sqlSession.selectOne("role.selectCount", map);
     }
 }

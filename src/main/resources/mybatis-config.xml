@@ -11,6 +11,7 @@
 
     <typeAliases>
         <typeAlias type="com.railway.manager.model.Role" alias="role"/>
+        <typeAlias type="com.railway.manager.vo.RoleVo" alias="roleVo"/>
         <typeAlias type="com.railway.manager.model.User" alias="user"/>
         <typeAlias type="com.railway.manager.vo.UserVo" alias="userVo"/>
         <typeAlias type="com.railway.manager.model.log.LoginLog" alias="loginLog"/>

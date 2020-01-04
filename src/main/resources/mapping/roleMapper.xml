@@ -5,24 +5,28 @@
 
 <mapper namespace="role">
 
-    <select id="select" parameterType="map" resultType="role">
+    <select id="selectList" parameterType="map" resultType="roleVo">
         <![CDATA[
-        select
-        id,
-        role_code as roleCode,
-        role_name as roleName,
-        created_at as createdTime,
-        create_user as createUser,
-        update_user as updateUser,
-        updated_at as updatedTime
-        from role
-    ]]>
+            select
+            role_code as roleCode,
+            role_name as roleName,
+            status,
+            f_getDictByCode('status',status) as statusName,
+            created_at as createdTime
+            from role
+        ]]>
         <where>
             <if test="roleCode != null and roleCode != ''">
-                and role_code = #{roleCode}
+                and TRIM(role_code) = #{roleCode}
             </if>
             <if test="roleName != null and roleName != ''">
                 and role_name = #{roleName}
+            </if>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , role_code ]]>
+                <![CDATA[ , role_name ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
             </if>
         </where>
         <if test="_limit != null and _offset !=null">
@@ -31,32 +35,43 @@
     </select>
 
 
-    <delete id="delete" parameterType="map">
+    <delete id="delete" parameterType="string">
         <![CDATA[
-        delete from role where role_code = #{roleCode}
-
+            delete from role where role_code = #{roleCode}
         ]]>
     </delete>
 
     <insert id="insert" parameterType="role">
         <![CDATA[
-        insert into role (role_code, role_name, create_user,update_user)
-                      values (#{roleCode}, #{roleName}, #{createUser},#{updateUser})
+            insert into role (role_code, role_name, create_user, update_user)
+                      values (#{roleCode}, #{roleName}, #{createUser}, #{updateUser})
         ]]>
     </insert>
     <update id="update" parameterType="role">
         <![CDATA[
-        update role
+            update role
         ]]>
         <set>
-            <if test="roleName != null and roleName !=''">
-                role_name = #{roleName},
-            </if>
-            <if test="updateUser != null and updateUser != ''">
-                update_user = #{updateUser},
-            </if>
+            role_name = #{roleName},
+            updated_at = #{updatedTime}
         </set>
         where role_code = #{roleCode}
     </update>
 
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*) from role r
+        ]]>
+        <where>
+            <if test="roleCodeEqual != null and roleCodeEqual != ''">
+                and TRIM(role_code) = #{roleCodeEqual}
+            </if>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , role_code ]]>
+                <![CDATA[ , role_name ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
+            </if>
+        </where>
+    </select>
 </mapper>
