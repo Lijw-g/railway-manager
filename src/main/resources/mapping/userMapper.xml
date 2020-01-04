@@ -7,8 +7,14 @@
 
     <insert id="insert" parameterType="user">
         <![CDATA[
-        insert into user (user_name, display_name, password, create_user, update_user,sex,phone,status)
-        values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone},#{status})
+
+
+
+                                insert into user (user_name, display_name, password, create_user, update_user,sex,phone,status)
+                                values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone},#{status})
+
+
+
         ]]>
     </insert>
 
@@ -46,6 +52,30 @@
         <if test="_limit != null and _offset !=null">
             limit #{_limit} offset #{_offset}
         </if>
+    </select>
+
+    <select id="getUserById" parameterType="map" resultType="userVo">
+        <![CDATA[
+            select
+            u.id,
+                u.user_name as userName,
+                u.display_name as displayName,
+                u.phone,
+                u.sex,
+                f_getDictByCode('sex',u.sex) as sexName,
+                u.status,
+                f_getDictByCode('status',u.status) as statusName,
+                u.create_time as createTime,
+                ru.role_code as roleCode
+            from user u
+                left join role_user ru
+                    on u.user_name = ru.user_name
+        ]]>
+        <where>
+            <if test="userId != null and userId != ''">
+                and u.id = #{userId}
+            </if>
+        </where>
     </select>
 
     <select id="selectCount" parameterType="map" resultType="int">
@@ -100,9 +130,16 @@
 
     <delete id="delete" parameterType="map">
         <![CDATA[
-        delete
-        from user
-        where user_name = #{name}
-        ]]>
+
+
+
+
+                                        delete
+                                        from user
+                                        where user_name = #{name}
+
+
+
+]]>
     </delete>
 </mapper>

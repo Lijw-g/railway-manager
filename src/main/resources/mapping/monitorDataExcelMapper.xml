@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="monitorDataExcel">
+    <select id="list" parameterType="map" resultType="monitorDataExcel">
+        <![CDATA[
+        select
+            id,
+            city,
+            line,
+            deviceId,
+            m_vstate as mVstate ,
+            m_astate as mAstate ,
+            m_tstate as mTstate ,
+            d_vstate as dVstate ,
+            d_astate as dAstate ,
+            d_tstate as dTstate ,
+            degree,
+            created_at as createdAt
+        from monitor_data
+        ]]>
+        <where>
+            <if test="beginTime != null and  beginTime != ''">
+                and created_at between #{beginTime} AND #{endTime}
+            </if>
+        </where>
+        order by created_at desc
+    </select>
+</mapper>

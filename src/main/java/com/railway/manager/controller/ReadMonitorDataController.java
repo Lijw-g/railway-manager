@@ -1,7 +1,8 @@
 package com.railway.manager.controller;
 
-import com.railway.manager.model.MonitorData;
+import com.railway.manager.model.excel.MonitorData;
 import com.railway.manager.service.ReadMonitorDataService;
+import com.railway.manager.utils.ExcelUtiles;
 import com.railway.manager.vo.CoreDataVo;
 import com.railway.manager.vo.OperationConditionVo;
 import io.swagger.annotations.Api;
@@ -9,11 +10,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -134,7 +133,7 @@ public class ReadMonitorDataController {
 
     @GetMapping("/listAllData")
     @ResponseBody
-    @ApiOperation(value = "车辆运行情况/和获取所有数据", notes = "车辆运行情况/和获取所有数据")
+    @ApiOperation(value = "车辆运行情况和获取所有数据", notes = "车辆运行情况和获取所有数据")
     public OperationConditionVo listAllData(
             @ApiParam("厂家")
             @RequestParam(defaultValue = "") String factory,
@@ -154,5 +153,14 @@ public class ReadMonitorDataController {
         return operationConditionVo;
     }
 
+    @GetMapping(value = "export")
+    @ResponseBody
+    @ApiOperation(value = "导出数据", notes = "导出数据")
+    public void export(HttpServletResponse response) {
+        //模拟从数据库获取需要导出的数据
+        List<MonitorData> monitorDataList = readMonitorDataService.listAllData();
+        //导出操作
+        ExcelUtiles.exportExcel(monitorDataList, "数据统计表", "数据统计表", MonitorData.class, "数据统计.xls", response);
+    }
 
 }

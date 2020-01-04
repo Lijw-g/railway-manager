@@ -10,8 +10,8 @@ import com.railway.manager.vo.CoreDataVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
  **/
 @Service
 public class ReadMonitorDataService extends AbstractService {
+    ListQuery query = new GenericQuery();
 
     public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
-        ListQuery query = new GenericQuery();
         if (pageNum < 1) {
             pageNum = 1;
         }
@@ -45,8 +45,34 @@ public class ReadMonitorDataService extends AbstractService {
         return listAllData;
     }
 
-    public int getCount(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
+    public List<com.railway.manager.model.excel.MonitorData> listAllData() {
         ListQuery query = new GenericQuery();
+        Calendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.DAY_OF_MONTH, 0);
+        //一天的开始时间 yyyy:MM:dd 00:00:00
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date dayStart = calendar.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String beginTime = simpleDateFormat.format(dayStart);
+
+        //第二天的开始时间 yyyy:MM:dd 00:00:00
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date dayEnd = calendar.getTime();
+        String endTime = simpleDateFormat.format(dayEnd);
+
+        query.fill("beginTime", beginTime);
+        query.fill("endTime", endTime);
+        return sqlSession.selectList("monitorDataExcel.list", query);
+    }
+
+    public int getCount(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
         query.fill("cityId", cityId);
         query.fill("line", line);
         if (StringUtils.isNotEmpty(beginTime) && StringUtils.isNotEmpty(enTime)) {
@@ -57,8 +83,6 @@ public class ReadMonitorDataService extends AbstractService {
     }
 
     public CoreDataVo listMvState(String factory, String city, String line, String situation) {
-        ListQuery query = new GenericQuery();
-        filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllDatas = sqlSession.selectList("monitorData.selectAll", query);
         if (listAllDatas.size() > 20) {
@@ -80,7 +104,6 @@ public class ReadMonitorDataService extends AbstractService {
     }
 
     public CoreDataVo listMAState(String factory, String city, String line, String situation) {
-        ListQuery query = new GenericQuery();
         filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
@@ -103,7 +126,6 @@ public class ReadMonitorDataService extends AbstractService {
     }
 
     public CoreDataVo listMTState(String factory, String city, String line, String situation) {
-        ListQuery query = new GenericQuery();
         filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
@@ -126,7 +148,6 @@ public class ReadMonitorDataService extends AbstractService {
     }
 
     public CoreDataVo listDVState(String factory, String city, String line, String situation) {
-        ListQuery query = new GenericQuery();
         filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
@@ -149,7 +170,6 @@ public class ReadMonitorDataService extends AbstractService {
     }
 
     public CoreDataVo listDAState(String factory, String city, String line, String situation) {
-        ListQuery query = new GenericQuery();
         filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
@@ -172,7 +192,6 @@ public class ReadMonitorDataService extends AbstractService {
     }
 
     public CoreDataVo listDTState(String factory, String city, String line, String situation) {
-        ListQuery query = new GenericQuery();
         filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
@@ -195,7 +214,6 @@ public class ReadMonitorDataService extends AbstractService {
     }
 
     public CoreDataVo listDegree(String factory, String city, String line, String situation) {
-        ListQuery query = new GenericQuery();
         filters(city, line, query);
         CoreDataVo coreDataVo = new CoreDataVo();
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);

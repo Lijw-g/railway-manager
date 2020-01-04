@@ -20,6 +20,8 @@ public class UserVo {
 
     @ApiModelProperty("账号")
     private String userName;
+    @ApiModelProperty("头像")
+    private String photo;
     @ApiModelProperty("用户名")
     private String displayName;
     @ApiModelProperty("手机号码")

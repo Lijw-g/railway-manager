@@ -6,7 +6,7 @@ import lombok.Data;
 
 import java.util.List;
 
-@ApiModel("车辆运行情况/和获取所有数据")
+@ApiModel("车辆运行情况和获取所有数据")
 public class OperationConditionVo {
     private List<MonitorData> data;
     private int count;
