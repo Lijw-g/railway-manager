@@ -9,14 +9,16 @@
         <![CDATA[
         select
             id,
-            m_vstate,
-            m_astate  ,
-            m_tstate ,
-            d_vstate  ,
-            d_astate  ,
-            d_tstate  ,
+            m_vstate as mVstate,
+            m_astate as mAstate ,
+            m_tstate as mTstate ,
+            d_vstate as dVstate ,
+            d_astate  as dAstate ,
+            d_tstate  as dTstate,
             degree,
-            door_no
+            city,
+            line,
+            door_no AS doorNo,
             created_at as createdAt
         from early_warring
         ]]>

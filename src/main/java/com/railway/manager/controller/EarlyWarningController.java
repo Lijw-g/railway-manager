@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.railway.manager.model.EarlyWarring;
 import com.railway.manager.model.MonitorData;
 import com.railway.manager.service.EarlyWarringService;
+import com.railway.manager.vo.EarlyWarringVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -33,14 +34,14 @@ public class EarlyWarningController {
     @GetMapping("/list")
     @ResponseBody
     @ApiOperation(value = "获取列表", notes = "获取预警列表")
-    public Map<String, Object> getListUser(
+    public EarlyWarringVo getListUser(
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
-        Map<String, Object> result = Maps.newHashMap();
-        result.put("count", earlyWarringService.getCount());
-
-        result.put("data", earlyWarringService.listAllData(pageNum, pageSize));
-        return result;
+        List<EarlyWarring> earlyWarrings = earlyWarringService.listAllData(pageNum, pageSize);
+        EarlyWarringVo earlyWarringVo = new EarlyWarringVo();
+        earlyWarringVo.setCount(earlyWarringService.getCount());
+        earlyWarringVo.setEarlyWarrings(earlyWarrings);
+        return earlyWarringVo;
     }
 
     @GetMapping("/haveNewWarring")
