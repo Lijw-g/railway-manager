@@ -38,6 +38,14 @@ public class PermissionController {
         return permissionService.getPermissionResult();
     }
 
+    @PostMapping("/getlistByCode")
+    @ResponseBody
+    @ApiOperation(value = "根据角色编码获取权限信息", notes = "roleCode：角色编码")
+    public Map<String, Object> getlistByCode(@RequestParam String roleCode) {
+
+        return permissionService.getlistByCode(roleCode);
+    }
+
     @PostMapping("/add")
     @ApiOperation(value = "添加权限信息", notes = "添加权限信息")
     @ResponseBody

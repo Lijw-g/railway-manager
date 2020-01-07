@@ -1,6 +1,7 @@
 package com.railway.manager.controller;
 
 import com.railway.manager.model.Role;
+import com.railway.manager.service.system.PermissionService;
 import com.railway.manager.service.system.UserRoleService;
 import com.railway.manager.utils.ResultMapUtil;
 import com.railway.manager.vo.RoleVo;
@@ -34,6 +35,8 @@ import java.util.Map;
 public class RoleController {
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private PermissionService permissionService;
 
     @PostMapping("/list")
     @ResponseBody
@@ -45,12 +48,14 @@ public class RoleController {
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         if (pageNum < 1) {
             pageNum = 1;
-            conditionMap.put("_limit", pageSize);
         }
         if (pageSize < 1) {
             pageSize = 10;
-            conditionMap.put("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
         }
+
+        conditionMap.put("_limit", pageSize);
+        conditionMap.put("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
+
         if (!StringUtils.isBlank(advanceColumn)) {
             conditionMap.put("advanceColumnLike", "%" + advanceColumn.trim() + "%");
         }
@@ -158,7 +163,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation(value = "删除角色信息", notes = "删除角色信息")
+    @ApiOperation(value = "删除角色信息", notes = "roleCode：角色编码")
     @ResponseBody
     public Map<String, Object> deleteRote(@RequestParam String roleCode) {
 
@@ -166,6 +171,40 @@ public class RoleController {
 
         //返回结果
         Map<String, Object> resultMap = ResultMapUtil.getDeleteResult(count);
+
+        return resultMap;
+    }
+
+    @PostMapping("/authorization")
+    @ApiOperation(value = "角色授权", notes = "roleCode：角色编码；ids：权限id数组，以逗号分隔")
+    @ResponseBody
+    public Map<String, Object> authorization(@RequestParam String roleCode,
+                                             @RequestParam Integer[] ids){
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        //检查id
+        Map<String, Object> conditionMap = new HashMap<String, Object>();
+        //检查ids中是否均符合要求
+        for(Integer id : ids) {
+            conditionMap.put("idEqual", id.intValue());
+
+            if (permissionService.selectCount(conditionMap) < 1) {
+                resultMap.put("code", "201");
+                resultMap.put("description", "根据id：" + id.intValue() + "，查不到相关权限信息，授权失败");
+
+                return resultMap;
+            }
+        }
+
+        int count = userRoleService.updateAuthorization(roleCode, ids);
+
+        if(count > 0) {
+            resultMap.put("code", "200");
+            resultMap.put("description", "授权成功");
+        } else {
+            resultMap.put("code", "501");
+            resultMap.put("description", "授权失败");
+        }
 
         return resultMap;
     }

@@ -66,6 +66,25 @@ public class PermissionService extends AbstractService {
 
     /**
      * @author: chenglin
+     * Description: 根据角色编码获取权限信息
+     * @param roleCode
+     **/
+    public Map<String, Object> getlistByCode(String roleCode) {
+
+        List<Map<String, Object>> resultMapList = sqlSession.selectList("rolePermission.getlistByCode",roleCode);
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("code", "200");
+        resultMap.put("description", "查询成功");
+        resultMap.put("allCount", resultMapList.size());
+        resultMap.put("currentCount", resultMapList.size());
+        resultMap.put("resultMapList", resultMapList);
+
+        return resultMap;
+    }
+
+    /**
+     * @author: chenglin
      * Description: 计算符合要求的数据量
      * @param conditionMap
      * @return int

@@ -5,5 +5,29 @@
 
 <mapper namespace="rolePermission">
 
+    <insert id="insert" parameterType="rolePermission">
+        <![CDATA[
+            insert into role_permission (role_code, permission_id)
+                      values (#{roleCode}, #{permissionId})
+        ]]>
+    </insert>
 
+    <delete id="delete" parameterType="map">
+        <![CDATA[
+            delete from role_permission where role_code = #{roleCodeEqual}
+        ]]>
+    </delete>
+
+    <select id="getlistByCode" parameterType="string" resultType="map">
+        <![CDATA[
+            select
+                p.id,
+                p.name
+            from role_permission rp, permission p
+        ]]>
+        <where>
+            rp.permission_id = p.id
+            AND rp.role_code = #{roleCode}
+        </where>
+    </select>
 </mapper>

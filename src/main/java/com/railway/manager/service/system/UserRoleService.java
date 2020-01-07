@@ -1,9 +1,11 @@
 package com.railway.manager.service.system;
 
 import com.railway.manager.model.Role;
+import com.railway.manager.model.RolePermission;
 import com.railway.manager.service.AbstractService;
 import com.railway.manager.vo.RoleVo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,5 +65,32 @@ public class UserRoleService  extends AbstractService {
      */
     public int selectCount(Map<String,Object> map) {
         return sqlSession.selectOne("role.selectCount", map);
+    }
+
+    /**
+     * Description: 角色授权
+     * @param roleCode
+     * @param ids
+     * @return
+     */
+    public int updateAuthorization(String roleCode, Integer[] ids) {
+
+        //根据角色编码删除已配置权限数据
+        Map<String, Object> conditionMap = new HashMap<String, Object>();
+        conditionMap.put("roleCodeEqual", roleCode);
+        sqlSession.delete("rolePermission.delete",conditionMap);
+
+        int count = 0;
+
+        //添加角色权限数据
+        for(Integer id : ids) {
+            RolePermission rolePermission = new RolePermission();
+            rolePermission.setRoleCode(roleCode);
+            rolePermission.setPermissionId(id);
+
+            count += sqlSession.insert("rolePermission.insert",rolePermission);
+        }
+
+        return count;
     }
 }
