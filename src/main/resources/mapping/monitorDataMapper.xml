@@ -40,6 +40,8 @@
                 <![CDATA[ , d_astate ]]>
                 <![CDATA[ , d_tstate ]]>
                 <![CDATA[ , degree ]]>
+                <![CDATA[ , line ]]>
+                <![CDATA[ , city ]]>
                 <![CDATA[ ) Like  "%"#{searchParam}"%" ]]>
             </if>
         </where>
@@ -61,7 +63,19 @@
             <if test="beginTime != null and  beginTime != ''">
                 and created_at ${beginTime} and #{endTime}>=created_at
             </if>
-
+            <if test="searchParam != null and searchParam != ''">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , m_vstate ]]>
+                <![CDATA[ , m_astate ]]>
+                <![CDATA[ , m_tstate ]]>
+                <![CDATA[ , d_vstate ]]>
+                <![CDATA[ , d_astate ]]>
+                <![CDATA[ , d_tstate ]]>
+                <![CDATA[ , degree ]]>
+                <![CDATA[ , line ]]>
+                <![CDATA[ , city ]]>
+                <![CDATA[ ) Like  "%"#{searchParam}"%" ]]>
+            </if>
         </where>
     </select>
 </mapper>
