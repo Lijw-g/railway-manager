@@ -36,10 +36,11 @@ public class EarlyWarningController {
     @ApiOperation(value = "获取列表", notes = "获取预警列表")
     public EarlyWarringVo getListUser(
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
-        List<EarlyWarring> earlyWarrings = earlyWarringService.listAllData(pageNum, pageSize);
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false, defaultValue = "") String searchParam) {
+        List<EarlyWarring> earlyWarrings = earlyWarringService.listAllData(pageNum, pageSize, searchParam);
         EarlyWarringVo earlyWarringVo = new EarlyWarringVo();
-        earlyWarringVo.setCount(earlyWarringService.getCount());
+        earlyWarringVo.setCount(earlyWarringService.getCount(searchParam));
         earlyWarringVo.setEarlyWarrings(earlyWarrings);
         return earlyWarringVo;
     }

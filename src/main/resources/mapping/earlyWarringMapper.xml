@@ -26,6 +26,19 @@
             <if test="isNew != null and isNew != ''">
                 and is_new = #{isNew}
             </if>
+            <if test="searchParam != null and searchParam != ''">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , m_vstate ]]>
+                <![CDATA[ , m_astate ]]>
+                <![CDATA[ , m_tstate ]]>
+                <![CDATA[ , d_vstate ]]>
+                <![CDATA[ , d_astate ]]>
+                <![CDATA[ , d_tstate ]]>
+                <![CDATA[ , degree ]]>
+                <![CDATA[ , city ]]>
+                <![CDATA[ , door_no ]]>
+                <![CDATA[ ) Like  "%"#{searchParam}"%" ]]>
+            </if>
         </where>
         order by created_at desc
         <if test="_limit != null and _offset !=null">
@@ -37,9 +50,27 @@
     <select id="selectCount" parameterType="map" resultType="int">
         <![CDATA[
 
-                select count(*) from early_warring
+
+                        select count(*) from early_warring
+
 
         ]]>
+        <where>
+            <if test="searchParam != null and searchParam != ''">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , m_vstate ]]>
+                <![CDATA[ , m_astate ]]>
+                <![CDATA[ , m_tstate ]]>
+                <![CDATA[ , d_vstate ]]>
+                <![CDATA[ , d_astate ]]>
+                <![CDATA[ , d_tstate ]]>
+                <![CDATA[ , degree ]]>
+                <![CDATA[ , city ]]>
+                <![CDATA[ , door_no ]]>
+                <![CDATA[ ) Like  "%"#{searchParam}"%" ]]>
+            </if>
+
+        </where>
     </select>
 
     <update id="update" parameterType="map">
@@ -47,7 +78,7 @@
         update early_warring
         ]]>
         <set>
-                isNew = 0
+            isNew = 0
         </set>
         where id = #{id}
     </update>

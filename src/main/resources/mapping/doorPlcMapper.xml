@@ -12,7 +12,7 @@
                 motor_working_temperature, gatage, max_gatage, door_start_time, door_stop_time, comment, create_user)
             values (#{doorControllerTypeCode}, #{manufacturerCode}, #{productionDate}, #{controllerTypeCode}, #{motorTypeCode}, #{ratedVoltage}, #{workingVoltage}, #{ratedCurrent},
                 #{peakCurrent}, #{stableTemperature}, #{workingTemperature}, #{motorRatedVoltage}, #{motorWorkingVoltage}, #{motorRatedCurrent}, #{motorWorkingCurrent}, #{motorStableTemperature},
-                #{motorWorkingTemperature}, #{gatage}, #{max_gatage}, #{doorStartTime}, #{doorStopTime}, #{comment}, #{createUser})
+                #{motorWorkingTemperature}, #{gatage}, #{maxGatage}, #{doorStartTime}, #{doorStopTime}, #{comment}, #{createUser})
         ]]>
     </insert>
 

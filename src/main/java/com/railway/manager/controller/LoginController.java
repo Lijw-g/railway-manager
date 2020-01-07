@@ -112,7 +112,8 @@ public class LoginController {
     @ResponseBody
     @ApiOperation(value = "用户注册", notes = "用户注册")
     public Map<String, Object> registerUser(@RequestParam String userName, @RequestParam String password,
-                                            @RequestParam String pwdConfirm, @RequestParam String phone) {
+                                            @RequestParam String pwdConfirm, @RequestParam String phone,
+                                            @RequestParam(defaultValue = "0") int sex) {
         Preconditions.checkNotNull(phone, "手机号不能为空");
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -149,7 +150,8 @@ public class LoginController {
                 .setPassword(password.trim())
                 .setCreateUser(user.getUserName())
                 .setUpdateUser(user.getUserName())
-                .setPhone(phone.trim());
+                .setPhone(phone.trim())
+                .setSex(sex);
         try {
             int num = userService.add(user);
 

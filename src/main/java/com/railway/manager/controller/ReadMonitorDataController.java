@@ -6,6 +6,7 @@ import com.railway.manager.utils.ExcelUtiles;
 import com.railway.manager.vo.CoreDataVo;
 import com.railway.manager.vo.OperationConditionVo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiKeyAuthDefinition;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,13 +144,15 @@ public class ReadMonitorDataController {
             @RequestParam(defaultValue = "") String line,
             @ApiParam("运行情况")
             @RequestParam(defaultValue = "") String situation,
+            @ApiParam("searchParam仅供搜索框用")
+            @RequestParam(required = false, defaultValue = "") String searchParam,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(required = false, defaultValue = "") String beginTime,
             @RequestParam(required = false, defaultValue = "") String enTime) {
         OperationConditionVo operationConditionVo = new OperationConditionVo();
-        operationConditionVo.setData(readMonitorDataService.listAllData(factory, city, line, situation, pageNum, pageSize, beginTime, enTime));
-        operationConditionVo.setCount(readMonitorDataService.getCount(factory, city, line, situation, pageNum, pageSize, beginTime, enTime));
+        operationConditionVo.setData(readMonitorDataService.listAllData(factory, city, line, situation, searchParam, pageNum, pageSize, beginTime, enTime));
+        operationConditionVo.setCount(readMonitorDataService.getCount(factory, city, line, situation, searchParam, pageNum, pageSize, beginTime, enTime));
         return operationConditionVo;
     }
 

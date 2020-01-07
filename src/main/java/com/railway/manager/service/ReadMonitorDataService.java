@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class ReadMonitorDataService extends AbstractService {
     ListQuery query = new GenericQuery();
 
-    public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
+    public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, String searchParam, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
         if (pageNum < 1) {
             pageNum = 1;
         }
@@ -38,6 +38,9 @@ public class ReadMonitorDataService extends AbstractService {
         if (StringUtils.isNotEmpty(beginTime) && StringUtils.isNotEmpty(enTime)) {
             query.fill("beginTime", beginTime);
             query.fill("endTime", enTime);
+        }
+        if (StringUtils.isNotEmpty(searchParam)) {
+            query.fill("searchParam", searchParam);
         }
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         //车次
@@ -72,9 +75,12 @@ public class ReadMonitorDataService extends AbstractService {
         return sqlSession.selectList("monitorDataExcel.list", query);
     }
 
-    public int getCount(String factory, String cityId, String line, String situation, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
+    public int getCount(String factory, String cityId, String line, String situation, String searchParam, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
         query.fill("cityId", cityId);
         query.fill("line", line);
+        if (StringUtils.isNotEmpty(searchParam)) {
+            query.fill("searchParam", searchParam);
+        }
         if (StringUtils.isNotEmpty(beginTime) && StringUtils.isNotEmpty(enTime)) {
             query.fill("beginTime", beginTime);
             query.fill("endTime", enTime);

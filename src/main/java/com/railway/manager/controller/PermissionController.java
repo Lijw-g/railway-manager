@@ -110,14 +110,14 @@ public class PermissionController {
     @PostMapping("/edit")
     @ApiOperation(value = "修改权限信息", notes = "修改权限信息, id不允许修改")
     @ResponseBody
-    public Map<String, Object> editPermission(@RequestParam(value="唯一id，不可更改") Integer id, PermissionAdd permission) {
+    public Map<String, Object> editPermission(@RequestParam Integer id, PermissionAdd permission) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         //检查id
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("idEqual", id);
-        if(permissionService.selectCount(conditionMap) < 1) {
+        if (permissionService.selectCount(conditionMap) < 1) {
             resultMap.put("code", "201");
             resultMap.put("description", "根据id查不到相关权限信息，更新失败");
 
@@ -153,14 +153,14 @@ public class PermissionController {
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除权限信息", notes = "删除权限信息")
     @ResponseBody
-    public Map<String, Object> deletePermission(@RequestParam(value="唯一id") Integer id){
+    public Map<String, Object> deletePermission(@RequestParam Integer id) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         //如果当前id已是其他权限的父id，则不允许删除
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("idEqual", id);
-        if(permissionService.selectCount(conditionMap) < 1) {
+        if (permissionService.selectCount(conditionMap) < 1) {
             resultMap.put("code", "201");
             resultMap.put("description", "根据id查不到相关权限信息");
 

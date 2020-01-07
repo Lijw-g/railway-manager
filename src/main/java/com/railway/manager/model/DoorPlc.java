@@ -67,10 +67,10 @@ public class DoorPlc {
     private String comment;
     @ApiModelProperty("创建人")
     private String createUser;
-    @ApiModelProperty("创建时间")
+    @ApiModelProperty(value = "创建时间", hidden = true)
     private Date createTime;
     @ApiModelProperty("更新人")
     private String updateUser;
-    @ApiModelProperty("更新时间")
+    @ApiModelProperty(value = "更新时间", hidden = true)
     private Date updateTime;
 }
