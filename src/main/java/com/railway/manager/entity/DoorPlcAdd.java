@@ -1,4 +1,4 @@
-package com.railway.manager.vo;
+package com.railway.manager.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,36 +9,26 @@ import java.util.Date;
 
 /**
  * @program: railway_manager
- * @description: 车门控制器vo
+ * @description: 车门控制器add
  * @author: chenglin
- * @create: 2019-12-29 17:46
+ * @create: 2020-01-09 00:03
  * @version 1.0
  **/
 @Data
-@ApiModel("车门控制器表vo")
+@ApiModel("车门控制器add")
 @Accessors(chain = true)
-public class DoorPlcVo {
-
-    private Integer id;
+public class DoorPlcAdd {
 
     @ApiModelProperty("门控器型号编码")
     private Integer doorControllerTypeCode;
-    @ApiModelProperty("门控器型号")
-    private String doorControllerType;
     @ApiModelProperty("生产厂家编码")
     private Integer manufacturerCode;
-    @ApiModelProperty("生产厂家")
-    private String manufacturer;
     @ApiModelProperty("生产日期")
     private Date productionDate;
     @ApiModelProperty("控制类型编码")
     private Integer controllerTypeCode;
-    @ApiModelProperty("控制类型")
-    private String controllerType;
     @ApiModelProperty("电机类型编码")
     private Integer motorTypeCode;
-    @ApiModelProperty("电机类型")
-    private String motorType;
     @ApiModelProperty("额定电压")
     private String ratedVoltage;
     @ApiModelProperty("工作电压")
@@ -71,14 +61,4 @@ public class DoorPlcVo {
     private String doorStartTime;
     @ApiModelProperty("门关闭时间")
     private String doorStopTime;
-    @ApiModelProperty("备注")
-    private String comment;
-    @ApiModelProperty("创建人")
-    private String createUser;
-    @ApiModelProperty("创建时间")
-    private Date createTime;
-    @ApiModelProperty("更新人")
-    private String updateUser;
-    @ApiModelProperty("更新时间")
-    private Date updateTime;
 }

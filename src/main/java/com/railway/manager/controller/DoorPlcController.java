@@ -1,6 +1,7 @@
 package com.railway.manager.controller;
 
 import com.google.common.collect.Maps;
+import com.railway.manager.entity.DoorPlcAdd;
 import com.railway.manager.model.DoorPlc;
 import com.railway.manager.service.system.DoorPlcService;
 import com.railway.manager.utils.ResultMapUtil;
@@ -26,7 +27,7 @@ import java.util.Map;
  * @description: 车门控制器数据接口
  * @author: chenglin
  * @create: 2019-12-29 16:19
- * @version 1.0
+ * @version 1.1
  **/
 @Api(tags = "车门控制器数据接口", value = "车门控制器数据接口")
 @Controller
@@ -38,7 +39,7 @@ public class DoorPlcController {
 
     @InitBinder
     protected void init(HttpServletRequest request, ServletRequestDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(
                 dateFormat, false));
@@ -48,9 +49,11 @@ public class DoorPlcController {
     @PostMapping("/add")
     @ResponseBody
     @ApiOperation(value = "添加车门控制器数据", notes = "添加车门控制器数据")
-    public Map<String, Object> addDoorPlc(DoorPlc doorPlc) {
+    public Map<String, Object> addDoorPlc(DoorPlcAdd doorPlc) {
 
-        int count = doorPlcService.add(doorPlc);
+        DoorPlc dp = new DoorPlc(doorPlc);
+
+        int count = doorPlcService.add(dp);
 
         //返回结果
         Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
@@ -58,15 +61,28 @@ public class DoorPlcController {
         return resultMap;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ResponseBody
-    @ApiOperation(value = "删除车门控制器数据", notes = "删除车门控制器数据")
-    public Map<String, Object> deleteDoorPlc(Integer id) {
+    @ApiOperation(value = "删除车门控制器数据", notes = "根据id删除车门控制器数据")
+    public Map<String, Object> deleteDoorPlc(@RequestParam Integer id) {
+
+        Map<String, Object> conditionMap = new HashMap<String, Object>();
+        conditionMap.put("idEqual", id.intValue());
+
+        //返回结果
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        if(doorPlcService.selectCount(conditionMap) < 1) {
+            resultMap.put("code", "201");
+            resultMap.put("description", "根据id查不到数据，禁止删除");
+
+            return resultMap;
+        }
 
         int count = doorPlcService.delete(id);
 
         //返回结果
-        Map<String, Object> resultMap = ResultMapUtil.getDeleteResult(count);
+        resultMap = ResultMapUtil.getDeleteResult(count);
 
         return resultMap;
     }
@@ -111,13 +127,30 @@ public class DoorPlcController {
 
     @PostMapping("/update")
     @ResponseBody
-    @ApiOperation(value = "更新车门控制器数据", notes = "更新车门控制器数据")
-    public Map<String, Object> updateDoorPlc(DoorPlc doorPlc) {
-
-        int count = doorPlcService.update(doorPlc);
+    @ApiOperation(value = "更新车门控制器数据", notes = "根据id更新车门控制器数据")
+    public Map<String, Object> updateDoorPlc(@RequestParam Integer id, DoorPlcAdd doorPlc) {
 
         //返回结果
-        Map<String, Object> resultMap = ResultMapUtil.getUpdateResult(count);
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        Map<String, Object> conditionMap = new HashMap<String, Object>();
+        conditionMap.put("idEqual", id.intValue());
+
+        if(doorPlcService.selectCount(conditionMap) < 1) {
+            resultMap.put("code", "201");
+            resultMap.put("description", "根据id查不到数据，禁止更新");
+
+            return resultMap;
+        }
+
+        DoorPlc dp = new DoorPlc(doorPlc);
+        dp.setId(id);
+        dp.setUpdateTime(new Date());
+
+        int count = doorPlcService.update(dp);
+
+        //返回结果
+        resultMap = ResultMapUtil.getUpdateResult(count);
 
         return resultMap;
     }

@@ -44,7 +44,6 @@
             dp.comment = #{comment},
             dp.update_user = #{updateUser},
             dp.update_timne = #{updateTime}
-        from door_plc dp
         ]]>
         <where>
             dp.id = #{id}
@@ -88,6 +87,9 @@
         from door_plc dp
         ]]>
         <where>
+            <if test="idEqual != null">
+                and dp.id = #{idEqual}
+            </if>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
                 <![CDATA[ , door_controller_type_code ]]>
@@ -106,11 +108,11 @@
 
     <select id="selectCount" parameterType="map" resultType="int">
         <![CDATA[
-        select count(*) from door_plc dp
+            select count(*) from door_plc dp
         ]]>
         <where>
             <if test="idEqual != null">
-                and dp.id = #{id}
+                and dp.id = #{idEqual}
             </if>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
@@ -125,10 +127,9 @@
         </where>
     </select>
 
-    <delete id="delete" parameterType="int">
-        DELETE FROM door_plc dp
-        <where>
-            dp.id = #{id}
-        </where>
+    <delete id="delete" parameterType="map">
+        <![CDATA[
+            DELETE FROM door_plc where id = #{idEqual}
+        ]]>
     </delete>
 </mapper>

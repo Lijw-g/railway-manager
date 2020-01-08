@@ -58,7 +58,7 @@ public class DoorPlcService extends AbstractService {
         if(selectCount(conditionMap) != 1) {
             return -1;
         } else {
-            return sqlSession.delete("doorPlc.delete", id.intValue());
+            return sqlSession.delete("doorPlc.delete", conditionMap);
         }
     }
 

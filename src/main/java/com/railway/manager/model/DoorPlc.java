@@ -1,5 +1,6 @@
 package com.railway.manager.model;
 
+import com.railway.manager.entity.DoorPlcAdd;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,6 +19,34 @@ import java.util.Date;
 @ApiModel("车门控制器表")
 @Accessors(chain = true)
 public class DoorPlc {
+
+    public DoorPlc() {
+
+    }
+
+    public DoorPlc(DoorPlcAdd doorPlcAdd) {
+        this.doorControllerTypeCode = doorPlcAdd.getDoorControllerTypeCode();
+        this.manufacturerCode = doorPlcAdd.getManufacturerCode();
+        this.productionDate = doorPlcAdd.getProductionDate();
+        this.controllerTypeCode = doorPlcAdd.getControllerTypeCode();
+        this.motorTypeCode = doorPlcAdd.getMotorTypeCode();
+        this.ratedVoltage = doorPlcAdd.getRatedVoltage();
+        this.workingVoltage = doorPlcAdd.getWorkingVoltage();
+        this.ratedCurrent = doorPlcAdd.getRatedCurrent();
+        this.peakCurrent = doorPlcAdd.getPeakCurrent();
+        this.stableTemperature = doorPlcAdd.getStableTemperature();
+        this.workingTemperature = doorPlcAdd.getWorkingTemperature();
+        this.motorRatedVoltage = doorPlcAdd.getMotorRatedVoltage();
+        this.motorWorkingVoltage = doorPlcAdd.getMotorWorkingVoltage();
+        this.motorRatedCurrent = doorPlcAdd.getMotorRatedCurrent();
+        this.motorWorkingCurrent = doorPlcAdd.getMotorWorkingCurrent();
+        this.motorStableTemperature = this.getMotorStableTemperature();
+        this.motorWorkingTemperature = this.getMotorWorkingTemperature();
+        this.gatage = doorPlcAdd.getGatage();
+        this.maxGatage = doorPlcAdd.getMaxGatage();
+        this.doorStartTime = doorPlcAdd.getDoorStartTime();
+        this.doorStopTime = doorPlcAdd.getDoorStopTime();
+    }
 
     private Integer id;
 
