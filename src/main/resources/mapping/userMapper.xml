@@ -7,8 +7,10 @@
 
     <insert id="insert" parameterType="user">
         <![CDATA[
-            insert into user (user_name, display_name, password, create_user, update_user,sex,phone,status)
-                    values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone},#{status})
+
+                    insert into user (user_name, display_name, password, create_user, update_user,sex,phone,status)
+                            values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone},#{status})
+
         ]]>
     </insert>
 
@@ -34,6 +36,9 @@
             </if>
             <if test="passwordEqual != null and passwordEqual != ''">
                 and u.password = #{passwordEqual}
+            </if>
+            <if test="userNameEqual != null and userNameEqual != ''">
+                and u.user_name = #{userNameEqual}
             </if>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
@@ -124,8 +129,11 @@
 
     <delete id="delete" parameterType="map">
         <![CDATA[
-            delete from user
-                where user_name = #{name}
-        ]]>
+
+
+                            delete from user
+                                where user_name = #{name}
+
+]]>
     </delete>
 </mapper>

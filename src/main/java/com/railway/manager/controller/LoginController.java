@@ -4,7 +4,9 @@ import com.google.common.base.Preconditions;
 import com.railway.manager.model.User;
 import com.railway.manager.service.VeriCodeService;
 import com.railway.manager.service.log.LoginLogService;
+import com.railway.manager.service.system.UserRoleService;
 import com.railway.manager.service.system.UserService;
+import com.railway.manager.vo.UserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +39,7 @@ public class LoginController {
     @Autowired
     private LoginLogService loginLogService;
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     @ResponseBody
     @ApiOperation(value = "用户登录", notes = "用户登录")
     public Map<String, Object> login(HttpServletRequest request,
@@ -103,7 +105,9 @@ public class LoginController {
         // veriCodeService.delCacheCode(imageCode.trim(), userTaskId.trim());
 
         //记录日志
-        loginLogService.add(request, userList.get(0));
+        User user = new User().setUserName(userName)
+                .setDisplayName(userName);
+        loginLogService.add(request, user);
 
         return resultMap;
     }
