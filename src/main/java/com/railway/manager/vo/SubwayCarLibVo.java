@@ -24,23 +24,23 @@ public class SubwayCarLibVo {
     @ApiModelProperty("投放城市编码")
     private Integer cityCode;
     @ApiModelProperty("投放城市名称")
-    private Integer cityName;
+    private String cityName;
     @ApiModelProperty("地铁车辆型号编码")
     private Integer subwayCarTypeCode;
     @ApiModelProperty("地铁车辆型号")
-    private Integer subwayCarType;
+    private String subwayCarType;
     @ApiModelProperty("门数量")
     private Integer doorQuantity;
     @ApiModelProperty("生产厂家编码")
     private Integer manufacturerCode;
     @ApiModelProperty("生产厂家")
-    private Integer manufacturer;
+    private String manufacturer;
     @ApiModelProperty("投放时间")
     private Date marketTime;
     @ApiModelProperty("投放线路编码")
     private Integer lineCode;
     @ApiModelProperty("投放线路名称")
-    private Integer lineName;
+    private String lineName;
     @ApiModelProperty("备注")
     private String comment;
     @ApiModelProperty("创建人")
