@@ -6,7 +6,6 @@ import com.railway.manager.service.AbstractService;
 import com.railway.manager.vo.SubwayCarLibVo;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,9 +62,9 @@ public class SubwayCarLibService extends AbstractService {
      * @param id
      * @return
      */
-    public int delete(String id) {
+    public int delete(Integer id) {
         Map<String, Object> conditionMap = Maps.newHashMap();
-        conditionMap.put("id", id);
+        conditionMap.put("idEqual", id);
         return sqlSession.delete("subwayCarLib.delete", conditionMap);
     }
 }

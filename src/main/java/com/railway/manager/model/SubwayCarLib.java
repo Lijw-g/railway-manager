@@ -1,5 +1,6 @@
 package com.railway.manager.model;
 
+import com.railway.manager.entity.SubwayCarLibAdd;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,6 +19,21 @@ import java.util.Date;
 @ApiModel("轨道交通车辆型号库")
 @Accessors(chain = true)
 public class SubwayCarLib {
+
+    public SubwayCarLib () {
+
+    }
+
+    public SubwayCarLib(SubwayCarLibAdd subwayCarLibAdd) {
+        this.cityCode = subwayCarLibAdd.getCityCode();
+        this.subwayCarTypeCode = subwayCarLibAdd.getSubwayCarTypeCode();
+        this.doorQuantity = subwayCarLibAdd.getDoorQuantity();
+        this.manufacturerCode = subwayCarLibAdd.getManufacturerCode();
+        this.marketTime = subwayCarLibAdd.getMarketTime();
+        this.lineCode = subwayCarLibAdd.getLineCode();
+        this.comment = subwayCarLibAdd.getComment();
+    }
+
 
     private Integer id;
 
@@ -39,4 +55,8 @@ public class SubwayCarLib {
     private String createUser;
     @ApiModelProperty("创建时间")
     private Date createTime;
+    @ApiModelProperty("更新人")
+    private String updateUser;
+    @ApiModelProperty("更新时间")
+    private Date updateTime;
 }

@@ -53,9 +53,12 @@
 
     <select id="selectCount" parameterType="map" resultType="int">
         <![CDATA[
-        select count(*) from subway_car_lib sc
+            select count(*) from subway_car_lib sc
         ]]>
         <where>
+            <if test="idEqual != null">
+                AND sc.id = #{idEqual}
+            </if>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
                 <![CDATA[ , city_code ]]>
@@ -72,15 +75,16 @@
 
     <select id="update" parameterType="subwayCarLib" resultType="int">
         <![CDATA[
-        update subway_car_lib dict
+        update subway_car_lib sc
             set
-            dict.city_code = #{cityCode},
-            dict.subway_car_type_code = #{subwayCarTypeCode},
-            dict.door_quantity = #{doorQuantity},
-            dict.manufacturer_code = #{manufacturerCode},
-            dict.line_code = #{lineCode},
-            dict.comment = #{comment},
-            dict.market_time = #{marketTime}
+            sc.city_code = #{cityCode},
+            sc.subway_car_type_code = #{subwayCarTypeCode},
+            sc.door_quantity = #{doorQuantity},
+            sc.manufacturer_code = #{manufacturerCode},
+            sc.line_code = #{lineCode},
+            sc.comment = #{comment},
+            sc.market_time = #{marketTime},
+            sc.update_time = #{updateTime}
         ]]>
         <where>
             id = #{id}
@@ -90,7 +94,7 @@
     <delete id="delete" parameterType="map">
         <![CDATA[
 
-                delete from subway_car_lib  where id = #{id}
+                delete from subway_car_lib  where id = #{idEqual}
 
         ]]>
     </delete>

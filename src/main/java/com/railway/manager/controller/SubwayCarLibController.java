@@ -1,6 +1,7 @@
 package com.railway.manager.controller;
 
 import com.google.common.collect.Maps;
+import com.railway.manager.entity.SubwayCarLibAdd;
 import com.railway.manager.model.SubwayCarLib;
 import com.railway.manager.service.system.SubwayCarLibService;
 import com.railway.manager.utils.ResultMapUtil;
@@ -86,8 +87,11 @@ public class SubwayCarLibController {
     @PostMapping("/add")
     @ResponseBody
     @ApiOperation(value = "添加轨道交通车辆型号库", notes = "添加轨道交通车辆型号库")
-    public Map<String, Object> addSubwayCarLib(SubwayCarLib subwayCarLib) {
-        int count = subwayCarLibService.add(subwayCarLib);
+    public Map<String, Object> addSubwayCarLib(SubwayCarLibAdd subwayCarLib) {
+
+        SubwayCarLib subwayCar = new SubwayCarLib(subwayCarLib);
+
+        int count = subwayCarLibService.add(subwayCar);
         //返回结果
         Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
         return resultMap;
@@ -95,21 +99,52 @@ public class SubwayCarLibController {
 
     @PostMapping("/edit")
     @ResponseBody
-    @ApiOperation(value = "修改轨道交通车辆型号库", notes = "修改轨道交通车辆型号库")
-    public Map<String, Object> editSubwayCarLib(SubwayCarLib subwayCarLib) {
-        int count = subwayCarLibService.editSubwayCarLib(subwayCarLib);
+    @ApiOperation(value = "修改轨道交通车辆型号库", notes = "根据id修改轨道交通车辆型号库")
+    public Map<String, Object> editSubwayCarLib(@RequestParam Integer id, SubwayCarLibAdd subwayCarLib) {
+
         //返回结果
-        Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        Map<String, Object> conditionMap = new HashMap<String, Object>();
+        conditionMap.put("idEqual", id.intValue());
+
+        if(subwayCarLibService.selectCount(conditionMap) < 1) {
+            resultMap.put("code", "201");
+            resultMap.put("description", "根据id查不到数据，禁止更新");
+
+            return resultMap;
+        }
+
+        SubwayCarLib subway = new SubwayCarLib(subwayCarLib);
+        subway.setId(id);
+
+        int count = subwayCarLibService.editSubwayCarLib(subway);
+        //返回结果
+        resultMap = ResultMapUtil.getUpdateResult(count);
         return resultMap;
     }
 
     @DeleteMapping("/delete")
     @ResponseBody
-    @ApiOperation(value = "删除轨道交通车辆型号库", notes = "删除轨道交通车辆型号库")
-    public Map<String, Object> delete(String id) {
+    @ApiOperation(value = "删除轨道交通车辆型号库", notes = "根据id删除轨道交通车辆型号库")
+    public Map<String, Object> delete(@RequestParam Integer id) {
+
+        //返回结果
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        Map<String, Object> conditionMap = new HashMap<String, Object>();
+        conditionMap.put("idEqual", id.intValue());
+
+        if(subwayCarLibService.selectCount(conditionMap) < 1) {
+            resultMap.put("code", "201");
+            resultMap.put("description", "根据id查不到数据，禁止删除");
+
+            return resultMap;
+        }
+
         int count = subwayCarLibService.delete(id);
         //返回结果
-        Map<String, Object> resultMap = ResultMapUtil.getAddResult(count);
+        resultMap = ResultMapUtil.getDeleteResult(count);
         return resultMap;
     }
 }
