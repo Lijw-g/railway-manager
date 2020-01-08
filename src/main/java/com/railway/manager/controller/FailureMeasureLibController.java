@@ -36,15 +36,6 @@ public class FailureMeasureLibController {
     @Autowired
     private FailureMeasureLibService failureMeasureLibService;
 
-    @InitBinder
-    protected void init(HttpServletRequest request, ServletRequestDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(
-                dateFormat, false));
-        //initDataBinder(request, binder);
-    }
-
     @PostMapping("/add")
     @ResponseBody
     @ApiOperation(value = "添加故障措施库", notes = "添加故障措施库")

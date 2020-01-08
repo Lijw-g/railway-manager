@@ -24,19 +24,19 @@ public class FailureMeasureLibVo {
     @ApiModelProperty("地铁车辆型号编码")
     private Integer subwayCarTypeCode;
     @ApiModelProperty("地铁车辆型号")
-    private Integer subwayCarType;
+    private String subwayCarType;
     @ApiModelProperty("地铁车门型号编码")
     private Integer subwayDoorTypeCode;
     @ApiModelProperty("地铁车门型号")
-    private Integer subwayDoorType;
+    private String subwayDoorType;
     @ApiModelProperty("生产厂家编码")
     private Integer manufacturerCode;
     @ApiModelProperty("生产厂家")
-    private Integer manufacturer;
+    private String manufacturer;
     @ApiModelProperty("传感器型号编码")
     private Integer sensorTypeCode;
     @ApiModelProperty("传感器型号")
-    private Integer sensorType;
+    private String sensorType;
     @ApiModelProperty("故障原因（常见问题）")
     private String failureCause;
     @ApiModelProperty("解决措施")
