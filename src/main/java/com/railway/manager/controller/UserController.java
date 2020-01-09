@@ -6,6 +6,7 @@ import com.railway.manager.service.system.UserService;
 import com.railway.manager.vo.UserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,6 +71,14 @@ public class UserController {
     @ApiOperation(value = "修改用户信息", notes = "修改用户信息")
     public Map<String, Object> editUser(UserAdd user) {
         return userService.editUser(user);
+    }
+
+    @PostMapping("/editStatus")
+    @ResponseBody
+    @ApiOperation(value = "修改用户状态", notes = "根据用户名修改用户状态，用户名禁止修改")
+    public Map<String, Object> editStatus(@ApiParam("用户名") @RequestParam String userName,
+                                          @ApiParam("状态编码：1启用，0禁止") @RequestParam Integer status) {
+        return userService.editUserStatus(userName, status);
     }
 
     @PostMapping("/resetPwd")

@@ -1,12 +1,15 @@
 package com.railway.manager.service.system;
 
 import com.google.common.collect.Maps;
+import com.railway.manager.Enum.ConstantEnum;
 import com.railway.manager.entity.UserAdd;
 import com.railway.manager.model.RoleUser;
 import com.railway.manager.service.AbstractService;
 import com.railway.manager.model.User;
+import com.railway.manager.utils.ResultMapUtil;
 import com.railway.manager.vo.UserVo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -185,6 +188,63 @@ public class UserService extends AbstractService {
             resultMap.put("code", "203");
             resultMap.put("description", "更新失败");
         }
+
+        return resultMap;
+    }
+
+    /***
+     * @author: chenglin
+     * Description: 修改用户状态
+     * @param userName
+     * @param status
+     * @return map
+     **/
+    public Map<String, Object> editUserStatus(String userName, Integer status) {
+
+        //返回结果
+        Map<String, Object> resultMap = Maps.newHashMap();
+
+        //检查账号userName是否唯一
+        if(StringUtils.isBlank(userName)) {
+            resultMap.put("code", "201");
+            resultMap.put("description", "用户名不能为空");
+
+            return resultMap;
+        }
+        Map<String, Object> conditionMap = Maps.newHashMap();
+        conditionMap.put("userNameEqual", userName.trim());
+
+        int count = sqlSession.selectOne("user.selectCount",conditionMap);
+
+        if(count < 1) {
+            resultMap.put("code", "202");
+            resultMap.put("description", "用户名不存在，禁止修改");
+
+            return resultMap;
+        }
+
+        if(count > 1) {
+            resultMap.put("code", "203");
+            resultMap.put("description", "用户名不唯一，禁止修改");
+
+            return resultMap;
+        }
+
+        //检查状态编码是否正常
+        if((status!=ConstantEnum.status_yes) && (status!=ConstantEnum.status_no)) {
+            resultMap.put("code", "301");
+            resultMap.put("description", "状态编码非法");
+
+            return resultMap;
+        }
+
+        int countUpdate = -1;
+        User user = new User();
+        user.setUserName(userName);
+        user.setStatus(status);
+        countUpdate = sqlSession.update("user.updateStatus", user);
+
+        resultMap = ResultMapUtil.getUpdateResult(countUpdate);
 
         return resultMap;
     }

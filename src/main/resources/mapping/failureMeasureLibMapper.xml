@@ -12,6 +12,25 @@
         ]]>
     </insert>
 
+    <select id="update" parameterType="failureMeasureLib" resultType="int">
+        <![CDATA[
+        update failure_measure_lib fm
+            set
+            fm.subway_car_type_code = #{subwayCarTypeCode},
+            fm.subway_door_type_code = #{subwayDoorTypeCode},
+            fm.manufacturer_code = #{manufacturerCode},
+            fm.sensor_type_code = #{sensorTypeCode},
+            fm.failure_cause = #{failureCause},
+            fm.solution = #{solution},
+            fm.comment = #{comment},
+            fm.operation = #{operation},
+            fm.update_time = #{updateTime}
+        ]]>
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
     <select id="selectList" parameterType="map" resultType="failureMeasureLibVo">
         <![CDATA[
         select
@@ -56,6 +75,9 @@
         select count(*) from failure_measure_lib fm
         ]]>
         <where>
+            <if test="idEqual != null">
+                AND fm.id = #{idEqual}
+            </if>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
                 <![CDATA[ , f_getDictByCode('subwayCarType',fm.subway_car_type_code) ]]>
@@ -70,4 +92,10 @@
             </if>
         </where>
     </select>
+
+    <delete id="delete" parameterType="map">
+        <![CDATA[
+            delete from failure_measure_lib where id = #{idEqual}
+        ]]>
+    </delete>
 </mapper>

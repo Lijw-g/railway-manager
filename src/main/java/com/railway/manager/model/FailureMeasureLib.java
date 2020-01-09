@@ -41,4 +41,8 @@ public class FailureMeasureLib {
     private String createUser;
     @ApiModelProperty("创建时间")
     private Date createTime;
+    @ApiModelProperty("更新人")
+    private String updateUser;
+    @ApiModelProperty("更新时间")
+    private Date updateTime;
 }

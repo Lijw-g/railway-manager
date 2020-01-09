@@ -127,14 +127,21 @@
         </where>
     </update>
 
+    <update id="updateStatus" parameterType="user">
+        <![CDATA[
+        update user u
+            set
+            u.status = #{status}
+        ]]>
+        <where>
+            u.user_name = #{userName}
+        </where>
+    </update>
 
     <delete id="delete" parameterType="map">
         <![CDATA[
-
-
-                            delete from user
-                                where user_name = #{name}
-
-]]>
+            delete from user
+                where user_name = #{name}
+        ]]>
     </delete>
 </mapper>
