@@ -36,12 +36,11 @@
         <where>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
-                <![CDATA[ , city_code ]]>
-                <![CDATA[ , subway_car_type_code ]]>
-                <![CDATA[ , door_quantity ]]>
-                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , f_getDictByCode('cityType',sc.city_code) ]]>
+                <![CDATA[ , f_getDictByCode('subwayCarType',sc.subway_car_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('manufacturerType',sc.manufacturer_code) ]]>
                 <![CDATA[ , market_time ]]>
-                <![CDATA[ , line_code ]]>
+                <![CDATA[ , f_getDictByCode('lineType',sc.line_code) ]]>
                 <![CDATA[ , comment ]]>
                 <![CDATA[ ) Like #{advanceColumnLike} ]]>
             </if>
@@ -61,12 +60,11 @@
             </if>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
-                <![CDATA[ , city_code ]]>
-                <![CDATA[ , subway_car_type_code ]]>
-                <![CDATA[ , door_quantity ]]>
-                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , f_getDictByCode('cityType',sc.city_code) ]]>
+                <![CDATA[ , f_getDictByCode('subwayCarType',sc.subway_car_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('manufacturerType',sc.manufacturer_code) ]]>
                 <![CDATA[ , market_time ]]>
-                <![CDATA[ , line_code ]]>
+                <![CDATA[ , f_getDictByCode('lineType',sc.line_code) ]]>
                 <![CDATA[ , comment ]]>
                 <![CDATA[ ) Like #{advanceColumnLike} ]]>
             </if>
@@ -93,9 +91,7 @@
 
     <delete id="delete" parameterType="map">
         <![CDATA[
-
-                delete from subway_car_lib  where id = #{idEqual}
-
+            delete from subway_car_lib  where id = #{idEqual}
         ]]>
     </delete>
 </mapper>

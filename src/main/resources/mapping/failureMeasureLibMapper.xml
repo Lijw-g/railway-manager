@@ -35,10 +35,10 @@
         <where>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
-                <![CDATA[ , subway_car_type_code ]]>
-                <![CDATA[ , subway_door_type_code ]]>
-                <![CDATA[ , manufacturer_code ]]>
-                <![CDATA[ , sensor_type_code ]]>
+                <![CDATA[ , f_getDictByCode('subwayCarType',fm.subway_car_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('subwayDoorType',fm.subway_door_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('manufacturerType',fm.manufacturer_code) ]]>
+                <![CDATA[ , f_getDictByCode('sensorType',fm.sensor_type_code) ]]>
                 <![CDATA[ , failure_cause ]]>
                 <![CDATA[ , solution ]]>
                 <![CDATA[ , comment ]]>
@@ -58,10 +58,10 @@
         <where>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
-                <![CDATA[ , subway_car_type_code ]]>
-                <![CDATA[ , subway_door_type_code ]]>
-                <![CDATA[ , manufacturer_code ]]>
-                <![CDATA[ , sensor_type_code ]]>
+                <![CDATA[ , f_getDictByCode('subwayCarType',fm.subway_car_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('subwayDoorType',fm.subway_door_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('manufacturerType',fm.manufacturer_code) ]]>
+                <![CDATA[ , f_getDictByCode('sensorType',fm.sensor_type_code) ]]>
                 <![CDATA[ , failure_cause ]]>
                 <![CDATA[ , solution ]]>
                 <![CDATA[ , comment ]]>

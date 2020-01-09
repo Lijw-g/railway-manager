@@ -36,11 +36,11 @@
         <where>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
-                <![CDATA[ , city_code ]]>
-                <![CDATA[ , subway_car_code ]]>
-                <![CDATA[ , manufacturer_code ]]>
-                <![CDATA[ , production_batch_code ]]>
-                <![CDATA[ , line_code ]]>
+                <![CDATA[ , f_getDictByCode('cityType',fa.city_code) ]]>
+                <![CDATA[ , f_getDictByCode('subwayCarType',fa.subway_car_code) ]]>
+                <![CDATA[ , f_getDictByCode('manufacturerType',fa.manufacturer_code) ]]>
+                <![CDATA[ , f_getDictByCode('productionBatchType',fa.production_batch_code) ]]>
+                <![CDATA[ , f_getDictByCode('lineType',fa.line_code) ]]>
                 <![CDATA[ , failure_cause ]]>
                 <![CDATA[ , analysis_result ]]>
                 <![CDATA[ , happening_time ]]>
@@ -59,11 +59,11 @@
         <where>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
-                <![CDATA[ , city_code ]]>
-                <![CDATA[ , subway_car_code ]]>
-                <![CDATA[ , manufacturer_code ]]>
-                <![CDATA[ , production_batch_code ]]>
-                <![CDATA[ , line_code ]]>
+                <![CDATA[ , f_getDictByCode('cityType',fa.city_code) ]]>
+                <![CDATA[ , f_getDictByCode('subwayCarType',fa.subway_car_code) ]]>
+                <![CDATA[ , f_getDictByCode('manufacturerType',fa.manufacturer_code) ]]>
+                <![CDATA[ , f_getDictByCode('productionBatchType',fa.production_batch_code) ]]>
+                <![CDATA[ , f_getDictByCode('lineType',fa.line_code) ]]>
                 <![CDATA[ , failure_cause ]]>
                 <![CDATA[ , analysis_result ]]>
                 <![CDATA[ , happening_time ]]>

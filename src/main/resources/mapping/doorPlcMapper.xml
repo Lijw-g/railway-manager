@@ -92,12 +92,11 @@
             </if>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
-                <![CDATA[ , door_controller_type_code ]]>
-                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , f_getDictByCode('doorControllerType',dp.door_controller_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('manufacturerType',dp.manufacturer_code) ]]>
                 <![CDATA[ , production_date ]]>
-                <![CDATA[ , controller_type_code ]]>
-                <![CDATA[ , motor_type_code ]]>
-                <![CDATA[ , comment ]]>
+                <![CDATA[ , f_getDictByCode('controllerType',dp.controller_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('motorType',dp.motor_type_code) ]]>
                 <![CDATA[ ) Like #{advanceColumnLike} ]]>
             </if>
         </where>
@@ -116,12 +115,11 @@
             </if>
             <if test="advanceColumnLike != null">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
-                <![CDATA[ , door_controller_type_code ]]>
-                <![CDATA[ , manufacturer_code ]]>
+                <![CDATA[ , f_getDictByCode('doorControllerType',dp.door_controller_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('manufacturerType',dp.manufacturer_code) ]]>
                 <![CDATA[ , production_date ]]>
-                <![CDATA[ , controller_type_code ]]>
-                <![CDATA[ , motor_type_code ]]>
-                <![CDATA[ , comment ]]>
+                <![CDATA[ , f_getDictByCode('controllerType',dp.controller_type_code) ]]>
+                <![CDATA[ , f_getDictByCode('motorType',dp.motor_type_code) ]]>
                 <![CDATA[ ) Like #{advanceColumnLike} ]]>
             </if>
         </where>
