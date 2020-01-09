@@ -26,7 +26,7 @@ import java.util.Date;
  * @description: 故障分析结果接口
  * @author: chenglin
  * @create: 2019-12-04 22:18
- * @version 1.0
+ * @version 1.1
  **/
 @Api(tags = "故障分析结果接口", value = "故障分析结果接口")
 @Controller

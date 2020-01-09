@@ -24,23 +24,23 @@ public class FailureAnalysisVo {
     @ApiModelProperty("城市编码")
     private Integer cityCode;
     @ApiModelProperty("城市名称")
-    private Integer cityName;
+    private String cityName;
     @ApiModelProperty("地铁车辆编码")
     private Integer subwayCarCode;
     @ApiModelProperty("地铁车辆名称")
-    private Integer subwayCarName;
+    private String subwayCarName;
     @ApiModelProperty("生产厂家编码")
     private Integer manufacturerCode;
     @ApiModelProperty("生产厂家")
-    private Integer manufacturer;
+    private String manufacturer;
     @ApiModelProperty("生产批次编码")
     private Integer productionBatchCode;
     @ApiModelProperty("生产批次")
-    private Integer productionBatch;
+    private String productionBatch;
     @ApiModelProperty("运行线路")
     private Integer lineCode;
     @ApiModelProperty("运行线路名称")
-    private Integer lineName;
+    private String lineName;
     @ApiModelProperty("故障原因")
     private String failureCause;
     @ApiModelProperty("分析结果")
