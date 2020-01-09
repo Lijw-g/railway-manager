@@ -149,10 +149,10 @@ public class ReadMonitorDataController {
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(required = false, defaultValue = "") String beginTime,
-            @RequestParam(required = false, defaultValue = "") String enTime) {
+            @RequestParam(required = false, defaultValue = "") String endTime) {
         OperationConditionVo operationConditionVo = new OperationConditionVo();
-        operationConditionVo.setData(readMonitorDataService.listAllData(factory, city, line, situation, searchParam, pageNum, pageSize, beginTime, enTime));
-        operationConditionVo.setCount(readMonitorDataService.getCount(factory, city, line, situation, searchParam, pageNum, pageSize, beginTime, enTime));
+        operationConditionVo.setData(readMonitorDataService.listAllData(factory, city, line, situation, searchParam, pageNum, pageSize, beginTime, endTime));
+        operationConditionVo.setCount(readMonitorDataService.getCount(factory, city, line, situation, searchParam, pageNum, pageSize, beginTime, endTime));
         return operationConditionVo;
     }
 
@@ -161,7 +161,7 @@ public class ReadMonitorDataController {
     @ApiOperation(value = "导出数据", notes = "导出数据")
     public void export(HttpServletResponse response) {
         //模拟从数据库获取需要导出的数据
-        List<MonitorData> monitorDataList = readMonitorDataService.listAllData();
+        List<MonitorData> monitorDataList = readMonitorDataService.listExcelData();
         //导出操作
         ExcelUtiles.exportExcel(monitorDataList, "数据统计表", "数据统计表", MonitorData.class, "数据统计.xls", response);
     }

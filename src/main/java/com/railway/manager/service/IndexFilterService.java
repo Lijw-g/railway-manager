@@ -29,18 +29,18 @@ public class IndexFilterService extends  AbstractService {
     * @createDate 2019-12-28 16:48
     **/
     public List<Filters> listFactory() {
-        List<Filters> filters = getFilters("factory");
+        List<Filters> filters = getFilters("manufacturerType");
         return filters;
 
     }
 
     public List<Filters> listLine() {
-        List<Filters> filters = getFilters("line");
+        List<Filters> filters = getFilters("lineType");
         return filters;
     }
 
     public List<Filters> listCity() {
-        List<Filters> filters = getFilters("city");
+        List<Filters> filters = getFilters("cityType");
         return filters;
     }
 
