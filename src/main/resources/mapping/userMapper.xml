@@ -48,6 +48,7 @@
                 <![CDATA[ ) Like #{advanceColumnLike} ]]>
             </if>
         </where>
+        <![CDATA[order by u.user_name  ]]>
         <if test="_limit != null and _offset !=null">
             limit #{_limit} offset #{_offset}
         </if>

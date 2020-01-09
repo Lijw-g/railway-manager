@@ -1,6 +1,7 @@
 package com.railway.manager.controller;
 
 import com.google.common.base.Preconditions;
+import com.railway.manager.Enum.ConstantEnum;
 import com.railway.manager.model.User;
 import com.railway.manager.service.VeriCodeService;
 import com.railway.manager.service.log.LoginLogService;
@@ -156,6 +157,7 @@ public class LoginController {
                 .setUpdateUser(user.getUserName())
                 .setPhone(phone.trim())
                 .setSex(sex);
+        user.setStatus(ConstantEnum.status_yes);
         try {
             int num = userService.add(user);
 
