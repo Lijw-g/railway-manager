@@ -28,14 +28,9 @@
             <if test="cityId != null and cityId != ''">
                 and city = #{cityId}
             </if>
-            <if test="beginTime != null and  beginTime != ''">
-                and created_at >= ${beginTime}
+            <if test="searchTime != null and  searchTime != ''">
+                and created_at Like #{searchTime}"%"
             </if>
-            <if test="endTime != null and  endTime != ''">
-                and #{endTime} >= created_at
-            </if>
-
-
             <if test="searchParam != null and searchParam != ''">
                 <![CDATA[ AND CONCAT_WS(',' ]]>
                 <![CDATA[ , m_vstate ]]>
@@ -65,12 +60,10 @@
             <if test="cityId != null and cityId != ''">
                 and city = #{cityId}
             </if>
-            <if test="beginTime != null and  beginTime != ''">
-                and created_at >= ${beginTime}
+            <if test="searchTime != null and  searchTime != ''">
+                and created_at Like #{searchTime}"%"
             </if>
-            <if test="endTime != null and  endTime != ''">
-                and #{endTime} >= created_at
-            </if>
+
 
             <if test="searchParam != null and searchParam != ''">
                 <![CDATA[ AND CONCAT_WS(',' ]]>

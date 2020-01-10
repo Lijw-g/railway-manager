@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class ReadMonitorDataService extends AbstractService {
     ListQuery query = new GenericQuery();
 
-    public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, String searchParam, Integer pageNum, Integer pageSize, String beginTime, String endTime) {
+    public List<MonitorData> listAllData(String factory, String cityId, String line, String situation, String searchParam, Integer pageNum, Integer pageSize, String searchTime) {
         if (pageNum < 1) {
             pageNum = 1;
         }
@@ -35,9 +35,8 @@ public class ReadMonitorDataService extends AbstractService {
         query.fill("cityId", cityId);
         query.fill("line", line);
         query.fill("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
-        if (StringUtils.isNotEmpty(beginTime) && StringUtils.isNotEmpty(endTime)) {
-            query.fill("beginTime", beginTime);
-            query.fill("endTime", endTime);
+        if (StringUtils.isNotEmpty(searchTime)) {
+            query.fill("searchTime", searchTime);
         }
         if (StringUtils.isNotEmpty(searchParam)) {
             query.fill("searchParam", searchParam);
@@ -76,15 +75,14 @@ public class ReadMonitorDataService extends AbstractService {
         return sqlSession.selectList("monitorDataExcel.list", query);
     }
 
-    public int getCount(String factory, String cityId, String line, String situation, String searchParam, Integer pageNum, Integer pageSize, String beginTime, String enTime) {
+    public int getCount(String factory, String cityId, String line, String situation, String searchParam, Integer pageNum, Integer pageSize, String searchTime) {
         query.fill("cityId", cityId);
         query.fill("line", line);
         if (StringUtils.isNotEmpty(searchParam)) {
             query.fill("searchParam", searchParam);
         }
-        if (StringUtils.isNotEmpty(beginTime) && StringUtils.isNotEmpty(enTime)) {
-            query.fill("beginTime", beginTime);
-            query.fill("endTime", enTime);
+        if (StringUtils.isNotEmpty(searchTime)) {
+            query.fill("searchTime", searchTime);
         }
         return sqlSession.selectOne("monitorData.selectCount", query);
     }

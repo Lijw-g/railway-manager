@@ -148,11 +148,10 @@ public class ReadMonitorDataController {
             @RequestParam(required = false, defaultValue = "") String searchParam,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @RequestParam(required = false, defaultValue = "") String beginTime,
-            @RequestParam(required = false, defaultValue = "") String endTime) {
+            @RequestParam(required = false, defaultValue = "") String searchTime) {
         OperationConditionVo operationConditionVo = new OperationConditionVo();
-        operationConditionVo.setData(readMonitorDataService.listAllData(factory, city, line, situation, searchParam, pageNum, pageSize, beginTime, endTime));
-        operationConditionVo.setCount(readMonitorDataService.getCount(factory, city, line, situation, searchParam, pageNum, pageSize, beginTime, endTime));
+        operationConditionVo.setData(readMonitorDataService.listAllData(factory, city, line, situation, searchParam, pageNum, pageSize, searchTime));
+        operationConditionVo.setCount(readMonitorDataService.getCount(factory, city, line, situation, searchParam, pageNum, pageSize, searchTime));
         return operationConditionVo;
     }
 
