@@ -35,7 +35,7 @@ public class DoorPlc {
         this.stableTemperature = doorPlcAdd.getStableTemperature();
         this.motorRatedVoltage = doorPlcAdd.getMotorRatedVoltage();
         this.motorRatedCurrent = doorPlcAdd.getMotorRatedCurrent();
-        this.motorStableTemperature = this.getMotorStableTemperature();
+        this.motorStableTemperature = doorPlcAdd.getMotorStableTemperature();
         this.gatage = doorPlcAdd.getGatage();
         this.maxGatage = doorPlcAdd.getMaxGatage();
         this.doorStartTime = doorPlcAdd.getDoorStartTime();
