@@ -41,28 +41,16 @@ public class DoorPlcVo {
     private String motorType;
     @ApiModelProperty("额定电压")
     private String ratedVoltage;
-    @ApiModelProperty("工作电压")
-    private String workingVoltage;
     @ApiModelProperty("额定电流")
     private String ratedCurrent;
-    @ApiModelProperty("峰值电流")
-    private String peakCurrent;
     @ApiModelProperty("稳态温度")
     private String stableTemperature;
-    @ApiModelProperty("工作温度")
-    private String workingTemperature;
     @ApiModelProperty("电机额定电压")
     private String motorRatedVoltage;
-    @ApiModelProperty("电机工作电压")
-    private String motorWorkingVoltage;
     @ApiModelProperty("电机额定电流")
     private String motorRatedCurrent;
-    @ApiModelProperty("电机工作电流")
-    private String motorWorkingCurrent;
     @ApiModelProperty("电机稳态温度")
     private String motorStableTemperature;
-    @ApiModelProperty("电机工作温度")
-    private String motorWorkingTemperature;
     @ApiModelProperty("门开度范围")
     private String gatage;
     @ApiModelProperty("最大门开度")
