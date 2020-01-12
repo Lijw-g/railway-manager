@@ -8,8 +8,12 @@
     <insert id="insert" parameterType="user">
         <![CDATA[
 
-                    insert into user (user_name, display_name, password, create_user, update_user,sex,phone,status)
-                            values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone},#{status})
+
+
+                                    insert into user (user_name, display_name, password, create_user, update_user,sex,phone,status)
+                                            values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone},#{status})
+
+
 
         ]]>
     </insert>
@@ -17,6 +21,7 @@
     <select id="selectList" parameterType="map" resultType="userVo">
         <![CDATA[
             select
+                u.id,
                 u.user_name as userName,
                 u.display_name as displayName,
                 u.phone,
@@ -25,7 +30,8 @@
                 u.status,
                 f_getDictByCode('status',u.status) as statusName,
                 u.create_time as createTime,
-                ru.role_code as roleCode
+                ru.role_code as roleCode,
+                u.photo
             from user u
                 left join role_user ru
                     on u.user_name = ru.user_name
@@ -62,6 +68,7 @@
                 u.display_name as displayName,
                 u.phone,
                 u.sex,
+                u.photo,
                 f_getDictByCode('sex',u.sex) as sexName,
                 u.status,
                 f_getDictByCode('status',u.status) as statusName,
@@ -140,8 +147,25 @@
 
     <delete id="delete" parameterType="map">
         <![CDATA[
-            delete from user
-                where user_name = #{name}
+
+
+
+                                    delete from user
+                                        where user_name = #{name}
+
+
+
         ]]>
     </delete>
+
+    <update id="insertPhoto" parameterType="map">
+        <![CDATA[
+        update user u
+            set
+            u.photo = #{photo}
+        ]]>
+        <where>
+            u.id = #{id}
+        </where>
+    </update>
 </mapper>

@@ -6,13 +6,16 @@ import com.railway.manager.entity.UserAdd;
 import com.railway.manager.model.RoleUser;
 import com.railway.manager.service.AbstractService;
 import com.railway.manager.model.User;
+import com.railway.manager.utils.HexUtil;
 import com.railway.manager.utils.ResultMapUtil;
 import com.railway.manager.vo.UserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+import sun.misc.BASE64Encoder;
 
+import javax.management.Query;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -434,5 +437,12 @@ public class UserService extends AbstractService {
             return null;
         }
         return userVo;
+    }
+
+    public void uploadImage(String photo, String userId) {
+        Map<String, Object> conditionMap = Maps.newHashMap();
+        conditionMap.put("photo", photo);
+        conditionMap.put("id", userId);
+        sqlSession.update("user.insertPhoto", conditionMap);
     }
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -17,10 +18,10 @@ import java.util.Date;
 @ApiModel("用户信息表vo")
 @Accessors(chain = true)
 public class UserVo {
-
+    private int id;
     @ApiModelProperty("账号")
     private String userName;
-    @ApiModelProperty("头像")
+    @ApiModelProperty(value = "头像")
     private String photo;
     @ApiModelProperty("用户名")
     private String displayName;

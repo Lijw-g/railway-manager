@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
 
+import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,8 @@ public class User {
     private Integer sex;
     @ApiModelProperty("状态（1启用 0不启用）")
     private Integer status;
+    @ApiModelProperty("图片")
+    private String photo;
     /**
      * 关联属性 1
      */

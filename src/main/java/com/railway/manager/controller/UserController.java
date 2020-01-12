@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,4 +100,19 @@ public class UserController {
         return userService.getPersonInfo(userId);
     }
 
+    @PostMapping("/uploadImage")
+    @ResponseBody
+    public String uploadImage(MultipartFile file, String userId) {
+        try {
+            BASE64Encoder bEncoder = new BASE64Encoder();
+            String base64EncoderImg = bEncoder.encode(file.getBytes()).replaceAll("[\\s*\t\n\r]", "");
+
+            userService.uploadImage(base64EncoderImg, userId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "success";
+    }
 }
