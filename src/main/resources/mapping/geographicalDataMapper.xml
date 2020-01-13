@@ -23,6 +23,21 @@
                 and device_id = #{deviceId}
             </if>
         </where>
-        order by created_at desc limit 100
+        order by created_at desc
+        <if test="_limit != null and _offset !=null">
+            limit #{_limit} offset #{_offset}
+        </if>
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*)
+        from geographical_data
+        ]]>
+        <where>
+            <if test="deviceId != null and deviceId != ''">
+                and device_id = #{deviceId}
+            </if>
+        </where>
     </select>
 </mapper>
