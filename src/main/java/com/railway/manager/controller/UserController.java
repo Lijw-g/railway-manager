@@ -3,17 +3,15 @@ package com.railway.manager.controller;
 import com.google.common.collect.Maps;
 import com.railway.manager.entity.UserAdd;
 import com.railway.manager.service.system.UserService;
+import com.railway.manager.utils.ResultMapUtil;
 import com.railway.manager.vo.UserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;
 
@@ -114,5 +112,16 @@ public class UserController {
             e.printStackTrace();
         }
         return "success";
+    }
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    @ApiOperation(value = "删除用户信息", notes = "根据用户名删除用户信息")
+    public Map<String, Object> delete(@ApiParam("用户名") @RequestParam String userName) {
+
+        //返回结果
+        Map<String, Object> resultMap = userService.deleteUser(userName);
+
+        return resultMap;
     }
 }

@@ -7,14 +7,8 @@
 
     <insert id="insert" parameterType="user">
         <![CDATA[
-
-
-
-                                    insert into user (user_name, display_name, password, create_user, update_user,sex,phone,status)
-                                            values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone},#{status})
-
-
-
+            insert into user (user_name, display_name, password, create_user, update_user,sex,phone,status)
+                    values (#{userName}, #{displayName}, #{password}, #{createUser}, #{updateUser},#{sex},#{phone},#{status})
         ]]>
     </insert>
 
@@ -147,14 +141,8 @@
 
     <delete id="delete" parameterType="map">
         <![CDATA[
-
-
-
-                                    delete from user
-                                        where user_name = #{name}
-
-
-
+            delete from user
+                where user_name = #{userNameEqual}
         ]]>
     </delete>
 

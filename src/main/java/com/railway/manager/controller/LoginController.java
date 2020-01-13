@@ -86,7 +86,7 @@ public class LoginController {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("userNameEqual", userName);
         paramMap.put("passwordEqual", password);
-        List<User> userList = userService.getList(paramMap);
+        List<UserVo> userList = userService.getList(paramMap);
 
         if (userList == null || userList.size() < 1) {
             resultMap.put("code", "506");
@@ -95,6 +95,12 @@ public class LoginController {
         } else if (userList.size() > 1) {
             resultMap.put("code", "507");
             resultMap.put("description", "存在多条用户信息，请及时联系管理员");
+            return resultMap;
+        }
+
+        if(userList.get(0).getStatus() != ConstantEnum.status_yes) {
+            resultMap.put("code", "508");
+            resultMap.put("description", "用户已禁用");
             return resultMap;
         }
 

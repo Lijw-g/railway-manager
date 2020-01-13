@@ -339,7 +339,7 @@ public class UserService extends AbstractService {
         return resultMap;
     }
 
-    public List<User> getList(Map<String,Object> map) {
+    public List<UserVo> getList(Map<String,Object> map) {
         return sqlSession.selectList("user.selectList", map);
     }
 
@@ -444,5 +444,55 @@ public class UserService extends AbstractService {
         conditionMap.put("photo", photo);
         conditionMap.put("id", userId);
         sqlSession.update("user.insertPhoto", conditionMap);
+    }
+
+    /**
+     * Description: 删除用户
+     * param userName
+     * return map
+     * @return
+     */
+    public Map<String, Object> deleteUser(String userName) {
+
+        //返回结果
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        if(StringUtils.isBlank(userName)) {
+            resultMap.put("code", "201");
+            resultMap.put("description", "用户名禁止为空");
+
+            return resultMap;
+        }
+
+        userName = userName.trim();
+
+        Map<String, Object> conditionMap = Maps.newHashMap();
+        conditionMap.put("userNameEqual", userName);
+
+        int count = sqlSession.selectOne("user.selectCount",conditionMap);
+
+        if(count < 1) {
+            resultMap.put("code", "202");
+            resultMap.put("description", "用户名不存在，禁止删除");
+
+            return resultMap;
+        }
+
+        if(count > 1) {
+            resultMap.put("code", "203");
+            resultMap.put("description", "用户名不唯一，禁止删除");
+
+            return resultMap;
+        }
+
+        //存在数据时，则删除用户信息及对应角色数据
+        Map<String, Object> conditionRoleMap = new HashMap<String, Object>();
+        conditionRoleMap.put("userNameEqual", userName);
+        sqlSession.delete("roleUser.delete", conditionRoleMap);
+
+        //删除用户信息
+        int countUser = sqlSession.delete("user.delete", conditionRoleMap);
+
+        return ResultMapUtil.getDeleteResult(countUser);
     }
 }
