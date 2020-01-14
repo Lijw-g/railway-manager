@@ -1,6 +1,7 @@
 package com.railway.manager.controller;
 
 import com.google.common.collect.Maps;
+import com.railway.manager.entity.UserAdd;
 import com.railway.manager.model.FailureAnalysis;
 import com.railway.manager.service.system.FailureAnalysisService;
 import com.railway.manager.utils.ResultMapUtil;
@@ -22,11 +23,11 @@ import java.util.Map;
 import java.util.Date;
 
 /**
+ * @version 1.1
  * @program: railway_manager
  * @description: 故障分析结果接口
  * @author: chenglin
  * @create: 2019-12-04 22:18
- * @version 1.1
  **/
 @Api(tags = "故障分析结果接口", value = "故障分析结果接口")
 @Controller
@@ -62,24 +63,24 @@ public class FailureAnalysisController {
     @ResponseBody
     @ApiOperation(value = "故障分析结果查询", notes = "故障分析结果查询")
     public Map<String, Object> failureAnalysisList(@RequestParam(required = false) String advanceColumn,
-                                     @RequestParam(required = false,defaultValue = "1") Integer pageNum,
-                                     @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
+                                                   @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
 
-        Map<String, Object> conditionMap = new HashMap<String, Object>();
-        if(!StringUtils.isBlank(advanceColumn)) {
-            conditionMap.put("advanceColumnLike", "%"+advanceColumn.trim()+"%");
+        Map<String, Object> conditionMap = Maps.newHashMap();
+        if (!StringUtils.isBlank(advanceColumn)) {
+            conditionMap.put("advanceColumnLike", "%" + advanceColumn.trim() + "%");
         }
 
-        if( pageNum<1) {
+        if (pageNum < 1) {
             pageNum = 1;
         }
-        if( pageSize<1) {
+        if (pageSize < 1) {
             pageSize = 10;
         }
 
-        if(pageNum!=null && pageSize!=null) {
+        if (pageNum != null && pageSize != null) {
             conditionMap.put("_limit", pageSize);
-            conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
+            conditionMap.put("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
         }
 
         List<FailureAnalysisVo> failureAnalysisVoList = failureAnalysisService.getList(conditionMap);
@@ -95,4 +96,20 @@ public class FailureAnalysisController {
 
         return resultMap;
     }
+
+    @PostMapping("/edit")
+    @ResponseBody
+    @ApiOperation(value = "更改故障分析结果", notes = "更改故障分析结果")
+    public int editUser(FailureAnalysis failureAnalysis) {
+        return failureAnalysisService.edit(failureAnalysis);
+    }
+
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    @ApiOperation(value = "删除故障分析结果", notes = "删除故障分析结果")
+    public Integer delete(String id) {
+        return failureAnalysisService.delete(id);
+    }
+
 }

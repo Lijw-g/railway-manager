@@ -7,8 +7,10 @@
 
     <insert id="insert" parameterType="failureAnalysis">
         <![CDATA[
-        insert into failure_analysis (city_code, subway_car_code, manufacturer_code, production_batch_code, line_code, failure_cause, analysis_result, happening_time, create_user)
-            values (#{cityCode}, #{subwayCarCode}, #{manufacturerCode}, #{productionBatchCode}, #{lineCode}, #{failureCause}, #{analysisResult}, #{happeningTime}, #{createUser})
+
+                insert into failure_analysis (city_code, subway_car_code, manufacturer_code, production_batch_code, line_code, failure_cause, analysis_result, happening_time, create_user)
+                    values (#{cityCode}, #{subwayCarCode}, #{manufacturerCode}, #{productionBatchCode}, #{lineCode}, #{failureCause}, #{analysisResult}, #{happeningTime}, #{createUser})
+
         ]]>
     </insert>
 
@@ -71,4 +73,32 @@
             </if>
         </where>
     </select>
+    <delete id="delete" parameterType="map">
+        <![CDATA[
+
+
+                            delete from failure_analysis
+                                where id = #{id}
+
+
+        ]]>
+    </delete>
+    <update id="update" parameterType="failureAnalysis">
+        <![CDATA[
+        update failure_analysis
+            set
+            city_code  = #{cityCode},
+            subway_car_code = #{subwayCarCode},
+            manufacturer_code = #{manufacturerCode},
+            production_batch_code = #{productionBatchCode},
+            line_code = #{lineCode},
+            failure_cause = #{failureCause},
+            analysis_result = #{analysisResult},
+            happening_time = #{happeningTime},
+            create_user = #{createUser}
+        ]]>
+        <where>
+            id = #{id}
+        </where>
+    </update>
 </mapper>

@@ -1,5 +1,6 @@
 package com.railway.manager.service.system;
 
+import com.google.common.collect.Maps;
 import com.railway.manager.model.FailureAnalysis;
 import com.railway.manager.service.AbstractService;
 import com.railway.manager.vo.FailureAnalysisVo;
@@ -37,10 +38,26 @@ public class FailureAnalysisService extends AbstractService {
 
     /**
      * Description: 计算符合要求的数据量
+     *
      * @param map
      * @return
      */
-    public int selectCount(Map<String,Object> map) {
+    public int selectCount(Map<String, Object> map) {
         return sqlSession.selectOne("failureAnalysis.selectCount", map);
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    public Integer delete(String id) {
+        Map<String, String> param = Maps.newHashMap();
+        param.put("id", id);
+
+        return sqlSession.delete("failureAnalysis.delete", param);
+    }
+
+    public int edit(FailureAnalysis failureAnalysis) {
+        return sqlSession.update("failureAnalysis.update", failureAnalysis);
     }
 }
