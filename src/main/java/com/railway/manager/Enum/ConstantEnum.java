@@ -21,4 +21,6 @@ public interface ConstantEnum {
     int status_yes = 1;
     /** 状态：禁用 */
     int status_no = 0;
+
+    String dict_type = "dictType";
 }

@@ -27,7 +27,8 @@
         <typeAlias type="com.railway.manager.vo.SubwayCarLibVo" alias="subwayCarLibVo"/>
         <typeAlias type="com.railway.manager.model.DoorPlc" alias="doorPlc"/>
         <typeAlias type="com.railway.manager.vo.DoorPlcVo" alias="doorPlcVo"/>
-        <typeAlias type="com.railway.manager.entity.SysDict" alias="sysDict"/>
+        <typeAlias type="com.railway.manager.model.SysDict" alias="sysDict"/>
+        <typeAlias type="com.railway.manager.vo.SysDictVo" alias="sysDictVo"/>
         <typeAlias type="com.railway.manager.model.MonitorData" alias="monitorData"/>
         <typeAlias type="com.railway.manager.model.excel.MonitorData" alias="monitorDataExcel"/>
         <typeAlias type="com.railway.manager.model.HeartData" alias="heartData"/>

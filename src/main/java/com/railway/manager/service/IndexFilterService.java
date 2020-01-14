@@ -3,15 +3,13 @@ package com.railway.manager.service;
 import com.google.common.collect.Lists;
 import com.railway.manager.common.query.GenericQuery;
 import com.railway.manager.common.query.ListQuery;
-import com.railway.manager.entity.SysDict;
+import com.railway.manager.entity.SysDictAdd;
 import com.railway.manager.model.Filters;
-import com.railway.manager.model.MonitorData;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @program: railway-manager
@@ -52,10 +50,10 @@ public class IndexFilterService extends  AbstractService {
     private List<Filters> getFilters(String filter) {
         List<Filters> filters = Lists.newArrayList();
         ListQuery query = new GenericQuery();
-        List<SysDict> sysDicts = sqlSession.selectList("sysDict.selectList", query);
-        List<SysDict> sysDictStream = sysDicts.stream().filter(o -> filter.equals(o.getDictType())).collect(Collectors.toList());
+        List<SysDictAdd> sysDicts = sqlSession.selectList("sysDict.selectList", query);
+        List<SysDictAdd> sysDictStream = sysDicts.stream().filter(o -> filter.equals(o.getDictType())).collect(Collectors.toList());
         if (!CollectionUtils.isEmpty(sysDictStream)) {
-            for (SysDict sysDict:sysDictStream
+            for (SysDictAdd sysDict:sysDictStream
             ) {
                 Filters filte = new Filters();
                 filte.setCode(sysDict.getDictCode().toString());

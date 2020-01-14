@@ -13,12 +13,8 @@
         <![CDATA[
         update sys_dict dict
             set
-            dict.dict_type = #{dictType},
-            dict.dict_code = #{dictCode},
             dict.dict_name = #{dictName},
-            dict.description = #{description},
             dict.status = #{status},
-            dict.update_user = #{updateUser},
             dict.update_time = #{updateTime}
         ]]>
         <where>
@@ -26,7 +22,7 @@
         </where>
     </select>
 
-    <select id="selectList" parameterType="map" resultType="sysDict">
+    <select id="selectList" parameterType="map" resultType="sysDictVo">
         <![CDATA[
         select
             id,
@@ -35,18 +31,31 @@
             dict.dict_name as dictName,
             dict.description as description,
             dict.status as status,
-            dict.create_user as createUser,
-            dict.create_time as createTime,
-            dict.update_user as updateUser,
-            dict.update_time as updateTime
+            f_getDictByCode('status', dict.status) as statusName
         from sys_dict dict
         ]]>
         <where>
+            <if test="idEqual != null">
+                <![CDATA[ and id = #{idEqual} ]]>
+            </if>
             <if test="dictName != null and dictName != ''">
                 and dict_name  like "%"#{dictName}"%"
             </if>
             <if test="dictTypeEqual != null and dictTypeEqual != ''">
                 <![CDATA[ and dict_type  = #{dictTypeEqual} ]]>
+            </if>
+            <if test="dictNameEqual != null and dictNameEqual != ''">
+                <![CDATA[ and dict_name  = #{dictNameEqual} ]]>
+            </if>
+            <if test="dictCodeEqual != null">
+                <![CDATA[ and dict_code = #{dictCodeEqual} ]]>
+            </if>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , dict.dict_type ]]>
+                <![CDATA[ , dict.dict_name ]]>
+                <![CDATA[ , dict.description ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
             </if>
         </where>
         <if test="_limit != null and _offset !=null">
@@ -56,14 +65,30 @@
 
     <select id="selectCount" parameterType="map" resultType="int">
         <![CDATA[
-        select count(*) from sys_dict dict
+            select count(*) from sys_dict dict
         ]]>
         <where>
+            <if test="idEqual != null">
+                <![CDATA[ and id = #{idEqual} ]]>
+            </if>
             <if test="dictName != null and dictName != ''">
                 and dict_name  like "%"#{dictName}"%"
             </if>
             <if test="dictTypeEqual != null and dictTypeEqual != ''">
                 <![CDATA[ and dict_type  = #{dictTypeEqual} ]]>
+            </if>
+            <if test="dictNameEqual != null and dictNameEqual != ''">
+                <![CDATA[ and dict_name  = #{dictNameEqual} ]]>
+            </if>
+            <if test="dictCodeEqual != null">
+                <![CDATA[ and dict_code = #{dictCodeEqual} ]]>
+            </if>
+            <if test="advanceColumnLike != null">
+                <![CDATA[ AND CONCAT_WS(',' ]]>
+                <![CDATA[ , dict.dict_type ]]>
+                <![CDATA[ , dict.dict_name ]]>
+                <![CDATA[ , dict.description ]]>
+                <![CDATA[ ) Like #{advanceColumnLike} ]]>
             </if>
         </where>
     </select>
