@@ -126,7 +126,7 @@ public class SysDicController {
         resultMap.put("description", "查询成功");
         resultMap.put("allCount", allCount);
         resultMap.put("currentCount", dictVoList.size());
-        resultMap.put("dictVoList", dictVoList);
+        resultMap.put("sysDictList", dictVoList);
 
         return resultMap;
     }
@@ -149,7 +149,7 @@ public class SysDicController {
         resultMap.put("description", "查询成功");
         resultMap.put("allCount", allCount);
         resultMap.put("currentCount", dictVoList.size());
-        resultMap.put("dictVoList", dictVoList);
+        resultMap.put("sysDictList", dictVoList);
 
         return resultMap;
     }
