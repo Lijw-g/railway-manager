@@ -51,6 +51,20 @@ public class EarlyWarningController {
     public List<EarlyWarring> haveNewWarring(
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+        List<EarlyWarring> aNew = earlyWarringService.getNew();
+        if (aNew.size() > 2) {
+            return aNew.subList(0, 2);
+        } else {
+            return aNew;
+        }
+    }
+
+    @GetMapping("/notice")
+    @ResponseBody
+    @ApiOperation(value = "通知信息", notes = "通知信息")
+    public List<EarlyWarring> notice(
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         return earlyWarringService.getNew();
     }
 
