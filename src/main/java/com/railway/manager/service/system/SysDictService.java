@@ -105,7 +105,7 @@ public class SysDictService extends AbstractService {
         }
 
         SysDict dict = new SysDict(sysDictAdd);
-        dict.setDescription(dictVoList.get(0).getDictName());
+        dict.setDescription(dictVoList.get(0).getDescription());
 
         int countAdd = sqlSession.insert("sysDict.insert", dict);
 
