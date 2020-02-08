@@ -23,6 +23,7 @@ public class FailureMeasureLibService extends AbstractService {
 
     /**
      * Description: 添加故障措施库
+     *
      * @param failureMeasureLib
      * @return
      */
@@ -32,24 +33,27 @@ public class FailureMeasureLibService extends AbstractService {
 
     /**
      * Description: 查找故障措施库
+     *
      * @param map
      * @return
      */
-    public List<FailureMeasureLibVo> getList(Map<String,Object> map) {
+    public List<FailureMeasureLibVo> getList(Map<String, Object> map) {
         return sqlSession.selectList("failureMeasureLib.selectList", map);
     }
 
     /**
      * Description: 计算符合要求的数据量
+     *
      * @param map
      * @return
      */
-    public int selectCount(Map<String,Object> map) {
+    public int selectCount(Map<String, Object> map) {
         return sqlSession.selectOne("failureMeasureLib.selectCount", map);
     }
 
     /**
      * 删除数据
+     *
      * @param id
      * @return
      */
@@ -61,7 +65,7 @@ public class FailureMeasureLibService extends AbstractService {
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("idEqual", id.intValue());
 
-        if(selectCount(conditionMap) < 1) {
+        if (selectCount(conditionMap) < 1) {
             resultMap.put("code", "201");
             resultMap.put("description", "根据id查不到数据，禁止删除");
 
@@ -76,6 +80,7 @@ public class FailureMeasureLibService extends AbstractService {
 
     /**
      * 修改信息
+     *
      * @param failureMeasureLib
      * @return
      */

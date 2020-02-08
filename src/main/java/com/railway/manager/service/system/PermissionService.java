@@ -29,10 +29,10 @@ public class PermissionService extends AbstractService {
         conditionMap.put("menuTypeCodeEqual", ConstantEnum.menuType_dir);
 
         //目录数据
-        int dirCount = sqlSession.selectOne("permission.selectCount",conditionMap);
+        int dirCount = sqlSession.selectOne("permission.selectCount", conditionMap);
         List<PermissionVo> permissionDirList = sqlSession.selectList("permission.selectList", conditionMap);
 
-        for(PermissionVo permissionDir : permissionDirList) {
+        for (PermissionVo permissionDir : permissionDirList) {
             conditionMap.clear();
             conditionMap.put("parentIdEqual", permissionDir.getId());
             conditionMap.put("menuTypeCodeEqual", ConstantEnum.menuType_menu);
@@ -40,7 +40,7 @@ public class PermissionService extends AbstractService {
             //菜单数据
             List<PermissionVo> permissionMenuList = sqlSession.selectList("permission.selectList", conditionMap);
 
-            for(PermissionVo permissionMenu : permissionMenuList) {
+            for (PermissionVo permissionMenu : permissionMenuList) {
                 conditionMap.clear();
                 conditionMap.put("parentIdEqual", permissionMenu.getId());
                 conditionMap.put("menuTypeCodeEqual", ConstantEnum.menuType_btn);
@@ -65,13 +65,13 @@ public class PermissionService extends AbstractService {
     }
 
     /**
+     * @param roleCode
      * @author: chenglin
      * Description: 根据角色编码获取权限信息
-     * @param roleCode
      **/
     public Map<String, Object> getlistByCode(String roleCode) {
 
-        List<Map<String, Object>> resultMapList = sqlSession.selectList("rolePermission.getlistByCode",roleCode);
+        List<Map<String, Object>> resultMapList = sqlSession.selectList("rolePermission.getlistByCode", roleCode);
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("code", "200");
@@ -84,20 +84,20 @@ public class PermissionService extends AbstractService {
     }
 
     /**
-     * @author: chenglin
-     * Description: 计算符合要求的数据量
      * @param conditionMap
      * @return int
-    **/
-    public int selectCount(Map<String,Object> conditionMap) {
-        return sqlSession.selectOne("permission.selectCount",conditionMap);
+     * @author: chenglin
+     * Description: 计算符合要求的数据量
+     **/
+    public int selectCount(Map<String, Object> conditionMap) {
+        return sqlSession.selectOne("permission.selectCount", conditionMap);
     }
 
     /**
-     * @author: chenglin
-     * Description: 添加权限信息
      * @param permission
      * @return int
+     * @author: chenglin
+     * Description: 添加权限信息
      **/
     public int add(Permission permission) {
         return sqlSession.insert("permission.insert", permission);
@@ -105,6 +105,7 @@ public class PermissionService extends AbstractService {
 
     /**
      * Description: 删除权限信息
+     *
      * @param id
      * @return
      */
@@ -113,10 +114,10 @@ public class PermissionService extends AbstractService {
     }
 
     /**
-     * @author: chenglin
-     * Description: 更新权限信息
      * @param permission
      * @return int
+     * @author: chenglin
+     * Description: 更新权限信息
      **/
     public int update(Permission permission) {
         return sqlSession.update("permission.update", permission);

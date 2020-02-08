@@ -8,11 +8,11 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 故障分析类
  * @author: chenglin
  * @create: 2019-12-04 20:46
- * @version 1.0
  **/
 @Data
 @ApiModel("故障分析结果表")

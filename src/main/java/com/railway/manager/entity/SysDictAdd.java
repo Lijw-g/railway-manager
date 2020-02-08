@@ -8,11 +8,11 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 字典表add
  * @author: chenglin
  * @create: 2019-12-05 23:15
- * @version 1.0
  **/
 @Data
 @ApiModel("字典表add")

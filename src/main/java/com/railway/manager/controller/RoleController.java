@@ -179,13 +179,13 @@ public class RoleController {
     @ApiOperation(value = "角色授权", notes = "roleCode：角色编码；ids：权限id数组，以逗号分隔")
     @ResponseBody
     public Map<String, Object> authorization(@RequestParam String roleCode,
-                                             @RequestParam Integer[] ids){
+                                             @RequestParam Integer[] ids) {
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         //检查id
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         //检查ids中是否均符合要求
-        for(Integer id : ids) {
+        for (Integer id : ids) {
             conditionMap.put("idEqual", id.intValue());
 
             if (permissionService.selectCount(conditionMap) < 1) {
@@ -198,7 +198,7 @@ public class RoleController {
 
         int count = userRoleService.updateAuthorization(roleCode, ids);
 
-        if(count > 0) {
+        if (count > 0) {
             resultMap.put("code", "200");
             resultMap.put("description", "授权成功");
         } else {

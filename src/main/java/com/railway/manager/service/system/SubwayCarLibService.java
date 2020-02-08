@@ -20,6 +20,7 @@ public class SubwayCarLibService extends AbstractService {
 
     /**
      * Description: 添加轨道交通车辆型号库
+     *
      * @param subwayCarLib
      * @return
      */
@@ -29,10 +30,11 @@ public class SubwayCarLibService extends AbstractService {
 
     /**
      * Description: 查找轨道交通车辆型号库
+     *
      * @param map
      * @return
      */
-    public List<SubwayCarLibVo> getList(Map<String,Object> map) {
+    public List<SubwayCarLibVo> getList(Map<String, Object> map) {
         return sqlSession.selectList("subwayCarLib.selectList", map);
     }
 

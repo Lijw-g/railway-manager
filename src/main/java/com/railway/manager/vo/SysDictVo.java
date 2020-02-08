@@ -8,11 +8,11 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 字典表vo
  * @author: chenglin
  * @create: 2019-12-05 23:15
- * @version 1.0
  **/
 @Data
 @ApiModel("字典表vo")

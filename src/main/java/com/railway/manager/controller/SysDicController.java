@@ -44,8 +44,8 @@ public class SysDicController {
     @ResponseBody
     @ApiOperation(value = "修改字典数据", notes = "根据id修改字典数据，仅可修改字典名称或状态")
     public Map<String, Object> updateDict(@RequestParam Integer id,
-            @ApiParam("字典名称") @RequestParam String dictName,
-            @ApiParam("状态编码：1启用，0禁止") @RequestParam Integer status) {
+                                          @ApiParam("字典名称") @RequestParam String dictName,
+                                          @ApiParam("状态编码：1启用，0禁止") @RequestParam Integer status) {
 
         //返回结果
         Map<String, Object> resultMap = Maps.newHashMap();
@@ -54,12 +54,12 @@ public class SysDicController {
         conditionMap.put("idEqual", id.intValue());
 
         int countCondition = sysDictService.selectCount(conditionMap);
-        if(countCondition < 1) {
+        if (countCondition < 1) {
             resultMap.put("code", "201");
             resultMap.put("description", "根据id查不到字典数据，禁止更新");
 
             return resultMap;
-        } else if(countCondition > 1) {
+        } else if (countCondition > 1) {
             resultMap.put("code", "202");
             resultMap.put("description", "根据id查到多条字典数据，禁止更新");
 
@@ -67,7 +67,7 @@ public class SysDicController {
         }
 
         //检查字典名称是否为空
-        if(StringUtils.isBlank(dictName)) {
+        if (StringUtils.isBlank(dictName)) {
             resultMap.put("code", "301");
             resultMap.put("description", "字典名称不能为空");
 
@@ -75,8 +75,8 @@ public class SysDicController {
         }
 
         //检查状态是否正确
-        if(status.intValue()!= ConstantEnum.status_no
-                && status.intValue()!=ConstantEnum.status_yes) {
+        if (status.intValue() != ConstantEnum.status_no
+                && status.intValue() != ConstantEnum.status_yes) {
             resultMap.put("code", "302");
             resultMap.put("description", "状态编码不符合要求");
 
@@ -99,13 +99,13 @@ public class SysDicController {
     @ResponseBody
     @ApiOperation(value = "查询所有字典数据", notes = "查询所有字典数据")
     public Map<String, Object> dictList(@ApiParam("关键字") @RequestParam(required = false) String advanceColumn,
-            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-            @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+                                        @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                        @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
 
         Map<String, Object> conditionMap = Maps.newHashMap();
 
-        if(!StringUtils.isBlank(advanceColumn)) {
-            conditionMap.put("advanceColumnLike", "%"+advanceColumn.trim()+"%");
+        if (!StringUtils.isBlank(advanceColumn)) {
+            conditionMap.put("advanceColumnLike", "%" + advanceColumn.trim() + "%");
         }
 
         if (pageNum < 1) {

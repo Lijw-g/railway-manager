@@ -39,7 +39,7 @@
                 <![CDATA[ and id = #{idEqual} ]]>
             </if>
             <if test="dictName != null and dictName != ''">
-                and dict_name  like "%"#{dictName}"%"
+                and dict_name like "%"#{dictName}"%"
             </if>
             <if test="dictTypeEqual != null and dictTypeEqual != ''">
                 <![CDATA[ and dict_type  = #{dictTypeEqual} ]]>
@@ -72,7 +72,7 @@
                 <![CDATA[ and id = #{idEqual} ]]>
             </if>
             <if test="dictName != null and dictName != ''">
-                and dict_name  like "%"#{dictName}"%"
+                and dict_name like "%"#{dictName}"%"
             </if>
             <if test="dictTypeEqual != null and dictTypeEqual != ''">
                 <![CDATA[ and dict_type  = #{dictTypeEqual} ]]>

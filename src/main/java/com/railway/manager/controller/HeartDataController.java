@@ -18,15 +18,16 @@ import java.util.List;
  * @author: lijiwen
  * @create: 2019-11-16 21:29
  **/
-@Api(tags = "心跳信息查询",value = "心跳信息查询")
+@Api(tags = "心跳信息查询", value = "心跳信息查询")
 @Controller
 @RequestMapping("/api/heart")
 public class HeartDataController {
     @Autowired
     private HeartDataService heartDataService;
+
     @GetMapping("getHeartData")
     @ResponseBody
-    public List<HeartData> getHeartData(@RequestParam(required = false) String deviceId){
+    public List<HeartData> getHeartData(@RequestParam(required = false) String deviceId) {
         return heartDataService.getHeartData(deviceId);
     }
 }

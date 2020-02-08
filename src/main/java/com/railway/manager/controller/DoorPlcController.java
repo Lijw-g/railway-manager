@@ -23,11 +23,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @version 1.1
  * @program: railway_manager
  * @description: 车门控制器数据接口
  * @author: chenglin
  * @create: 2019-12-29 16:19
- * @version 1.1
  **/
 @Api(tags = "车门控制器数据接口", value = "车门控制器数据接口")
 @Controller
@@ -72,7 +72,7 @@ public class DoorPlcController {
         //返回结果
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
-        if(doorPlcService.selectCount(conditionMap) < 1) {
+        if (doorPlcService.selectCount(conditionMap) < 1) {
             resultMap.put("code", "201");
             resultMap.put("description", "根据id查不到数据，禁止删除");
 
@@ -91,24 +91,24 @@ public class DoorPlcController {
     @ResponseBody
     @ApiOperation(value = "车门控制器数据查询", notes = "车门控制器数据查询")
     public Map<String, Object> doorPlcList(@RequestParam(required = false) String advanceColumn,
-                                     @RequestParam(required = false,defaultValue = "1") Integer pageNum,
-                                     @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
+                                           @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                           @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
 
         Map<String, Object> conditionMap = new HashMap<String, Object>();
-        if(!StringUtils.isBlank(advanceColumn)) {
-            conditionMap.put("advanceColumnLike", "%"+advanceColumn.trim()+"%");
+        if (!StringUtils.isBlank(advanceColumn)) {
+            conditionMap.put("advanceColumnLike", "%" + advanceColumn.trim() + "%");
         }
 
-        if( pageNum<1) {
+        if (pageNum < 1) {
             pageNum = 1;
         }
-        if( pageSize<1) {
+        if (pageSize < 1) {
             pageSize = 10;
         }
 
-        if(pageNum!=null && pageSize!=null) {
+        if (pageNum != null && pageSize != null) {
             conditionMap.put("_limit", pageSize);
-            conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
+            conditionMap.put("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
         }
 
         List<DoorPlcVo> doorPlcVoList = doorPlcService.getList(conditionMap);
@@ -136,7 +136,7 @@ public class DoorPlcController {
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("idEqual", id.intValue());
 
-        if(doorPlcService.selectCount(conditionMap) < 1) {
+        if (doorPlcService.selectCount(conditionMap) < 1) {
             resultMap.put("code", "201");
             resultMap.put("description", "根据id查不到数据，禁止更新");
 

@@ -32,7 +32,7 @@ public class Permission {
         this.perms = permissionAdd.getPerms();
         this.sortNo = permissionAdd.getSortNo();
 
-        if(ConstantEnum.menuType_dir == permissionAdd.getMenuTypeCode()) {
+        if (ConstantEnum.menuType_dir == permissionAdd.getMenuTypeCode()) {
             this.isLeaf = ConstantEnum.isLeaf_no;
         } else {
             this.isLeaf = ConstantEnum.isLeaf_yes;

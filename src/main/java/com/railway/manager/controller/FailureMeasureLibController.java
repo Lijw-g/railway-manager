@@ -25,11 +25,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 故障措施库接口
  * @author: chenglin
  * @create: 2019-12-29 10:18
- * @version 1.0
  **/
 @Api(tags = "故障措施库接口", value = "故障措施库接口")
 @Controller
@@ -56,24 +56,24 @@ public class FailureMeasureLibController {
     @ResponseBody
     @ApiOperation(value = "故障措施库查询", notes = "故障措施库查询")
     public Map<String, Object> failureMeasureLibList(@ApiParam("关键字") @RequestParam(required = false) String advanceColumn,
-                                     @RequestParam(required = false,defaultValue = "1") Integer pageNum,
-                                     @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
+                                                     @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                     @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
 
         Map<String, Object> conditionMap = new HashMap<String, Object>();
-        if(!StringUtils.isBlank(advanceColumn)) {
-            conditionMap.put("advanceColumnLike", "%"+advanceColumn.trim()+"%");
+        if (!StringUtils.isBlank(advanceColumn)) {
+            conditionMap.put("advanceColumnLike", "%" + advanceColumn.trim() + "%");
         }
 
-        if( pageNum<1) {
+        if (pageNum < 1) {
             pageNum = 1;
         }
-        if( pageSize<1) {
+        if (pageSize < 1) {
             pageSize = 10;
         }
 
-        if(pageNum!=null && pageSize!=null) {
+        if (pageNum != null && pageSize != null) {
             conditionMap.put("_limit", pageSize);
-            conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
+            conditionMap.put("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
         }
 
         List<FailureMeasureLibVo> failureMeasureLibVoList = failureMeasureLibService.getList(conditionMap);
@@ -105,7 +105,7 @@ public class FailureMeasureLibController {
         //返回结果
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
-        if(failureMeasureLib==null || failureMeasureLib.getId()==null) {
+        if (failureMeasureLib == null || failureMeasureLib.getId() == null) {
             resultMap.put("code", "201");
             resultMap.put("description", "id不能为空");
 
@@ -115,7 +115,7 @@ public class FailureMeasureLibController {
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("idEqual", failureMeasureLib.getId().intValue());
 
-        if(failureMeasureLibService.selectCount(conditionMap) < 1) {
+        if (failureMeasureLibService.selectCount(conditionMap) < 1) {
             resultMap.put("code", "202");
             resultMap.put("description", "根据id查不到数据，禁止更新");
 

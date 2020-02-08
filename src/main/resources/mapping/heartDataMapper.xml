@@ -20,6 +20,6 @@
                 and device_id = #{deviceId}
             </if>
         </where>
-        order by create_at desc    limit 100
+        order by create_at desc limit 100
     </select>
 </mapper>

@@ -18,10 +18,11 @@ import java.util.Map;
  * @create: 2019-10-20 14:24
  **/
 @Service
-public class UserRoleService  extends AbstractService {
+public class UserRoleService extends AbstractService {
 
     /**
      * Description: 查找角色数据
+     *
      * @param conditionMap
      * @return
      */
@@ -31,6 +32,7 @@ public class UserRoleService  extends AbstractService {
 
     /**
      * Description: 添加角色信息
+     *
      * @param role
      * @return
      */
@@ -44,6 +46,7 @@ public class UserRoleService  extends AbstractService {
 
     /**
      * Description: 删除角色信息
+     *
      * @param roleCode
      * @return
      */
@@ -51,7 +54,7 @@ public class UserRoleService  extends AbstractService {
 
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("roleCodeEqual", roleCode);
-        if(selectCount(conditionMap) != 1) {
+        if (selectCount(conditionMap) != 1) {
             return -1;
         } else {
             return sqlSession.delete("role.delete", roleCode);
@@ -60,15 +63,17 @@ public class UserRoleService  extends AbstractService {
 
     /**
      * Description: 计算符合要求的数据量
+     *
      * @param map
      * @return
      */
-    public int selectCount(Map<String,Object> map) {
+    public int selectCount(Map<String, Object> map) {
         return sqlSession.selectOne("role.selectCount", map);
     }
 
     /**
      * Description: 角色授权
+     *
      * @param roleCode
      * @param ids
      * @return
@@ -78,17 +83,17 @@ public class UserRoleService  extends AbstractService {
         //根据角色编码删除已配置权限数据
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("roleCodeEqual", roleCode);
-        sqlSession.delete("rolePermission.delete",conditionMap);
+        sqlSession.delete("rolePermission.delete", conditionMap);
 
         int count = 0;
 
         //添加角色权限数据
-        for(Integer id : ids) {
+        for (Integer id : ids) {
             RolePermission rolePermission = new RolePermission();
             rolePermission.setRoleCode(roleCode);
             rolePermission.setPermissionId(id);
 
-            count += sqlSession.insert("rolePermission.insert",rolePermission);
+            count += sqlSession.insert("rolePermission.insert", rolePermission);
         }
 
         return count;

@@ -98,7 +98,7 @@ public class LoginController {
             return resultMap;
         }
 
-        if(userList.get(0).getStatus() != ConstantEnum.status_yes) {
+        if (userList.get(0).getStatus() != ConstantEnum.status_yes) {
             resultMap.put("code", "508");
             resultMap.put("description", "用户已禁用");
             return resultMap;

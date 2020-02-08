@@ -10,11 +10,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 字典表
  * @author: chenglin
  * @create: 2019-12-05 23:15
- * @version 1.0
  **/
 @Data
 @ApiModel("字典表")

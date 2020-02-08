@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author: lijiwen
  * @create: 2019-10-27 22:59
  **/
-@Api(tags = "读取设备信息相关接口",value = "读取设备信息相关接口")
+@Api(tags = "读取设备信息相关接口", value = "读取设备信息相关接口")
 
 @Controller
 @RequestMapping("api/readInfo")

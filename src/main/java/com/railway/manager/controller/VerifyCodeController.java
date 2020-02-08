@@ -15,16 +15,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @version 1.2
  * @ClassName VerifyCodeController
  * @Description
  * @Author chenglin
  * @Datev$ 2019/12/02
- * @version 1.2
  **/
 @Api(value = "生成图片验证码和验证", description = "生成图片验证码和验证", tags = {"生成图片验证码和验证"})
 @Controller
 @RequestMapping("/api/verify")
-public class VerifyCodeController  {
+public class VerifyCodeController {
     @Resource
     private VeriCodeService veriCodeService;
 
@@ -33,7 +33,7 @@ public class VerifyCodeController  {
     @ResponseBody
     public String createImage(HttpServletResponse response, @RequestParam String userTaskId) {
         //检查唯一标识是否有值
-        if(StringUtils.isBlank(userTaskId)) {
+        if (StringUtils.isBlank(userTaskId)) {
             return "error";
         }
         userTaskId = userTaskId.trim();
@@ -58,28 +58,28 @@ public class VerifyCodeController  {
     @ApiOperation(value = "验证图片验证码")
     @PostMapping("/verifyCode")
     @ResponseBody
-    public Map<String,String> verifyCode(@RequestParam String imageCode, @RequestParam String userTaskId) {
+    public Map<String, String> verifyCode(@RequestParam String imageCode, @RequestParam String userTaskId) {
 
-        Map<String,String> resultMap = new HashMap<String,String>();
+        Map<String, String> resultMap = new HashMap<String, String>();
 
-        if(StringUtils.isBlank(imageCode)) {
-            resultMap.put("code","502");
-            resultMap.put("description","请输入验证码");
+        if (StringUtils.isBlank(imageCode)) {
+            resultMap.put("code", "502");
+            resultMap.put("description", "请输入验证码");
             return resultMap;
         }
-        if(StringUtils.isBlank(userTaskId)) {
-            resultMap.put("code","503");
-            resultMap.put("description","唯一标识错误");
+        if (StringUtils.isBlank(userTaskId)) {
+            resultMap.put("code", "503");
+            resultMap.put("description", "唯一标识错误");
             return resultMap;
         }
 
         //验证通过
-        if(veriCodeService.verifyCode(imageCode.trim(), userTaskId.trim())) {
-            resultMap.put("code","200");
-            resultMap.put("description","验证通过");
+        if (veriCodeService.verifyCode(imageCode.trim(), userTaskId.trim())) {
+            resultMap.put("code", "200");
+            resultMap.put("description", "验证通过");
         } else {
-            resultMap.put("code","501");
-            resultMap.put("description","验证码错误");
+            resultMap.put("code", "501");
+            resultMap.put("description", "验证码错误");
         }
 
         return resultMap;

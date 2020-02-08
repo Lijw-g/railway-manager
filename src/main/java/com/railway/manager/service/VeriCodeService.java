@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
  * 处理对应的验证码是否发过短信，是否登录过
  *
  * @author lijiwen
- * @date 2019年1月11日
  * @version 1.0
+ * @date 2019年1月11日
  */
 @Service
 public class VeriCodeService {

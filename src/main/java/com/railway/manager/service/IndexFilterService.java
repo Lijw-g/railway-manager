@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
  * @create: 2019-12-28 16:46
  **/
 @Service
-public class IndexFilterService extends  AbstractService {
+public class IndexFilterService extends AbstractService {
     /**
-    * @author: Lijiwen
-    * Description:
-    * @param:  * @param
-    * @return java.util.List<com.railway.manager.model.Filters>
-    * @createDate 2019-12-28 16:48
-    **/
+     * @return java.util.List<com.railway.manager.model.Filters>
+     * @author: Lijiwen
+     * Description:
+     * @param: * @param
+     * @createDate 2019-12-28 16:48
+     **/
     public List<Filters> listFactory() {
         List<Filters> filters = getFilters("manufacturerType");
         return filters;
@@ -53,7 +53,7 @@ public class IndexFilterService extends  AbstractService {
         List<SysDictVo> sysDicts = sqlSession.selectList("sysDict.selectList", query);
         List<SysDictVo> sysDictStream = sysDicts.stream().filter(o -> filter.equals(o.getDictType())).collect(Collectors.toList());
         if (!CollectionUtils.isEmpty(sysDictStream)) {
-            for (SysDictVo sysDict:sysDictStream
+            for (SysDictVo sysDict : sysDictStream
             ) {
                 Filters filte = new Filters();
                 filte.setCode(sysDict.getDictCode().toString());

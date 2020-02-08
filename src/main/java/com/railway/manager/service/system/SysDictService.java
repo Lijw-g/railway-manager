@@ -35,7 +35,7 @@ public class SysDictService extends AbstractService {
         Map<String, Object> resultMap = Maps.newHashMap();
 
         //检查dictType是否正确
-        if(StringUtils.isBlank(sysDictAdd.getDictType())) {
+        if (StringUtils.isBlank(sysDictAdd.getDictType())) {
             resultMap.put("code", "201");
             resultMap.put("description", "字典类型不能为空");
 
@@ -47,12 +47,12 @@ public class SysDictService extends AbstractService {
 
         List<SysDictVo> dictVoList = getList(conditionMap);
 
-        if(dictVoList==null || dictVoList.size()<1) {
+        if (dictVoList == null || dictVoList.size() < 1) {
             resultMap.put("code", "202");
             resultMap.put("description", "字典类型不存在");
 
             return resultMap;
-        } else if(dictVoList.size() > 1) {
+        } else if (dictVoList.size() > 1) {
             resultMap.put("code", "203");
             resultMap.put("description", "存在多种字典类型，请检查字典数据表");
 
@@ -60,7 +60,7 @@ public class SysDictService extends AbstractService {
         }
 
         //检查字典编码是否已被使用
-        if(sysDictAdd.getDictCode() == null) {
+        if (sysDictAdd.getDictCode() == null) {
             resultMap.put("code", "301");
             resultMap.put("description", "字典编码不能为空");
 
@@ -73,7 +73,7 @@ public class SysDictService extends AbstractService {
 
         int countCondition = selectCount(conditionMap);
 
-        if(countCondition > 0) {
+        if (countCondition > 0) {
             resultMap.put("code", "302");
             resultMap.put("description", "字典编码已被使用");
 
@@ -81,7 +81,7 @@ public class SysDictService extends AbstractService {
         }
 
         //检查字典名称是否为空
-        if(StringUtils.isBlank(sysDictAdd.getDictName())) {
+        if (StringUtils.isBlank(sysDictAdd.getDictName())) {
             resultMap.put("code", "303");
             resultMap.put("description", "字典名称不能为空");
 
@@ -89,15 +89,15 @@ public class SysDictService extends AbstractService {
         }
 
         //检查状态是否正确
-        if(sysDictAdd.getStatus() == null) {
+        if (sysDictAdd.getStatus() == null) {
             resultMap.put("code", "304");
             resultMap.put("description", "状态编码不能为空");
 
             return resultMap;
         }
 
-        if(sysDictAdd.getStatus().intValue()!=ConstantEnum.status_no
-                && sysDictAdd.getStatus().intValue()!=ConstantEnum.status_yes) {
+        if (sysDictAdd.getStatus().intValue() != ConstantEnum.status_no
+                && sysDictAdd.getStatus().intValue() != ConstantEnum.status_yes) {
             resultMap.put("code", "305");
             resultMap.put("description", "状态编码不符合要求");
 
@@ -116,6 +116,7 @@ public class SysDictService extends AbstractService {
 
     /**
      * Description: 更新字典数据
+     *
      * @param sysDict
      * @return
      */
@@ -125,19 +126,21 @@ public class SysDictService extends AbstractService {
 
     /**
      * Description: 查找字典数据
+     *
      * @param map
      * @return
      */
-    public List<SysDictVo> getList(Map<String,Object> map) {
+    public List<SysDictVo> getList(Map<String, Object> map) {
         return sqlSession.selectList("sysDict.selectList", map);
     }
 
     /**
      * Description: 计算符合要求的数据量
+     *
      * @param map
      * @return
      */
-    public int selectCount(Map<String,Object> map) {
+    public int selectCount(Map<String, Object> map) {
         return sqlSession.selectOne("sysDict.selectCount", map);
     }
 }

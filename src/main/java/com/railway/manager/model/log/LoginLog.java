@@ -8,9 +8,9 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
+ * @version 1.0
  * @description: 用户类
  * Created by chenglin on 2019/12/3.
- * @version 1.0
  **/
 @Data
 @ApiModel("登录日志表")

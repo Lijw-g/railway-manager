@@ -8,11 +8,11 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 轨道交通车辆型号库add
  * @author: chenglin
  * @create: 2020-01-08 20:46
- * @version 1.0
  **/
 @Data
 @ApiModel("轨道交通车辆型号库add")

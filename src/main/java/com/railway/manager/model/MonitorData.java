@@ -3,6 +3,7 @@ package com.railway.manager.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.experimental.Accessors;
+
 /***
  * @author: Lijiwen
  * Description:监控数据model

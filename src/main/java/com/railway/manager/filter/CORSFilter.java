@@ -22,7 +22,6 @@ import java.util.List;
 public class CORSFilter implements Filter {
 
 
-
     @Override
     public void init(FilterConfig filterConfig) {
 
@@ -30,7 +29,7 @@ public class CORSFilter implements Filter {
 
     private static final List<String> DISABLE_URI_LIST = Arrays.asList("/hystrix.stream", "/healthCheck/disable");
 
-    private static final List<String> ALLOW_IP_LIST = Arrays.asList("127.0.0.1", "localhost","0:0:0:0:0:0:0:1","[::1]","::1",InetAddress.getLoopbackAddress().getHostAddress());
+    private static final List<String> ALLOW_IP_LIST = Arrays.asList("127.0.0.1", "localhost", "0:0:0:0:0:0:0:1", "[::1]", "::1", InetAddress.getLoopbackAddress().getHostAddress());
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -50,9 +49,9 @@ public class CORSFilter implements Filter {
         response.setHeader("Access-control-allow-credentials", "true");
         response.setHeader("Timing-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Headers", "x-request-id, token, Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie");
-        response.setHeader("Content-Type","application/json;charset=UTF-8");
+        response.setHeader("Content-Type", "application/json;charset=UTF-8");
         //设置cache-control:must-revalidate
-        response.setHeader("Cache-Control","private,must-revalidate");
+        response.setHeader("Cache-Control", "private,must-revalidate");
         filterChain.doFilter(servletRequest, response);
     }
 

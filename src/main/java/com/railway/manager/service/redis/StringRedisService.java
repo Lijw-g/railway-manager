@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
-* @author: Lijiwen
-* Description:
-* @param:  * @param null
-* @return
-* @createDate 2019-11-16 23:28
-**/
+ * @author: Lijiwen
+ * Description:
+ * @param: * @param null
+ * @return
+ * @createDate 2019-11-16 23:28
+ **/
 @Service
 public class StringRedisService {
     private static final Logger logger = LoggerFactory.getLogger(StringRedisService.class);
@@ -24,6 +24,7 @@ public class StringRedisService {
 
     /**
      * 缓存key
+     *
      * @param key
      * @param val
      * @param expire
@@ -37,6 +38,7 @@ public class StringRedisService {
 
     /**
      * 检查key是否存在
+     *
      * @param key
      * @return java.lang.Boolean
      * @Date 18:13 2019-05-08
@@ -47,6 +49,7 @@ public class StringRedisService {
 
     /**
      * 根据key删除缓存
+     *
      * @param key
      * @return void
      * @Date 18:16 2019-05-08
@@ -57,6 +60,7 @@ public class StringRedisService {
 
     /**
      * 根据key获取val
+     *
      * @param key
      * @return java.lang.String
      * @Date 18:25 2019-05-08

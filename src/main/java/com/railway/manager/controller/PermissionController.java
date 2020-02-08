@@ -16,11 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @version 1.0
  * @program: railway-manager
  * @description: 权限信息接口
  * @author: chenglin
  * @create: 2020-01-04 21:00
- * @version 1.0
  **/
 @Api(tags = "权限信息接口", value = "权限信息接口")
 @Controller
@@ -54,15 +54,15 @@ public class PermissionController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         //检查菜单类型
-        if(permission.getMenuTypeCode() == null) {
+        if (permission.getMenuTypeCode() == null) {
             resultMap.put("code", "201");
             resultMap.put("description", "菜单类型不能为空");
 
             return resultMap;
         }
-        if((permission.getMenuTypeCode()!=ConstantEnum.menuType_dir)
-                && (permission.getMenuTypeCode()!=ConstantEnum.menuType_menu)
-                && (permission.getMenuTypeCode()!=ConstantEnum.menuType_btn)) {
+        if ((permission.getMenuTypeCode() != ConstantEnum.menuType_dir)
+                && (permission.getMenuTypeCode() != ConstantEnum.menuType_menu)
+                && (permission.getMenuTypeCode() != ConstantEnum.menuType_btn)) {
             resultMap.put("code", "202");
             resultMap.put("description", "菜单类型不正确");
 
@@ -70,10 +70,10 @@ public class PermissionController {
         }
 
         //检查父id是否为空
-        if(permission.getParentId()==null) {
+        if (permission.getParentId() == null) {
 
             //父id为空时，菜单类型必为目录
-            if(permission.getMenuTypeCode() != ConstantEnum.menuType_dir) {
+            if (permission.getMenuTypeCode() != ConstantEnum.menuType_dir) {
                 resultMap.put("code", "203");
                 resultMap.put("description", "父id为空时，菜单类型只可选择目录");
 
@@ -81,7 +81,7 @@ public class PermissionController {
             }
         } else {
 
-            if(permission.getMenuTypeCode() == ConstantEnum.menuType_dir) {
+            if (permission.getMenuTypeCode() == ConstantEnum.menuType_dir) {
                 resultMap.put("code", "204");
                 resultMap.put("description", "父id不为空时，菜单类型不可选择目录");
 
@@ -94,12 +94,12 @@ public class PermissionController {
 
             int idCount = permissionService.selectCount(conditionMap);
 
-            if(idCount < 1) {
+            if (idCount < 1) {
                 resultMap.put("code", "205");
                 resultMap.put("description", "父id对应权限不存在");
 
                 return resultMap;
-            } else if(idCount > 1) {
+            } else if (idCount > 1) {
                 resultMap.put("code", "206");
                 resultMap.put("description", "父id对应多条权限数据，请检查");
 
@@ -133,15 +133,15 @@ public class PermissionController {
         }
 
         //检查菜单类型
-        if(permission.getMenuTypeCode() == null) {
+        if (permission.getMenuTypeCode() == null) {
             resultMap.put("code", "202");
             resultMap.put("description", "菜单类型不能为空");
 
             return resultMap;
         }
-        if((permission.getMenuTypeCode()!=ConstantEnum.menuType_dir)
-                && (permission.getMenuTypeCode()!=ConstantEnum.menuType_menu)
-                && (permission.getMenuTypeCode()!=ConstantEnum.menuType_btn)) {
+        if ((permission.getMenuTypeCode() != ConstantEnum.menuType_dir)
+                && (permission.getMenuTypeCode() != ConstantEnum.menuType_menu)
+                && (permission.getMenuTypeCode() != ConstantEnum.menuType_btn)) {
             resultMap.put("code", "203");
             resultMap.put("description", "菜单类型不正确");
 
@@ -177,7 +177,7 @@ public class PermissionController {
 
         conditionMap.clear();
         conditionMap.put("parentIdEqual", id);
-        if(permissionService.selectCount(conditionMap) > 0) {
+        if (permissionService.selectCount(conditionMap) > 0) {
             resultMap.put("code", "202");
             resultMap.put("description", "当前权限id作为其他权限父id，不允许删除");
 

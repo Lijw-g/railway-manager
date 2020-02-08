@@ -12,11 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 找回密码服务
  * @author: chenglin
  * @create: 2019-12-04 16:48
- * @version 1.0
  **/
 @Api(tags = "找回密码服务接口", value = "找回密码服务接口")
 @Controller
@@ -26,7 +26,7 @@ public class PasswordController {
     @PostMapping("/resetPwd")
     @ResponseBody
     @ApiOperation(value = "重置密码", notes = "重置密码")
-    public Map<String, Object> resetPassword(@RequestParam String phoneNumber,@RequestParam String imageCode,
+    public Map<String, Object> resetPassword(@RequestParam String phoneNumber, @RequestParam String imageCode,
                                              @RequestParam String phoneCode, @RequestParam String password,
                                              @RequestParam(required = false) String pwdConfirm) {
 

@@ -9,11 +9,11 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
+ * @version 1.0
  * @program: railway_manager
  * @description: 车门控制器
  * @author: chenglin
  * @create: 2019-12-29 17:46
- * @version 1.0
  **/
 @Data
 @ApiModel("车门控制器表")

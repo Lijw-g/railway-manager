@@ -43,7 +43,7 @@ public class UserService extends AbstractService {
         Map<String, Object> resultMap = Maps.newHashMap();
 
         //检查账号userName是否唯一
-        if(StringUtils.isBlank(userAdd.getUserName())) {
+        if (StringUtils.isBlank(userAdd.getUserName())) {
             resultMap.put("code", "201");
             resultMap.put("description", "用户名不能为空");
 
@@ -52,9 +52,9 @@ public class UserService extends AbstractService {
         Map<String, Object> conditionMap = Maps.newHashMap();
         conditionMap.put("userNameEqual", userAdd.getUserName().trim());
 
-        int count = sqlSession.selectOne("user.selectCount",conditionMap);
+        int count = sqlSession.selectOne("user.selectCount", conditionMap);
 
-        if(count > 0) {
+        if (count > 0) {
             resultMap.put("code", "202");
             resultMap.put("description", "用户名已存在");
 
@@ -62,7 +62,7 @@ public class UserService extends AbstractService {
         }
 
         //根据角色编码判断角色是否存在
-        if(StringUtils.isBlank(userAdd.getRoleCode())) {
+        if (StringUtils.isBlank(userAdd.getRoleCode())) {
             resultMap.put("code", "301");
             resultMap.put("description", "角色编码不能为空");
 
@@ -77,7 +77,7 @@ public class UserService extends AbstractService {
 
         resultMap = checkRoleCount(roleCount);
 
-        if(resultMap != null) {
+        if (resultMap != null) {
             return resultMap;
         }
         resultMap = Maps.newHashMap();
@@ -91,7 +91,7 @@ public class UserService extends AbstractService {
 
         sqlSession.insert("roleUser.insert", roleUser);
 
-        if(countAdd > 0) {
+        if (countAdd > 0) {
             resultMap.put("code", "200");
             resultMap.put("description", "添加成功");
         } else {
@@ -126,7 +126,7 @@ public class UserService extends AbstractService {
         Map<String, Object> resultMap = Maps.newHashMap();
 
         //检查账号userName是否唯一
-        if(StringUtils.isBlank(userAdd.getUserName())) {
+        if (StringUtils.isBlank(userAdd.getUserName())) {
             resultMap.put("code", "201");
             resultMap.put("description", "用户名不能为空");
 
@@ -135,16 +135,16 @@ public class UserService extends AbstractService {
         Map<String, Object> conditionMap = Maps.newHashMap();
         conditionMap.put("userNameEqual", userAdd.getUserName().trim());
 
-        int count = sqlSession.selectOne("user.selectCount",conditionMap);
+        int count = sqlSession.selectOne("user.selectCount", conditionMap);
 
-        if(count < 1) {
+        if (count < 1) {
             resultMap.put("code", "202");
             resultMap.put("description", "用户名不存在，禁止修改");
 
             return resultMap;
         }
 
-        if(count > 1) {
+        if (count > 1) {
             resultMap.put("code", "203");
             resultMap.put("description", "用户名不唯一，禁止修改");
 
@@ -152,7 +152,7 @@ public class UserService extends AbstractService {
         }
 
         //检查用户对应角色信息
-        if(StringUtils.isBlank(userAdd.getRoleCode())) {
+        if (StringUtils.isBlank(userAdd.getRoleCode())) {
             resultMap.put("code", "301");
             resultMap.put("description", "角色编码不能为空");
 
@@ -167,7 +167,7 @@ public class UserService extends AbstractService {
 
         resultMap = checkRoleCount(roleCount);
 
-        if(resultMap != null) {
+        if (resultMap != null) {
             return resultMap;
         }
         resultMap = Maps.newHashMap();
@@ -184,7 +184,7 @@ public class UserService extends AbstractService {
 
         sqlSession.insert("roleUser.insert", roleUser);
 
-        if(countUpdate > 0) {
+        if (countUpdate > 0) {
             resultMap.put("code", "200");
             resultMap.put("description", "更新成功");
         } else {
@@ -208,7 +208,7 @@ public class UserService extends AbstractService {
         Map<String, Object> resultMap = Maps.newHashMap();
 
         //检查账号userName是否唯一
-        if(StringUtils.isBlank(userName)) {
+        if (StringUtils.isBlank(userName)) {
             resultMap.put("code", "201");
             resultMap.put("description", "用户名不能为空");
 
@@ -217,16 +217,16 @@ public class UserService extends AbstractService {
         Map<String, Object> conditionMap = Maps.newHashMap();
         conditionMap.put("userNameEqual", userName.trim());
 
-        int count = sqlSession.selectOne("user.selectCount",conditionMap);
+        int count = sqlSession.selectOne("user.selectCount", conditionMap);
 
-        if(count < 1) {
+        if (count < 1) {
             resultMap.put("code", "202");
             resultMap.put("description", "用户名不存在，禁止修改");
 
             return resultMap;
         }
 
-        if(count > 1) {
+        if (count > 1) {
             resultMap.put("code", "203");
             resultMap.put("description", "用户名不唯一，禁止修改");
 
@@ -234,7 +234,7 @@ public class UserService extends AbstractService {
         }
 
         //检查状态编码是否正常
-        if((status!=ConstantEnum.status_yes) && (status!=ConstantEnum.status_no)) {
+        if ((status != ConstantEnum.status_yes) && (status != ConstantEnum.status_no)) {
             resultMap.put("code", "301");
             resultMap.put("description", "状态编码非法");
 
@@ -262,13 +262,13 @@ public class UserService extends AbstractService {
      * @return map
      **/
     public Map<String, Object> resetPassword(String userName, String oldPassword,
-                                        String newPassword, String pwdConfirm) {
+                                             String newPassword, String pwdConfirm) {
 
         //返回结果
         Map<String, Object> resultMap = Maps.newHashMap();
 
         //检查账号userName是否唯一
-        if(StringUtils.isBlank(userName)) {
+        if (StringUtils.isBlank(userName)) {
             resultMap.put("code", "201");
             resultMap.put("description", "用户名不能为空");
 
@@ -277,16 +277,16 @@ public class UserService extends AbstractService {
         Map<String, Object> conditionMap = Maps.newHashMap();
         conditionMap.put("userNameEqual", userName.trim());
 
-        int count = sqlSession.selectOne("user.selectCount",conditionMap);
+        int count = sqlSession.selectOne("user.selectCount", conditionMap);
 
-        if(count < 1) {
+        if (count < 1) {
             resultMap.put("code", "202");
             resultMap.put("description", "用户名不存在，禁止重置密码");
 
             return resultMap;
         }
 
-        if(count > 1) {
+        if (count > 1) {
             resultMap.put("code", "203");
             resultMap.put("description", "用户名不唯一，禁止重置密码");
 
@@ -298,8 +298,8 @@ public class UserService extends AbstractService {
         conditionMap.put("userNameEqual", userName.trim());
         conditionMap.put("passwordEqual", oldPassword);
 
-        int countPwd = sqlSession.selectOne("user.selectCount",conditionMap);
-        if(countPwd != 1) {
+        int countPwd = sqlSession.selectOne("user.selectCount", conditionMap);
+        if (countPwd != 1) {
             resultMap.put("code", "204");
             resultMap.put("description", "旧密码输入错误");
 
@@ -307,13 +307,13 @@ public class UserService extends AbstractService {
         }
 
         //检查新密码与确认密码是否一致
-        if(StringUtils.isBlank(newPassword)) {
+        if (StringUtils.isBlank(newPassword)) {
             resultMap.put("code", "205");
             resultMap.put("description", "新密码不能为空");
 
             return resultMap;
         }
-        if(!newPassword.equals(pwdConfirm)) {
+        if (!newPassword.equals(pwdConfirm)) {
             resultMap.put("code", "206");
             resultMap.put("description", "新密码与确认密码不一致");
 
@@ -328,7 +328,7 @@ public class UserService extends AbstractService {
 
         countUpdate = sqlSession.update("user.updatePwd", user);
 
-        if(countUpdate > 0) {
+        if (countUpdate > 0) {
             resultMap.put("code", "200");
             resultMap.put("description", "重置密码成功");
         } else {
@@ -339,73 +339,76 @@ public class UserService extends AbstractService {
         return resultMap;
     }
 
-    public List<UserVo> getList(Map<String,Object> map) {
+    public List<UserVo> getList(Map<String, Object> map) {
         return sqlSession.selectList("user.selectList", map);
     }
 
     public List<UserVo> getList(Integer pageNum, Integer pageSize, String advanceColumn) {
         Map<String, Object> conditionMap = Maps.newHashMap();
-        if(pageNum!=null && pageSize!=null) {
+        if (pageNum != null && pageSize != null) {
             conditionMap.put("_limit", pageSize);
-            conditionMap.put("_offset", (pageNum.intValue()-1)*pageSize.intValue());
+            conditionMap.put("_offset", (pageNum.intValue() - 1) * pageSize.intValue());
         }
         if (StringUtils.isNotEmpty(advanceColumn)) {
-            conditionMap.put("advanceColumnLike", "%"+advanceColumn.trim()+"%");
+            conditionMap.put("advanceColumnLike", "%" + advanceColumn.trim() + "%");
         }
         return sqlSession.selectList("user.selectList", conditionMap);
     }
+
     /**
-    * @author: Lijiwen
-    * Description:
-    * @param:  * @param pageNum
-     * @param pageSize
-     * @param name
-    * @return int
-    * @createDate 2019-12-29 14:54
-    **/
+     * @param pageSize
+     * @param name
+     * @return int
+     * @author: Lijiwen
+     * Description:
+     * @param: * @param pageNum
+     * @createDate 2019-12-29 14:54
+     **/
     public int getCount(String advanceColumn) {
         Map<String, Object> conditionMap = Maps.newHashMap();
         if (StringUtils.isNotEmpty(advanceColumn)) {
-            conditionMap.put("advanceColumnLike", "%"+advanceColumn.trim()+"%");
+            conditionMap.put("advanceColumnLike", "%" + advanceColumn.trim() + "%");
         }
-        return sqlSession.selectOne("user.selectCount",conditionMap);
+        return sqlSession.selectOne("user.selectCount", conditionMap);
     }
+
     /**
      * Description: 检查用户名是否已注册
      * param userName
      * return boolean
+     *
      * @return
      */
     public boolean checkUserName(String userName) {
 
         //判断是否为空
-        if(StringUtils.isBlank(userName)) {
+        if (StringUtils.isBlank(userName)) {
             return false;
         }
 
         String userNameTrim = userName.trim();
 
         //检查用户名是否存在
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("userNameEqual",userNameTrim);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("userNameEqual", userNameTrim);
         int count1 = sqlSession.selectOne("user.selectCount", map);
-        if(count1 > 0) {
+        if (count1 > 0) {
             return false;
         }
 
         map.clear();
         String userNameLower = userName.toLowerCase();
-        map.put("userNameEqual",userNameLower);
+        map.put("userNameEqual", userNameLower);
         int count2 = sqlSession.selectOne("user.selectCount", map);
-        if(count2 > 0) {
+        if (count2 > 0) {
             return false;
         }
 
         map.clear();
         String userNameUpper = userName.toUpperCase();
-        map.put("userNameEqual",userNameUpper);
+        map.put("userNameEqual", userNameUpper);
         int count3 = sqlSession.selectOne("user.selectCount", map);
-        if(count3 > 0) {
+        if (count3 > 0) {
             return false;
         }
 
@@ -416,7 +419,7 @@ public class UserService extends AbstractService {
 
         Map<String, Object> resultMap = Maps.newHashMap();
 
-        if(roleCount < 1) {
+        if (roleCount < 1) {
             resultMap.put("code", "302");
             resultMap.put("description", "角色编码对应角色不存在");
             return resultMap;
@@ -450,6 +453,7 @@ public class UserService extends AbstractService {
      * Description: 删除用户
      * param userName
      * return map
+     *
      * @return
      */
     public Map<String, Object> deleteUser(String userName) {
@@ -457,7 +461,7 @@ public class UserService extends AbstractService {
         //返回结果
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
-        if(StringUtils.isBlank(userName)) {
+        if (StringUtils.isBlank(userName)) {
             resultMap.put("code", "201");
             resultMap.put("description", "用户名禁止为空");
 
@@ -469,16 +473,16 @@ public class UserService extends AbstractService {
         Map<String, Object> conditionMap = Maps.newHashMap();
         conditionMap.put("userNameEqual", userName);
 
-        int count = sqlSession.selectOne("user.selectCount",conditionMap);
+        int count = sqlSession.selectOne("user.selectCount", conditionMap);
 
-        if(count < 1) {
+        if (count < 1) {
             resultMap.put("code", "202");
             resultMap.put("description", "用户名不存在，禁止删除");
 
             return resultMap;
         }
 
-        if(count > 1) {
+        if (count > 1) {
             resultMap.put("code", "203");
             resultMap.put("description", "用户名不唯一，禁止删除");
 

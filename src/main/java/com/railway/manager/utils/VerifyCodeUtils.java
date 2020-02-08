@@ -22,42 +22,49 @@ import java.util.Random;
  **/
 public class VerifyCodeUtils {
 
-	/** 使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符 */
-	public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
-	/** 数字 */
-	private static final String SYMBOLS = "0123456789";
-	private static SecureRandom random = new SecureRandom();
+    /**
+     * 使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
+     */
+    public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+    /**
+     * 数字
+     */
+    private static final String SYMBOLS = "0123456789";
+    private static SecureRandom random = new SecureRandom();
 
     /**
      * 使用系统默认字符源生成验证码
-     * @param verifySize    验证码长度
+     *
+     * @param verifySize 验证码长度
      * @return
      */
-    public static String generateVerifyCode(int verifySize){
+    public static String generateVerifyCode(int verifySize) {
         return generateVerifyCode(verifySize, VERIFY_CODES);
     }
 
     /**
      * 使用指定源生成验证码
-     * @param verifySize    验证码长度
-     * @param sources   验证码字符源
+     *
+     * @param verifySize 验证码长度
+     * @param sources    验证码字符源
      * @return
      */
-    public static String generateVerifyCode(int verifySize, String sources){
-        if(sources == null || sources.length() == 0){
+    public static String generateVerifyCode(int verifySize, String sources) {
+        if (sources == null || sources.length() == 0) {
             sources = VERIFY_CODES;
         }
         int codesLen = sources.length();
         SecureRandom rand = new SecureRandom();
         StringBuilder verifyCode = new StringBuilder(verifySize);
-        for(int i = 0; i < verifySize; i++){
-            verifyCode.append(sources.charAt(rand.nextInt(codesLen-1)));
+        for (int i = 0; i < verifySize; i++) {
+            verifyCode.append(sources.charAt(rand.nextInt(codesLen - 1)));
         }
         return verifyCode.toString();
     }
 
     /**
      * 生成随机验证码文件,并返回验证码值
+     *
      * @param w
      * @param h
      * @param outputFile
@@ -65,7 +72,7 @@ public class VerifyCodeUtils {
      * @return
      * @throws IOException
      */
-    public static String outputVerifyImage(int w, int h, File outputFile, int verifySize) throws IOException{
+    public static String outputVerifyImage(int w, int h, File outputFile, int verifySize) throws IOException {
         String verifyCode = generateVerifyCode(verifySize);
         outputImage(w, h, outputFile, verifyCode);
         return verifyCode;
@@ -73,6 +80,7 @@ public class VerifyCodeUtils {
 
     /**
      * 输出随机验证码图片流,并返回验证码值
+     *
      * @param w
      * @param h
      * @param os
@@ -80,7 +88,7 @@ public class VerifyCodeUtils {
      * @return
      * @throws IOException
      */
-    public static String outputVerifyImage(int w, int h, OutputStream os, int verifySize) throws IOException{
+    public static String outputVerifyImage(int w, int h, OutputStream os, int verifySize) throws IOException {
         String verifyCode = generateVerifyCode(verifySize);
         outputImage(w, h, os, verifyCode);
         return verifyCode;
@@ -88,45 +96,47 @@ public class VerifyCodeUtils {
 
     /**
      * 生成指定验证码图像文件
+     *
      * @param w
      * @param h
      * @param outputFile
      * @param code
      * @throws IOException
      */
-    public static void outputImage(int w, int h, File outputFile, String code) throws IOException{
-        if(outputFile == null){
+    public static void outputImage(int w, int h, File outputFile, String code) throws IOException {
+        if (outputFile == null) {
             return;
         }
         File dir = outputFile.getParentFile();
-        if(!dir.exists()){
+        if (!dir.exists()) {
             dir.mkdirs();
         }
-        try{
+        try {
             outputFile.createNewFile();
             FileOutputStream fos = new FileOutputStream(outputFile);
             outputImage(w, h, fos, code);
             fos.close();
-        } catch(IOException e){
+        } catch (IOException e) {
             throw e;
         }
     }
 
     /**
      * 输出指定验证码图片流
+     *
      * @param w
      * @param h
      * @param os
      * @param code
      * @throws IOException
      */
-    public static void outputImage(int w, int h, OutputStream os, String code) throws IOException{
+    public static void outputImage(int w, int h, OutputStream os, String code) throws IOException {
         BufferedImage image = getBufferedImage(w, h, code);
         ImageIO.write(image, "jpg", os);
     }
 
-    public static String outputImageBase64(int w, int h, String code) throws IOException{
-        String imgsrc="";
+    public static String outputImageBase64(int w, int h, String code) throws IOException {
+        String imgsrc = "";
         BufferedImage image = getBufferedImage(w, h, code);
         ByteArrayOutputStream bs = null;
         try {
@@ -140,12 +150,13 @@ public class VerifyCodeUtils {
                 bs.close();
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 bs = null;
             }
         }
         return imgsrc;
     }
+
     private static BufferedImage getBufferedImage(int w, int h, String code) {
         int verifySize = code.length();
         BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -209,19 +220,20 @@ public class VerifyCodeUtils {
         g2.dispose();
         return image;
     }
-	private static Color getRandColor(int fc, int bc) {
-		int value = 255;
-		if (fc > value) {
-			fc = value;
-		}
-		if (bc > value) {
-			bc = value;
-		}
-		int r = fc + random.nextInt(bc - fc);
-		int g = fc + random.nextInt(bc - fc);
-		int b = fc + random.nextInt(bc - fc);
-		return new Color(r, g, b);
-	}
+
+    private static Color getRandColor(int fc, int bc) {
+        int value = 255;
+        if (fc > value) {
+            fc = value;
+        }
+        if (bc > value) {
+            bc = value;
+        }
+        int r = fc + random.nextInt(bc - fc);
+        int g = fc + random.nextInt(bc - fc);
+        int b = fc + random.nextInt(bc - fc);
+        return new Color(r, g, b);
+    }
 
     private static int getRandomIntColor() {
         int[] rgb = getRandomRgb();
@@ -233,54 +245,54 @@ public class VerifyCodeUtils {
         return color;
     }
 
-	private static int[] getRandomRgb() {
-		int size = 3;
-		int[] rgb = new int[size];
-		for (int i = 0; i < size; i++) {
-			rgb[i] = random.nextInt(255);
-		}
-		return rgb;
-	}
+    private static int[] getRandomRgb() {
+        int size = 3;
+        int[] rgb = new int[size];
+        for (int i = 0; i < size; i++) {
+            rgb[i] = random.nextInt(255);
+        }
+        return rgb;
+    }
 
     private static void shear(Graphics g, int w1, int h1, Color color) {
         shearX(g, w1, h1, color);
         shearY(g, w1, h1, color);
     }
 
-	private static void shearX(Graphics g, int w1, int h1, Color color) {
-		int period = random.nextInt(2);
-		int frames = 1;
-		int phase = random.nextInt(2);
-		for (int i = 0; i < h1; i++) {
-			double d = (double) (period >> 1)
-					* Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
-			g.copyArea(0, i, w1, 1, (int) d, 0);
-			g.setColor(color);
-			g.drawLine((int) d, i, 0, i);
-			g.drawLine((int) d + w1, i, w1, i);
-		}
-	}
+    private static void shearX(Graphics g, int w1, int h1, Color color) {
+        int period = random.nextInt(2);
+        int frames = 1;
+        int phase = random.nextInt(2);
+        for (int i = 0; i < h1; i++) {
+            double d = (double) (period >> 1)
+                    * Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
+            g.copyArea(0, i, w1, 1, (int) d, 0);
+            g.setColor(color);
+            g.drawLine((int) d, i, 0, i);
+            g.drawLine((int) d + w1, i, w1, i);
+        }
+    }
 
-	private static void shearY(Graphics g, int w1, int h1, Color color) {
-		int period = random.nextInt(40) + 10;
-		int frames = 20;
-		int phase = 7;
-		for (int i = 0; i < w1; i++) {
-			double d = (double) (period >> 1)
-					* Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
-			g.copyArea(i, 0, 1, h1, 0, (int) d);
-			g.setColor(color);
-			g.drawLine(i, (int) d, i, 0);
-			g.drawLine(i, (int) d + h1, i, h1);
-		}
-	}
+    private static void shearY(Graphics g, int w1, int h1, Color color) {
+        int period = random.nextInt(40) + 10;
+        int frames = 20;
+        int phase = 7;
+        for (int i = 0; i < w1; i++) {
+            double d = (double) (period >> 1)
+                    * Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
+            g.copyArea(i, 0, 1, h1, 0, (int) d);
+            g.setColor(color);
+            g.drawLine(i, (int) d, i, 0);
+            g.drawLine(i, (int) d + h1, i, h1);
+        }
+    }
 
-	public static String get4Code() {
-		// 如果需要4位，那 new char[4] 即可，其他位数同理可得
-		char[] nonceChars = new char[4];
-		for (int index = 0; index < nonceChars.length; ++index) {
-			nonceChars[index] = SYMBOLS.charAt(random.nextInt(SYMBOLS.length()));
-		}
-		return new String(nonceChars);
-	}
+    public static String get4Code() {
+        // 如果需要4位，那 new char[4] 即可，其他位数同理可得
+        char[] nonceChars = new char[4];
+        for (int index = 0; index < nonceChars.length; ++index) {
+            nonceChars[index] = SYMBOLS.charAt(random.nextInt(SYMBOLS.length()));
+        }
+        return new String(nonceChars);
+    }
 }

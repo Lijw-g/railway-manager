@@ -27,6 +27,7 @@ import java.util.List;
 public class IndexFilterController {
     @Resource
     private IndexFilterService indexFilterService;
+
     @GetMapping("/listFactory")
     @ResponseBody
     @ApiOperation(value = "厂家信息", notes = "厂家信息")

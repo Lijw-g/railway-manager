@@ -20,6 +20,7 @@ public class FailureAnalysisService extends AbstractService {
 
     /**
      * Description: 添加故障分析结果
+     *
      * @param failureAnalysis
      * @return
      */
@@ -29,10 +30,11 @@ public class FailureAnalysisService extends AbstractService {
 
     /**
      * Description: 查找故障分析数据
+     *
      * @param map
      * @return
      */
-    public List<FailureAnalysisVo> getList(Map<String,Object> map) {
+    public List<FailureAnalysisVo> getList(Map<String, Object> map) {
         return sqlSession.selectList("failureAnalysis.selectList", map);
     }
 

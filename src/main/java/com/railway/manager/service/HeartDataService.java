@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class HeartDataService extends AbstractService {
     public List<HeartData> getHeartData(String deviceId) {
-        ListQuery query =new GenericQuery() ;
+        ListQuery query = new GenericQuery();
         query.fill("deviceId", deviceId);
         return sqlSession.selectList("heartData.select", query);
     }

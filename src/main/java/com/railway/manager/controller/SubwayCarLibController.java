@@ -108,7 +108,7 @@ public class SubwayCarLibController {
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("idEqual", id.intValue());
 
-        if(subwayCarLibService.selectCount(conditionMap) < 1) {
+        if (subwayCarLibService.selectCount(conditionMap) < 1) {
             resultMap.put("code", "201");
             resultMap.put("description", "根据id查不到数据，禁止更新");
 
@@ -135,7 +135,7 @@ public class SubwayCarLibController {
         Map<String, Object> conditionMap = new HashMap<String, Object>();
         conditionMap.put("idEqual", id.intValue());
 
-        if(subwayCarLibService.selectCount(conditionMap) < 1) {
+        if (subwayCarLibService.selectCount(conditionMap) < 1) {
             resultMap.put("code", "201");
             resultMap.put("description", "根据id查不到数据，禁止删除");
 

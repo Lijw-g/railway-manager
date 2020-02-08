@@ -32,10 +32,10 @@ public class UserController {
     @PostMapping("/list")
     @ResponseBody
     @ApiOperation(value = "查询所有用户", notes = "查询方法")
-    public Map<String, Object> getListUser (
+    public Map<String, Object> getListUser(
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @RequestParam(required = false,defaultValue = "") String advanceColumn) {
+            @RequestParam(required = false, defaultValue = "") String advanceColumn) {
         if (pageNum < 1) {
             pageNum = 1;
         }
