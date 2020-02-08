@@ -8,6 +8,7 @@ import com.railway.manager.service.EarlyWarringService;
 import com.railway.manager.vo.EarlyWarringVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,5 +74,14 @@ public class EarlyWarningController {
     @ApiOperation(value = "确定报警", notes = "确定报警")
     public int sure(@RequestParam String id) {
         return earlyWarringService.setOld(id);
+    }
+
+    @GetMapping("/batchSure")
+    @ResponseBody
+    @ApiOperation(value = "确定报警", notes = "确定报警")
+    public int batchSure(
+            @ApiParam("批量确认报警，多个id用,号隔开")
+            @RequestParam String ids) {
+        return earlyWarringService.setBatchOld(ids);
     }
 }

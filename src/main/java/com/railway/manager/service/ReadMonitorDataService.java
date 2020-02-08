@@ -95,6 +95,11 @@ public class ReadMonitorDataService extends AbstractService {
         } else {
             coreDataVo.setCoreData(listAllDatas.stream().map(MonitorData::getmVstate).collect(Collectors.toList()));
         }
+        if (listAllDatas.size() > 20) {
+            coreDataVo.setDateTime(listAllDatas.stream().map(MonitorData::getDateTime).collect(Collectors.toList()).subList(0, 20));
+        } else {
+            coreDataVo.setDateTime(listAllDatas.stream().map(MonitorData::getDateTime).collect(Collectors.toList()));
+        }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("110V")
                 .setNormal_value("60V--80V")
@@ -114,8 +119,12 @@ public class ReadMonitorDataService extends AbstractService {
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         if (listAllData.size() > 20) {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList()).subList(0, 20));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()).subList(0, 20));
+
         } else {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmAstate).collect(Collectors.toList()));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()));
+
         }
         ReferenceData referenceData =
                 new ReferenceData().setReference_max_value("3.5A")
@@ -136,8 +145,9 @@ public class ReadMonitorDataService extends AbstractService {
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         if (listAllData.size() > 20) {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()).subList(0, 20));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()).subList(0, 20));
         } else {
-            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()));
         }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("40℃--60℃")
@@ -158,8 +168,10 @@ public class ReadMonitorDataService extends AbstractService {
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         if (listAllData.size() > 20) {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList()).subList(0, 20));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()).subList(0, 20));
         } else {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdVstate).collect(Collectors.toList()));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()));
         }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("3.5A")
@@ -180,8 +192,10 @@ public class ReadMonitorDataService extends AbstractService {
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         if (listAllData.size() > 20) {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList()).subList(0, 20));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()).subList(0, 20));
         } else {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdAstate).collect(Collectors.toList()));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()));
         }
         ReferenceData referenceData =
                 new ReferenceData().setReference_max_value("3.8A")
@@ -202,8 +216,10 @@ public class ReadMonitorDataService extends AbstractService {
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         if (listAllData.size() > 20) {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList()).subList(0, 20));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()).subList(0, 20));
         } else {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getdTstate).collect(Collectors.toList()));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()));
         }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("44℃--66℃")
@@ -224,8 +240,10 @@ public class ReadMonitorDataService extends AbstractService {
         List<MonitorData> listAllData = sqlSession.selectList("monitorData.selectAll", query);
         if (listAllData.size() > 20) {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList()).subList(0, 20));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()).subList(0, 20));
         } else {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getDegree).collect(Collectors.toList()));
+            coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()));
         }
         ReferenceData referenceData = new ReferenceData()
                 .setReference_max_value("0CM--150CM")

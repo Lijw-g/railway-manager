@@ -20,6 +20,8 @@ public class CoreDataVo {
      **/
     @ApiModelProperty(name = "核心数据")
     private List<String> coreData;
+    @ApiModelProperty(name = "核心数据时间")
+    private List<String> dateTime;
     /**
      * 参考数据
      **/
@@ -50,5 +52,13 @@ public class CoreDataVo {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public List<String> getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(List<String> dateTime) {
+        this.dateTime = dateTime;
     }
 }

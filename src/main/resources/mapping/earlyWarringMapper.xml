@@ -78,8 +78,16 @@
         update early_warring
         ]]>
         <set>
-            isNew = 0
+            is_new = 0
         </set>
         where id = #{id}
+    </update>
+    <update id="updates" parameterType="map">
+        <![CDATA[
+        update early_warring
+        ]]>
+        <set>
+            is_new = 0
+        </set>
     </update>
 </mapper>

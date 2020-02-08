@@ -179,6 +179,10 @@ public class MonitorData {
         return createdAt;
     }
 
+    public String getDateTime() {
+        return createdAt.substring(10, createdAt.length() - 1);
+    }
+
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
