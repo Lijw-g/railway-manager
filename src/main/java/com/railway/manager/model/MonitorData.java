@@ -180,7 +180,7 @@ public class MonitorData {
     }
 
     public String getDateTime() {
-        return createdAt.substring(10, createdAt.length() - 1);
+        return createdAt.substring(10, createdAt.length());
     }
 
     public void setCreatedAt(String createdAt) {
