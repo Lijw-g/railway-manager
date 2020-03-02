@@ -147,6 +147,7 @@ public class ReadMonitorDataService extends AbstractService {
             coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()).subList(0, 20));
             coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()).subList(0, 20));
         } else {
+            coreDataVo.setCoreData(listAllData.stream().map(MonitorData::getmTstate).collect(Collectors.toList()));
             coreDataVo.setDateTime(listAllData.stream().map(MonitorData::getDateTime).collect(Collectors.toList()));
         }
         ReferenceData referenceData = new ReferenceData()
