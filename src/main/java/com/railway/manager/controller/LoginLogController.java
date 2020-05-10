@@ -7,10 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,11 +28,11 @@ public class LoginLogController {
     @Autowired
     private LoginLogService loginLogService;
 
-    @PostMapping("/loginLogList")
+    @GetMapping("/loginLogList")
     @ResponseBody
     @ApiOperation(value = "登录日志查询", notes = "登录日志查询")
     public Map<String, Object> loginLogList(@RequestParam(required = false) String userName,
-                                            @RequestParam(required = false) String loginTime,
+                                           @RequestParam(required = false) String loginTime,
                                             @RequestParam(required = false) Integer pageNum,
                                             @RequestParam(required = false) Integer pageSize) {
 
