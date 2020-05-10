@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="log.path" value="/data/logs/railway_manager-log" />
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.path}/wujiserver-info.log</File>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd.HH:mm:ss} [%5p] %c{50} %3L %M %m%n</pattern>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+
+        <filter class = "ch.qos.logback.classic.filter.LevelFilter">
+            <level>DUBUG</level>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/wujiserver-info.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.path}/wujiserver-warn.log</File>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd.HH:mm:ss} [%5p] %c{50} %3L %M %m%n</pattern>
+        </encoder>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>warn</level>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/wujiserver-warn.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.path}/wujiserver-error.log</File>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd.HH:mm:ss} [%5p] %c{50} %3L %M %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/wujiserver-eror.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!--全局日志级别-->
+    <root level="DEBUG">
+        <appender-ref ref="info"/>
+        <appender-ref ref="warn"/>
+        <appender-ref ref="error"/>
+    </root>
+    <logger name="com.zhangwuji.api.mapper" level="DEBUG"/>
+</configuration>
