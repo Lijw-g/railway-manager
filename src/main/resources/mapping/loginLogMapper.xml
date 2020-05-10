@@ -36,6 +36,7 @@
         <if test="_limit != null and _offset !=null">
             limit #{_limit} offset #{_offset}
         </if>
+        order by login_time desc
     </select>
 
     <select id="selectCount" parameterType="map" resultType="int">
