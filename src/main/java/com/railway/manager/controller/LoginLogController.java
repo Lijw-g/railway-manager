@@ -28,7 +28,7 @@ public class LoginLogController {
     @Autowired
     private LoginLogService loginLogService;
 
-    @GetMapping("/loginLogList")
+    @PostMapping("/loginLogList")
     @ResponseBody
     @ApiOperation(value = "登录日志查询", notes = "登录日志查询")
     public Map<String, Object> loginLogList(@RequestParam(required = false) String userName,
