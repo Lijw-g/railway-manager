@@ -1,7 +1,7 @@
 spring:
   datasource:
     name: railway
-    url: jdbc:mysql://47.92.211.92:3306/railwayData?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://47.92.211.92:3306/railwayData?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: Yangguang52199!
     driver-class-name: com.mysql.jdbc.Driver

@@ -1,5 +1,6 @@
 package com.railway.manager.model.log;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class LoginLog {
     private String deviceType;
     @ApiModelProperty("浏览器")
     private String browser;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     @ApiModelProperty("登录时间")
     private Date loginTime;
 }
