@@ -44,6 +44,7 @@
                 <![CDATA[ , city ]]>
                 <![CDATA[ ) Like  "%"#{searchParam}"%" ]]>
             </if>
+            created_at >  SUBDATE(now(),interval 1 minute);
         </where>
         order by created_at desc
         <if test="_limit != null and _offset !=null">
